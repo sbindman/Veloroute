@@ -8,7 +8,14 @@ function startNewLine() {
 
  function endLine() {
 
-	$.when(getDistanceAndLefts(currentLine),getDirectRouteRatio(currentLine)).then(standardizeData(currentLine)).done(function () {
+ 	var firstRequest = getDistanceAndLefts(currentLine);
+ 	//var secondRequest = calcElevation(currentLine);
+
+	$.when( firstRequest, secondRequest 
+	).done(function (firstResponse, secondResponse) {
+			console.log(firstResponse + secondResponse);
+			standardizeData(currentLine);
+			console.log("ENDING LINE");
 			routeNum ++;
 			currentLine = null;
 	});
@@ -23,7 +30,7 @@ function addMarker(evt) {
 		console.log("Error: Can't add a point when there is no active route");
 	}
 	else if (currentLine != null) {
-		var marker = L.marker(evt.latlng, { draggable:true, icon:circleIcon });
+		var marker = L.marker(evt.latlng, { draggable:true });
 		marker.on('dragend', drawRoute);
 		marker.addTo(map);
 		currentLine.waypoints.push(marker);
@@ -71,6 +78,7 @@ function drawRoute() {
  	} else {
  		console.log("Error, can't draw unless more than 1 point");
  	}
+ 	console.log("DRAWING ROUTE");
  	return defer.promise();
  }
 
@@ -92,6 +100,7 @@ function drawRoute() {
 
 function standardizeData (route) {
 	//will run through all of the routes and update all of the attributes to have an additional field with standardized rather than raw values
+	var defer = $.Deferred();
 	var rawElevation = routeDict[route.id].elevation;
 	var rawDistance = routeDict[route.id].distance;
 	var rawDirectDistance = routeDict[route.id].mostDirectDistance;
@@ -141,6 +150,9 @@ function standardizeData (route) {
 	}
 
 	console.log("standardized left turns: " + routeDict[route.id].sLeftTurns);
+
+	defer.resolve("standardize done");
+	return defer.promise();
 
 }
 

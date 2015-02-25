@@ -13,7 +13,7 @@ function showElevation(point) {
 
 function getDistanceAndLefts(route) { 
 	//This function calculates the total distance and number of left turns for a given route
-	var defer1 = $.Deferred();
+	var defer = $.Deferred();
 	var direction_url = routeDict[route.id].directionUrl;
 	var distance = null;
 	var leftTurns = 0;
@@ -32,9 +32,9 @@ function getDistanceAndLefts(route) {
 
 		console.log("distance" + distance);
 		console.log("left turns: " + leftTurns);
-		defer1.resolve();
+		defer.resolve("mysteries");
 	});	
-	defer1.promise();
+	return defer.promise();
 }
 
 
@@ -50,7 +50,7 @@ function getDirectRouteRatio(route) {
  	$.when($.get(mostDirectDirection_url)).done(function (result) {
  		mostDirectDistance = result.routes[0].distance;
  		routeDict[route.id].mostDirectDistance = mostDirectDistance;
- 		defer2.resolve();
+ 		defer2.resolve("this is a secret test");
  	});
  	return defer2.promise();
  }
@@ -107,26 +107,24 @@ function getDirectRouteRatio(route) {
 // }
 
 
-function getElevation(point) {
+function getElevation(point, callback) {
 	// function that (calculates) displays elevation for a given point
 	var elevation_url = 'https://api.tiles.mapbox.com/v4/surface/mapbox.mapbox-terrain-v1.json?layer=contour&fields=ele&points='+ point[0]+','+ point[1] +'&access_token=pk.eyJ1Ijoic2JpbmRtYW4iLCJhIjoiaENWQnlrVSJ9.0DQyCLWgA0j8yBpmvt3bGA';
 	console.log(elevation_url);
-	var defer = $.Deferred();
 
-	$.when($.get(elevation_url)).done( function (result) {
+	$.get(elevation_url, function (result) {
 		var elevation = result.results[0].ele;
 		console.log("get elevation: " + elevation);
-		defer.resolve(elevation);
+		return callback(undefined, elevation);
 	});
-	return defer.promise();
 }
-
 
 function calcElevation (route) {
 	// calculates overall elevation
 	var totalEle = 0; //does not take into account total positive or total neg
 	var elevationPoints = [];
 	var routePoints = routeDict[route.id].coordinates;
+	console.log("route point length: " + routePoints.length);
 	console.log("route points" + routePoints[0]);
 	console.log("rp"+routePoints);
 	var counter = 0;
