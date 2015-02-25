@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+  <!-- use this to connect back to boostrap when want that functionality -->
+    <!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
+
+  <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+
+  <!-- I am not sure what this stuff does so will leave it in case I need it la -->
+  <link rel="stylesheet" href='http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css' />
+  <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script> 
+  <link rel="stylesheet" href='/static/styling.css' />
+
+
+
+  <meta charset=utf-8 />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Map</title>
+
+  <!-- map tiles -->
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.css' rel='stylesheet' />
+
+
+  <!-- map style -->
+  <style>
+    body { margin:10px; padding:0; }
+    #map { position:absolute; top:250px; bottom:0; left:0; width:100%; }
+
+  </style>
+
+  <!-- connect to jquery -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+</head>
+
+
+<body>
+
+
+  Elevation at your POI:
+  <div id="map-results"></div>
+
+  Points in Line:
+  <div id="points"></div>
+
+
+
+
+  <button id="add-route" class="route-button">Add Route</button>
+  <br>
+
+  <button id="remove-route" class="remove-button">Remove Route</button>
+  <br>
+
+  <button id="routes" class="routes">Show Route Objects</button>
+  <br>
+  Summary of Route Information
+  <br>
+
+  id elevation safety
+  <table>
+    <tbody>
+      <tr><div id="route-info"></div></tr>
+    </tbody>
+  </table>
+
+
+  <!-- set up the map -->
+  <div id='map'></div>
+  <script>
+  L.mapbox.accessToken = 'pk.eyJ1Ijoic2JpbmRtYW4iLCJhIjoiaENWQnlrVSJ9.0DQyCLWgA0j8yBpmvt3bGA';
+  var map = L.mapbox.map('map', 'sbindman.l524amgg'); 
+  map.doubleClickZoom.disable();
+  </script>
+
+
+  <script src="/static/definitions.js"></script>
+  <script src="/static/apiModel.js"></script>
+  <script src="/static/functionality.js"></script>
+  <script src="/static/pageActions.js"></script>
+
+    <script src="/static/lodash/lodash.js"></script>
+
+
+
+</body>
+</html>
+
+
+
+
