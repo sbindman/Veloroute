@@ -107,7 +107,8 @@ function getDirectRouteRatio(route) {
 // }
 
 
-function getElevation(point, callback) {
+function getElevation(point) {
+	var defer = $.Deferred();
 	// function that (calculates) displays elevation for a given point
 	var elevation_url = 'https://api.tiles.mapbox.com/v4/surface/mapbox.mapbox-terrain-v1.json?layer=contour&fields=ele&points='+ point[0]+','+ point[1] +'&access_token=pk.eyJ1Ijoic2JpbmRtYW4iLCJhIjoiaENWQnlrVSJ9.0DQyCLWgA0j8yBpmvt3bGA';
 	console.log(elevation_url);
@@ -115,38 +116,82 @@ function getElevation(point, callback) {
 	$.get(elevation_url, function (result) {
 		var elevation = result.results[0].ele;
 		console.log("get elevation: " + elevation);
-		return callback(undefined, elevation);
+		defer.resolve(elevation);
 	});
+	return defer.promise();
 }
 
 function calcElevation (route) {
+	var defer = $.Deferred();
+	var elevationPoints = [];
 	// calculates overall elevation
 	var totalEle = 0; //does not take into account total positive or total neg
-	var elevationPoints = [];
 	var routePoints = routeDict[route.id].coordinates;
-	console.log("route point length: " + routePoints.length);
-	console.log("route points" + routePoints[0]);
-	console.log("rp"+routePoints);
-	var counter = 0;
+
 	for (var j = 0; j < routePoints.length; j++) {
-		var elev = getElevation(routePoints[counter], function(err, ele) {
+		$.when( getElevation(routePoints[j] ) 
+		).then(function (result) {
+			elev = result;
+			//console.log("elev" + elev);	
 			elevationPoints.push(elev);
-			counter += 1;
+		}).done( function () {
+			console.log("about to be resolved");
+					defer.resolve(elevationPoints);
 			
 		});
+		return defer.promise();
+	}
+	// console.log("elevation points length: " + elevationPoints.length);	
+	// var currentEle = elevationPoints[0];	
+	// for (var i = 1; i < elevationPoints.length; i++) {
+	// 	totalEle += Math.abs(elevationPoints[i] - currentEle);
+	// 	 console.log ("total elev: " + elevationPoints[i]);
+	// 	currentEle = elevationPoints[i];
+
+	// }
+	// routeDict[route.id].elevation = totalEle;
+	// console.log("total elevation" + routeDict[route.id].elevation);		
+
+		
 	}
 
-	setTimeout(function () {  //FIXIT add in async
-	var currentEle = elevationPoints[0];
-	for (var i = 1; i < routePoints.length; i++) {
-		totalEle += Math.abs(elevationPoints[i] - currentEle);
-		 console.log ("total elev: " + elevationPoints[0]);
-		// console.log ("total: " + elevationPoints[1]);
-		// console.log ("lev: " + currentEle);
-		// console.log ("total elevation: " + totalEle);
-		currentEle = elevationPoints[i];
-	}
-	routeDict[route.id].elevation = totalEle;
-		} , 2000);	
+
+
+// function calcElevation (route) {
+// 	// calculates overall elevation
+// 	var totalEle = 0; //does not take into account total positive or total neg
+// 	var elevationPoints = [];
+// 	var routePoints = routeDict[route.id].coordinates;
+// 	console.log("route point length: " + routePoints.length);
+// 	console.log("route points" + routePoints[0]);
+// 	console.log("rp"+routePoints);
+// 	var counter = 0;
+// 	for (var j = 0; j < routePoints.length; j++) {
+// 		var elev = getElevation(routePoints[counter], function(err, ele) {
+// 			elevationPoints.push(elev);
+// 			counter += 1;
+			
+// 		});
+// 	}
+
+// 	setTimeout(function () {  //FIXIT add in async
+// 	var currentEle = elevationPoints[0];
+// 	for (var i = 1; i < routePoints.length; i++) {
+// 		totalEle += Math.abs(elevationPoints[i] - currentEle);
+// 		 console.log ("total elev: " + elevationPoints[0]);
+// 		// console.log ("total: " + elevationPoints[1]);
+// 		// console.log ("lev: " + currentEle);
+// 		// console.log ("total elevation: " + totalEle);
+// 		currentEle = elevationPoints[i];
+// 	}
+// 	routeDict[route.id].elevation = totalEle;
+// 		} , 2000);	
 	
-}
+// }
+
+// $.when(v1, v2, v3)    // "variadic" == ? of parameters
+
+// $.when([d1, d2]) 
+
+// unscore 
+

@@ -9,7 +9,7 @@ function startNewLine() {
  function endLine() {
 
  	var firstRequest = getDistanceAndLefts(currentLine);
- 	//var secondRequest = calcElevation(currentLine);
+ 	var secondRequest = calcElevation(currentLine);
 
 	$.when( firstRequest, secondRequest 
 	).done(function (firstResponse, secondResponse) {

@@ -4,6 +4,7 @@
 var routeNum = 0;
 var currentLine = null;
 // var points = [];
+
 var colors = ['#793FFF', '#394EE8', '#4CAAFF', '#39DCE8', '#33FFB4'];
 
 //tests
