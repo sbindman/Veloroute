@@ -10,6 +10,7 @@ function startNewLine() {
 
  	var firstRequest = getDistanceAndLefts(currentLine);
  	var secondRequest = calcElevation(currentLine);
+ 	var thirdRequest = getDirectRouteRatio(currentLine);
 
 	$.when( firstRequest, secondRequest 
 	).done(function (firstResponse, secondResponse) {
@@ -30,7 +31,7 @@ function addMarker(evt) {
 		console.log("Error: Can't add a point when there is no active route");
 	}
 	else if (currentLine != null) {
-		var marker = L.marker(evt.latlng, { draggable:true });
+		var marker = L.marker(evt.latlng, { draggable:true});
 		marker.on('dragend', drawRoute);
 		marker.addTo(map);
 		currentLine.waypoints.push(marker);
@@ -56,7 +57,7 @@ function drawRoute() {
 	  	var lastLng = currentLine.waypoints[currentLine.waypoints.length - 1].getLatLng().lng;
 
 	  	waypointsString += lastLng + "," + lastLat;
-	  	console.log("point string" + waypointsString);
+	  	//console.log("point string" + waypointsString);
 
 		var directionUrl = 'http://api.tiles.mapbox.com/v4/directions/mapbox.walking/'+ waypointsString + '.json?access_token=pk.eyJ1Ijoic2JpbmRtYW4iLCJhIjoiaENWQnlrVSJ9.0DQyCLWgA0j8yBpmvt3bGA'
 
@@ -107,13 +108,13 @@ function standardizeData (route) {
 	var rawLefts = routeDict[route.id].leftTurns;
 	var ratio = rawDistance / rawDirectDistance;
 
-	//standarize elevation -- these value cutoffs can be changed but seem reasonable
+	//standarize elevation -- these value cutoffs can be changed but seem reasonable, meters?
 	
-	if (rawElevation < 100) { 
+	if (rawElevation < 50) { 
 		routeDict[route.id].sElevation = 3;
-	} else if ( rawElevation >= 100 && rawElevation < 150 ) { 
+	} else if ( rawElevation >= 50 && rawElevation < 100 ) { 
 		routeDict[route.id].sElevation = 2;
-	} else if (rawElevation >= 150 ) { 
+	} else if (rawElevation >= 100 ) { 
 		routeDict[route.id].sElevation = 1; 
 	} else {
 		routeDict[route.id].sElevation = null;
@@ -136,6 +137,8 @@ function standardizeData (route) {
 	}
 
 	console.log("standardized distance: " + routeDict[route.id].sDistance);
+	console.log("most mostDirectDistance: " + routeDict[route.id].mostDirectDistance);
+	console.log("Distance: " + routeDict[route.id].distance);
 
 
 //standardize left turns
@@ -146,7 +149,7 @@ function standardizeData (route) {
 	} else if (rawElevation >= 10 ) { 
 		routeDict[route.id].sLeftTurns = 1; 
 	} else {
-		routeDict[route.id].sLeftTurns = null;
+		routeDict[route.id].sLeftTurns = "null";
 	}
 
 	console.log("standardized left turns: " + routeDict[route.id].sLeftTurns);
@@ -161,7 +164,7 @@ function standardizeData (route) {
 function showRouteDict () {
 	var html = "";
 	for (var i = 0; i < Object.keys(routeDict).length; i++) {
-		html += '<div> id: ' + i + "  route elevation: " + routeDict[i].elevation +  " route distance: " + routeDict[i].distance + " route left turns: " + routeDict[i].leftTurns + ' standardized elevation:' + routeDict[i].sElevation + "  standardized distance: " + routeDict[i].sDistance +  " standardized left turns: " + routeDict[i].sleftTurns + '</div>';
+		html += '<div> id: ' + i + " route distance: " + routeDict[i].distance + " route left turns: " + routeDict[i].leftTurns + "  standardized distance: " + routeDict[i].sDistance +  " standardized left turns: " + routeDict[i].sLeftTurns + '</div>';
 	}
 	$("#route-info").html(html);
 }

@@ -34,5 +34,5 @@ function line(id) {
 var circleIcon = L.icon({
     iconUrl: '/static/icon2.png',
     iconSize:     [40, 40], // size of the icon
-    iconAnchor:   [0, 0], // point of the icon which will correspond to marker's location
+   // iconAnchor:   [0, 0], // point of the icon which will correspond to marker's location
 });

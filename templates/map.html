@@ -1,71 +1,88 @@
 <!doctype html>
 <html>
 <head>
-  <!-- use this to connect back to boostrap when want that functionality -->
-    <!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
+<!-- bootstrap -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap 101 Template</title>
 
+<!-- jquery -->
   <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 
-  <!-- I am not sure what this stuff does so will leave it in case I need it la -->
+<!-- leaflet -->
   <link rel="stylesheet" href='http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css' />
   <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script> 
-  <link rel="stylesheet" href='/static/styling.css' />
   <script src="/static/lodash/lodash.js"></script>
+   <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 
-
-  <meta charset=utf-8 />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Map</title>
-
-  <!-- map tiles -->
+  <!-- mapbox -->
   <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
   <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.js'></script>
   <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.css' rel='stylesheet' />
 
+<!-- jasmine -->
+  <link rel="shortcut icon" type="image/png" href="/jasmine/dist/lib/jasmine-2.0.0/jasmine_favicon.png">
+  <link rel="stylesheet" href="/static/jasmine/dist/lib/jasmine-2.0.0/jasmine.css">
 
-  <!-- map style -->
+<!-- custom css -->
+<!-- <link rel="stylesheet" href='/static/styling.css' />  -->
+
   <style>
     body { margin:10px; padding:0; }
     #map { position:absolute; top:250px; bottom:0; left:0; width:100%; }
 
   </style>
 
-  <!-- connect to jquery -->
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <title>Map</title>
+
 
 </head>
 
 
 <body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8">
+        <!-- Elevation at your POI: -->
+        <!-- <div id="map-results"></div> -->
+        <button id="add-route" class="btn btn-primary">Add Route</button>
+        <br>
 
-
-  Elevation at your POI:
-  <div id="map-results"></div>
-
-  Points in Line:
-  <div id="points"></div>
-
-
-
-
-  <button id="add-route" class="route-button">Add Route</button>
+  </div>
+  <div class="col-md-4">
+       <button id="remove-route" class="remove-button, btn btn-success">Remove Route</button>
   <br>
+  </div>
+  <div class = "row">
+      <div class="col-md-12">
+        <br>
+        <button id="routes" class="routes, btn btn-primary">Show Route Objects</button>
+        <br>
+        <h2>Summary of Route Information</h2>
+        <br>
 
-  <button id="remove-route" class="remove-button">Remove Route</button>
-  <br>
+        id elevation safety
+        <table>
+          <tbody>
+            <tr><div id="route-info"></div></tr>
+          </tbody>
+        </table>
+      </div>
+  </div>  
+</div>
 
-  <button id="routes" class="routes">Show Route Objects</button>
-  <br>
-  Summary of Route Information
-  <br>
 
-  id elevation safety
-  <table>
-    <tbody>
-      <tr><div id="route-info"></div></tr>
-    </tbody>
-  </table>
+
+
+
+  
+<!-- changing name of lines -->
+<!-- <form action="/map">
+<input type="type" name="routeName" id="routeNameSet" placeholder="{{ routename }}" >TEST {{ routename }} </input>
+<input type="submit"></input>
+</form> -->
 
 
   <!-- set up the map -->
@@ -76,16 +93,26 @@
   map.doubleClickZoom.disable();
   </script>
 
- 
-  // <script src="/static/definitions.js"></script>
+<!-- bootstrap -->
+  <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+  
+<!-- js files -->
+  <script src="/static/definitions.js"></script>
   <script src="/static/apiModel.js"></script>
   <script src="/static/functionality.js"></script>
   <script src="/static/pageActions.js"></script>
+  
+
+<!-- testing -->
+  <script src="/static/calc-specs.js"></script>
+  <script src="/static/jasmine/dist/lib/jasmine-2.0.0/jasmine.js"></script>
+  <script src="/static/jasmine/dist/lib/jasmine-2.0.0/jasmine-html.js"></script>
+  <script src="/static/jasmine/dist/lib/jasmine-2.0.0/boot.js"></script>
 
 
 
 
-
+</container>
 </body>
 </html>
 
