@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap 101 Template</title>
+    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
 
 <!-- jquery -->
   <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
@@ -14,8 +16,7 @@
   <link rel="stylesheet" href='http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css' />
   <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script> 
   <script src="/static/lodash/lodash.js"></script>
-   <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+  
 
   <!-- mapbox -->
   <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
@@ -31,7 +32,7 @@
 
   <style>
     body { margin:10px; padding:0; }
-    #map { position:absolute; top:250px; bottom:0; left:0; width:100%; }
+    #map { position:absolute; top:450px; bottom:0; left:0; width:100%; }
 
   </style>
 
@@ -63,12 +64,21 @@
         <h2>Summary of Route Information</h2>
         <br>
 
-        id elevation safety
-        <table>
-          <tbody>
-            <tr><div id="route-info"></div></tr>
-          </tbody>
-        </table>
+          THIS WILL BE THE CONTENT OF MY POP UP
+          <table class="table table-bordered" data-toggle="table">
+            <thead>
+               <tr>
+                <th>Route ID</th>
+                <th>Total Distance</th>
+                <th>Total Lefts</th>
+                <th>Standarized Distance</th>
+                <th>Standardize Lefts</th>
+                <th>Total Score</th>
+              <tr>
+            </thead>      
+            <tbody id="table_route_info">
+            </tbody>
+          </table>
       </div>
   </div>  
 </div>
@@ -93,9 +103,9 @@
   map.doubleClickZoom.disable();
   </script>
 
-<!-- bootstrap -->
+<!-- bootstrap   -->
   <script src="/static/bootstrap/js/bootstrap.min.js"></script>
-  
+
 <!-- js files -->
   <script src="/static/definitions.js"></script>
   <script src="/static/apiModel.js"></script>
@@ -103,19 +113,18 @@
   <script src="/static/pageActions.js"></script>
   
 
-<!-- testing -->
+<!-- testing 
   <script src="/static/calc-specs.js"></script>
   <script src="/static/jasmine/dist/lib/jasmine-2.0.0/jasmine.js"></script>
   <script src="/static/jasmine/dist/lib/jasmine-2.0.0/jasmine-html.js"></script>
   <script src="/static/jasmine/dist/lib/jasmine-2.0.0/boot.js"></script>
 
-
+-->
 
 
 </container>
 </body>
 </html>
-
 
 
 

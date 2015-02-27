@@ -16,7 +16,7 @@ function line(id) {
 	this.id = id;
 	this.name = null;
 	var lineColor = colors[id];
-	this.polyline = L.polyline([], { color:lineColor, weight:5.5, opacity:.8, "stroke-linecap":"butt"}).addTo(map);
+	this.polyline = L.polyline([], { color:lineColor, weight:5.5, opacity:.8 }).addTo(map);
 	this.waypoints = [];
 	this.elevation = null;
 	this.distance = null;
@@ -34,5 +34,6 @@ function line(id) {
 var circleIcon = L.icon({
     iconUrl: '/static/icon2.png',
     iconSize:     [40, 40], // size of the icon
-   // iconAnchor:   [0, 0], // point of the icon which will correspond to marker's location
+   	// iconAnchor:   [0, 0], // point of the icon which will correspond to marker's location
 });
+

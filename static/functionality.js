@@ -3,6 +3,7 @@ function startNewLine() {
 	var polyline = new line(routeNum);
 	currentLine = polyline;
 	routeDict[currentLine.id] = currentLine;
+	return ("this is a test");
 }
 
 
@@ -12,9 +13,9 @@ function startNewLine() {
  	var secondRequest = calcElevation(currentLine);
  	var thirdRequest = getDirectRouteRatio(currentLine);
 
-	$.when( firstRequest, secondRequest 
-	).done(function (firstResponse, secondResponse) {
-			console.log(firstResponse + secondResponse);
+	$.when( firstRequest, secondRequest, thirdRequest 
+	).done(function (firstResponse, secondResponse, thirdResponse) {
+			console.log(firstResponse + secondResponse + thirdResponse);
 			standardizeData(currentLine);
 			console.log("ENDING LINE");
 			routeNum ++;
@@ -31,7 +32,8 @@ function addMarker(evt) {
 		console.log("Error: Can't add a point when there is no active route");
 	}
 	else if (currentLine != null) {
-		var marker = L.marker(evt.latlng, { draggable:true});
+		var marker = L.marker(evt.latlng, { draggable:true });
+		//marker.setIcon(circleIcon);
 		marker.on('dragend', drawRoute);
 		marker.addTo(map);
 		currentLine.waypoints.push(marker);
@@ -163,11 +165,14 @@ function standardizeData (route) {
 //display information
 function showRouteDict () {
 	var html = "";
+	var html2 = "";
 	for (var i = 0; i < Object.keys(routeDict).length; i++) {
-		html += '<div> id: ' + i + " route distance: " + routeDict[i].distance + " route left turns: " + routeDict[i].leftTurns + "  standardized distance: " + routeDict[i].sDistance +  " standardized left turns: " + routeDict[i].sLeftTurns + '</div>';
+		var totalScore = routeDict[i].sDistance + routeDict[i].sLeftTurns;
+		html2 += "<tr><td>" + i + "</td><td>" + routeDict[i].distance + "</td><td>" + routeDict[i].leftTurns + "</td><td>" + routeDict[i].sDistance +  "</td><td>" + routeDict[i].sLeftTurns + "</td><td>" + totalScore + "</td></tr>" ;
 	}
-	$("#route-info").html(html);
+	$("#table_route_info").html(html2);
 }
 
 
 
+    

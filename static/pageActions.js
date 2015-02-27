@@ -1,9 +1,11 @@
 
 //button that starts a new route
 $("#add-route").on("click", startNewLine);
-//$("#calcElevation").on("click", calcElevation);
+
 $("#routes").on("click", showRouteDict);
-//$("#routeNameSet").on("mouseover", ) //send request to update name
+
+map.on("dblclick", endLine);
+
 
 //remove route
 //$("#remove-route").on("click", deleteLine);
@@ -14,6 +16,4 @@ map.on('click', function(evt) {
 });
 
 map.on('click', addMarker);
-map.on('dblclick', endLine);
-
 
