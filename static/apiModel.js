@@ -33,11 +33,13 @@ function getDistanceAndLefts(route) {
 		console.log("distance" + distance);
 		console.log("left turns: " + leftTurns);
 		defer.resolve("mysteries");
+	}).fail( function() {
+		alert("get distance and lefts error");
 	});	
 	return defer.promise();
 }
 
-
+  
 function getDirectRouteRatio(route) {
 	//This function calculates a ratio between a given route and the most direct route between 2 points
 	var defer2 = $.Deferred();
@@ -51,6 +53,8 @@ function getDirectRouteRatio(route) {
  		mostDirectDistance = result.routes[0].distance;
  		routeDict[route.id].mostDirectDistance = mostDirectDistance;
  		defer2.resolve("this is a secret test");
+ 	}).fail( function() {
+ 		alert("error with get direct route ratio");
  	});
  	return defer2.promise();
  }
@@ -117,6 +121,8 @@ function getElevation(point) {
 		var elevation = result.results[0].ele;
 		console.log("get elevation: " + elevation);
 		defer.resolve(elevation);
+	}).fail( function() {
+		alert("error with getting elevation");
 	});
 	return defer.promise();
 }
@@ -136,8 +142,10 @@ function calcElevation (route) {
 			elevationPoints.push(elev);
 		}).done( function () {
 			console.log("about to be resolved");
-					defer.resolve(elevationPoints);
+			defer.resolve(elevationPoints);
 			
+		}).fail( function () {
+			alert("error with calc elevation");
 		});
 		return defer.promise();
 	}

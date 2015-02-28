@@ -1,22 +1,18 @@
 <!doctype html>
 <html>
 <head>
-<!-- bootstrap -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap 101 Template</title>
-    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 
 <!-- jquery -->
   <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+  <script src="http://vast-engineering.github.io/jquery-popup-overlay/jquery.popupoverlay.js"></script>
 
 <!-- leaflet -->
   <link rel="stylesheet" href='http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css' />
   <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script> 
   <script src="/static/lodash/lodash.js"></script>
-  
+
+
 
   <!-- mapbox -->
   <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
@@ -27,85 +23,59 @@
   <link rel="shortcut icon" type="image/png" href="/jasmine/dist/lib/jasmine-2.0.0/jasmine_favicon.png">
   <link rel="stylesheet" href="/static/jasmine/dist/lib/jasmine-2.0.0/jasmine.css">
 
-<!-- custom css -->
-<!-- <link rel="stylesheet" href='/static/styling.css' />  -->
+<!-- custom css --> 
+  <link rel="stylesheet" href='/static/style.css' /> 
 
-  <style>
-    body { margin:10px; padding:0; }
-    #map { position:absolute; top:450px; bottom:0; left:0; width:100%; }
+<!-- fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css'>
 
-  </style>
-
-   <title>Map</title>
-
-
+  <title>Map</title>
 </head>
 
 
 <body>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-8">
-        <!-- Elevation at your POI: -->
-        <!-- <div id="map-results"></div> -->
-        <button id="add-route" class="btn btn-primary">Add Route</button>
-        <br>
-
+  <div id="topBar"><div id="projectName"><h1>DESIGN BETTER BIKE LANES!</h1></div></div>
+  <div id="leftBar">
+    <button id="remove-route" class="remove-button, button">Remove Route</button>
+    <button id="routes" class="routes, button">Show Route Objects</button>
+    <button id="add-route" class="button">Add Route</button>
+    <button class="table_open, button" id="table_open">Open Table</button>
   </div>
-  <div class="col-md-4">
-       <button id="remove-route" class="remove-button, btn btn-success">Remove Route</button>
-  <br>
-  </div>
-  <div class = "row">
-      <div class="col-md-12">
-        <br>
-        <button id="routes" class="routes, btn btn-primary">Show Route Objects</button>
-        <br>
-        <h2>Summary of Route Information</h2>
-        <br>
 
-          THIS WILL BE THE CONTENT OF MY POP UP
-          <table class="table table-bordered" data-toggle="table">
+
+<!-- popup table -->
+       <div id="tablePop" class="overlay">
+          <table class="table, hoverTable">
             <thead>
                <tr>
-                <th>Route ID</th>
-                <th>Total Distance</th>
-                <th>Total Lefts</th>
-                <th>Standarized Distance</th>
-                <th>Standardize Lefts</th>
-                <th>Total Score</th>
+                <th> Route ID </th>
+                <th> Total Distance </th>
+                <th> Total Lefts </th>
+                <th> Standarized Distance </th>
+                <th> Standardize Lefts </th>
+                <th> Total Score </th>
               <tr>
             </thead>      
-            <tbody id="table_route_info">
-            </tbody>
+            <tbody id="table_route_info"></tbody>
           </table>
+        <!-- <button class="table_close" id="table_close">Close</button> -->
       </div>
-  </div>  
-</div>
 
+
+
+
+      <!-- set up the map -->
+      <div id='map'></div>
+        <script>
+        L.mapbox.accessToken = 'pk.eyJ1Ijoic2JpbmRtYW4iLCJhIjoiaENWQnlrVSJ9.0DQyCLWgA0j8yBpmvt3bGA';
+        var map = L.mapbox.map('map', 'sbindman.l524amgg'); 
+        map.doubleClickZoom.disable();
+        </script>
 
 
 
 
   
-<!-- changing name of lines -->
-<!-- <form action="/map">
-<input type="type" name="routeName" id="routeNameSet" placeholder="{{ routename }}" >TEST {{ routename }} </input>
-<input type="submit"></input>
-</form> -->
-
-
-  <!-- set up the map -->
-  <div id='map'></div>
-  <script>
-  L.mapbox.accessToken = 'pk.eyJ1Ijoic2JpbmRtYW4iLCJhIjoiaENWQnlrVSJ9.0DQyCLWgA0j8yBpmvt3bGA';
-  var map = L.mapbox.map('map', 'sbindman.l524amgg'); 
-  map.doubleClickZoom.disable();
-  </script>
-
-<!-- bootstrap   -->
-  <script src="/static/bootstrap/js/bootstrap.min.js"></script>
-
 <!-- js files -->
   <script src="/static/definitions.js"></script>
   <script src="/static/apiModel.js"></script>
@@ -113,18 +83,17 @@
   <script src="/static/pageActions.js"></script>
   
 
-<!-- testing 
-  <script src="/static/calc-specs.js"></script>
-  <script src="/static/jasmine/dist/lib/jasmine-2.0.0/jasmine.js"></script>
+<!-- testing -->
+ <!-- <script src="/static/jasmine/dist/lib/jasmine-2.0.0/jasmine.js"></script>
   <script src="/static/jasmine/dist/lib/jasmine-2.0.0/jasmine-html.js"></script>
   <script src="/static/jasmine/dist/lib/jasmine-2.0.0/boot.js"></script>
+  <script src="/static/calc-specs.js"></script>
 
 -->
 
-
-</container>
 </body>
 </html>
+
 
 
 

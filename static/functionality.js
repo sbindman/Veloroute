@@ -17,6 +17,7 @@ function startNewLine() {
 	).done(function (firstResponse, secondResponse, thirdResponse) {
 			console.log(firstResponse + secondResponse + thirdResponse);
 			standardizeData(currentLine);
+			showRouteDict();
 			console.log("ENDING LINE");
 			routeNum ++;
 			currentLine = null;
@@ -120,6 +121,7 @@ function standardizeData (route) {
 		routeDict[route.id].sElevation = 1; 
 	} else {
 		routeDict[route.id].sElevation = null;
+		alert("no standar elevation calculated, raw elevation is: " + rawElevation);
 	}
 
 	console.log("standardized elevation: " + routeDict[route.id].sElevation);
@@ -127,7 +129,7 @@ function standardizeData (route) {
 	//standardize distance -- these value cutoffs can be changed but seem reasonable
 	if (ratio < 1) { 
 		routeDict[route.id].sDistance = null;
-		console.log ("Error");
+		alert("Error can't have ratio less than 1. distance and direct distance are:" + rawDistance + " , " + rawDirectDistance);
 	} else if ( ratio >= 1 && ratio < 1.3) { 
 		routeDict[route.id].sDistance = 3;
 	} else if (ratio >= 1.3 && ratio < 1.6 ) { 
@@ -152,6 +154,7 @@ function standardizeData (route) {
 		routeDict[route.id].sLeftTurns = 1; 
 	} else {
 		routeDict[route.id].sLeftTurns = "null";
+		alert("no standard left turns");
 	}
 
 	console.log("standardized left turns: " + routeDict[route.id].sLeftTurns);
@@ -168,6 +171,7 @@ function showRouteDict () {
 	var html2 = "";
 	for (var i = 0; i < Object.keys(routeDict).length; i++) {
 		var totalScore = routeDict[i].sDistance + routeDict[i].sLeftTurns;
+		//adds a string of data that will be pushed to the popup table
 		html2 += "<tr><td>" + i + "</td><td>" + routeDict[i].distance + "</td><td>" + routeDict[i].leftTurns + "</td><td>" + routeDict[i].sDistance +  "</td><td>" + routeDict[i].sLeftTurns + "</td><td>" + totalScore + "</td></tr>" ;
 	}
 	$("#table_route_info").html(html2);

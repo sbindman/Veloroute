@@ -17,3 +17,20 @@ map.on('click', function(evt) {
 
 map.on('click', addMarker);
 
+
+
+$(document).ready(function () {
+	$('#tablePop').popup({});
+});
+
+$('#table_open').on( "click", function () {
+	$('#tablePop').popup('show');
+});
+
+// $('#table_close').on( "click", function () {
+// 	$('#table_close').popup('hide');
+// });
+
+
+
+//$("tableid").css('background-color', color);
