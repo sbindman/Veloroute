@@ -1,0 +1,167 @@
+@font-face {
+    font-family: 'porter_sans_blockblock';
+    src: url('porter-sans-inline-block-webfont.eot');
+    src: url('porter-sans-inline-block-webfont.eot?#iefix') format('embedded-opentype'),
+         url('porter-sans-inline-block-webfont.woff') format('woff'),
+         url('porter-sans-inline-block-webfont.ttf') format('truetype'),
+         url('porter-sans-inline-block-webfont.svg#porter_sans_blockblock') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+
+body {
+    padding: -1px;
+    margin: -1px;
+}
+
+h1 {
+    font-family: 'porter_sans_blockblock';
+}
+
+.button {
+    display: block;
+    width: 100px;
+    height: 100px;
+    background-color: yellow;
+    border:10px;
+    left:10px;
+    margin: -1px;
+}
+
+button:focus {outline:0;}
+
+#projectName {
+    margin-top: 50px;
+    display: inline-block;
+    margin-left: 5px;
+    font-family: 'Josefin+Sans';
+}
+
+#map { 
+    position:absolute; 
+    top:120px; bottom:0; left:120px; width:100%;
+    z-index: -1;
+
+}
+
+
+#tablePop {
+    position: relative;
+    z-index: 100;
+}
+
+
+#topBar {
+    background-color: #CAE895;
+    height:200px;
+    text-align: left;
+    vertical-align: middle;
+    margin-left: 10px;
+}
+
+
+
+#leftBar {
+    width:100px;
+    display:inline-block;
+    height:500px;
+    margin-left: 10px;
+}
+
+#title {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+}
+
+#routes {
+    background-color: #C6B3FF;
+    font-family: 'porter_sans_blockblock';
+}
+#remove-route{
+    background-color: #AAFFEE;
+    font-family: 'porter_sans_blockblock';
+}
+
+#add-route {
+    background-color: #E89599;
+    font-family: 'porter_sans_blockblock';
+}
+
+#table_open {
+    background-color: #FFE3B1;
+    font-family: 'porter_sans_blockblock';
+}
+
+
+#table {
+    border-collapse: collapse;
+    vertical-align: middle;
+    display: inline-block;
+    text-align: center;
+
+}
+
+
+th {
+    vertical-align: middle;
+    font-weight: bold;
+}
+
+td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+/*highlights specific lines in table*/
+#tableRow0:hover {
+      background-color: #793FFF;
+}
+
+#tableRow1:hover {
+      background-color: #394EE8;
+}
+
+#tableRow2:hover {
+      background-color: #4CAAFF;
+}
+
+#tableRow3:hover {
+      background-color: #39DCE8;
+}
+
+#tableRow4:hover {
+      background-color: #33FFB4;
+}
+
+
+
+.overlay {
+    top: 300px;
+    bottom: 110%;
+    left: 100px;
+    width: 100%;
+    z-index: 10;
+    opacity: .1;
+    background: white;
+    color:black; 
+ 
+} 
+
+.overlay2 {
+    top: 300px;
+    bottom: 110%;
+    left: 200px;
+    width: 100px;
+    z-index: 10;
+    opacity: .1;
+    background: white;
+    color:black; 
+ 
+} 
+
+

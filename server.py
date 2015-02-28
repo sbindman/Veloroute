@@ -1,7 +1,9 @@
 import random
-
-from flask import Flask, request, render_template, jsonify
+import model
+import os
+from flask import Flask, request, render_template, jsonify, session, flash
 from selenium import webdriver
+
 
 app = Flask(__name__)
 
@@ -13,7 +15,12 @@ def index():
     """Show our index page."""
     return render_template("map.html")
 
-    
+
+
+@app.route('/login')
+def process_login():
+	"""Show users ability to sign up or login"""
+	return render_template("login.html")
 
 @app.route('/')
 def callback():

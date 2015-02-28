@@ -172,7 +172,7 @@ function showRouteDict () {
 	for (var i = 0; i < Object.keys(routeDict).length; i++) {
 		var totalScore = routeDict[i].sDistance + routeDict[i].sLeftTurns;
 		//adds a string of data that will be pushed to the popup table
-		html2 += "<tr><td>" + i + "</td><td>" + routeDict[i].distance + "</td><td>" + routeDict[i].leftTurns + "</td><td>" + routeDict[i].sDistance +  "</td><td>" + routeDict[i].sLeftTurns + "</td><td>" + totalScore + "</td></tr>" ;
+		html2 += "<tr id=tableRow"+routeDict[i].id+"><td>" + i + "</td><td>" + routeDict[i].distance + "</td><td>" + routeDict[i].leftTurns + "</td><td>" + routeDict[i].sDistance +  "</td><td>" + routeDict[i].sLeftTurns + "</td><td>" + totalScore + "</td></tr>" ;
 	}
 	$("#table_route_info").html(html2);
 }
