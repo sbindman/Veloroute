@@ -35,10 +35,6 @@ $('#table_open').on( "click", function () {
 	$('#tablePop').popup('show');
 });
 
-// $(document).ready(function () {
-// 	$('#tablePop2').popup({});
-// 	$('#tablePop2').popup('show');
-// });
 
 
 $('#tableRow0').on("click", function() {
