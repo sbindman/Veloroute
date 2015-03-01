@@ -16,6 +16,7 @@
 body {
     padding: -1px;
     margin: -1px;
+    background-color: #FCF9EA;
 }
 
 h1 {
@@ -110,11 +111,18 @@ button:focus {outline:0;}
 th {
     vertical-align: middle;
     font-weight: bold;
+    text-align: center;
+    /*border: 1px solid black;*/
+    width: 125px;
+    height:40px;
 }
 
 td {
     vertical-align: middle;
     text-align: center;
+    /*border: 1px solid orange;*/
+    width: 125px;
+    height:40px;
 }
 
 /*highlights specific lines in table*/
@@ -141,14 +149,13 @@ td {
 
 
 .overlay {
-    top: 300px;
+    top: 200px;
     bottom: 110%;
     left: 100px;
     width: 100%;
-    z-index: 10;
-    opacity: .1;
+    z-index: 1;
+    /*opacity: .1;*/
     background: white;
-    color:black; 
  
 } 
 

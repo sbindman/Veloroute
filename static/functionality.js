@@ -1,23 +1,25 @@
 //create a new line object
-function startNewLine() {
-	var polyline = new line(routeNum);
-	currentLine = polyline;
-	routeDict[currentLine.id] = currentLine;
-	return ("this is a test");
+function startNewLine(rNum) {
+	var polyline = new line(rNum);
+	routeDict[polyline.id] = polyline;
+	return polyline;
 }
 
 
- function endLine() {
-
- 	var firstRequest = getDistanceAndLefts(currentLine);
- 	var secondRequest = calcElevation(currentLine);
- 	var thirdRequest = getDirectRouteRatio(currentLine);
+ function endLine(route1) {
+ 	var firstRequest = getDistanceAndLefts(route1);
+ 	var secondRequest = calcElevation(route1);
+ 	var thirdRequest = getDirectRouteRatio(route1);
 
 	$.when( firstRequest, secondRequest, thirdRequest 
 	).done(function (firstResponse, secondResponse, thirdResponse) {
 			console.log(firstResponse + secondResponse + thirdResponse);
-			standardizeData(currentLine);
+			standardizeDistance(route1);
+			standardizeLefts(route1);
+			standardizeElevation(route1);
+			
 			showRouteDict();
+			
 			console.log("ENDING LINE");
 			routeNum ++;
 			currentLine = null;
@@ -100,19 +102,11 @@ function drawRoute() {
 
 //calculations
 
-
-
-function standardizeData (route) {
-	//will run through all of the routes and update all of the attributes to have an additional field with standardized rather than raw values
-	var defer = $.Deferred();
-	var rawElevation = routeDict[route.id].elevation;
-	var rawDistance = routeDict[route.id].distance;
-	var rawDirectDistance = routeDict[route.id].mostDirectDistance;
-	var rawLefts = routeDict[route.id].leftTurns;
-	var ratio = rawDistance / rawDirectDistance;
-
 	//standarize elevation -- these value cutoffs can be changed but seem reasonable, meters?
+function standardizeElevation (route) {	
 	
+	var rawElevation = routeDict[route.id].elevation;
+
 	if (rawElevation < 50) { 
 		routeDict[route.id].sElevation = 3;
 	} else if ( rawElevation >= 50 && rawElevation < 100 ) { 
@@ -125,16 +119,23 @@ function standardizeData (route) {
 	}
 
 	console.log("standardized elevation: " + routeDict[route.id].sElevation);
-	
+}	
+
+function standardizeDistance (route) {
 	//standardize distance -- these value cutoffs can be changed but seem reasonable
+
+	var rawDistance = routeDict[route.id].distance;
+	var rawDirectDistance = routeDict[route.id].mostDirectDistance;
+	var ratio = rawDistance / rawDirectDistance;
+
 	if (ratio < 1) { 
 		routeDict[route.id].sDistance = null;
 		alert("Error can't have ratio less than 1. distance and direct distance are:" + rawDistance + " , " + rawDirectDistance);
-	} else if ( ratio >= 1 && ratio < 1.3) { 
+	} else if ( ratio >= 1 && ratio < 1.2) { 
 		routeDict[route.id].sDistance = 3;
-	} else if (ratio >= 1.3 && ratio < 1.6 ) { 
+	} else if (ratio >= 1.2 && ratio < 1.5 ) { 
 		routeDict[route.id].sDistance = 2;
-	} else if (ratio >= 1.6) { 
+	} else if (ratio >= 1.5) { 
 		routeDict[route.id].sDistance = 1;  
 	} else {
 		routeDict[route.id].sElevation = null;
@@ -143,9 +144,13 @@ function standardizeData (route) {
 	console.log("standardized distance: " + routeDict[route.id].sDistance);
 	console.log("most mostDirectDistance: " + routeDict[route.id].mostDirectDistance);
 	console.log("Distance: " + routeDict[route.id].distance);
+}
 
-
+function standardizeLefts (route){
 //standardize left turns
+	var rawLefts = routeDict[route.id].leftTurns;
+
+
 	if (rawLefts < 5) { 
 		routeDict[route.id].sLeftTurns = 3;
 	} else if ( rawLefts >= 5 && rawLefts < 10 ) { 
@@ -154,14 +159,10 @@ function standardizeData (route) {
 		routeDict[route.id].sLeftTurns = 1; 
 	} else {
 		routeDict[route.id].sLeftTurns = "null";
-		alert("no standard left turns");
+		alert("no standard left turns, " + routeDict[route.id].sLeftTurns);
 	}
 
 	console.log("standardized left turns: " + routeDict[route.id].sLeftTurns);
-
-	defer.resolve("standardize done");
-	return defer.promise();
-
 }
 
 
@@ -176,6 +177,7 @@ function showRouteDict () {
 	}
 	$("#table_route_info").html(html2);
 }
+
 
 
 

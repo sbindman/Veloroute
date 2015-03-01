@@ -10,6 +10,8 @@ engine = create_engine("sqlite:///finalProject.db", echo=True)
 session = scoped_session(sessionmaker(bind=engine, autocommit=False, autoflush=False))
 
 Base = declarative_base()
+# Base.metadata.create_all(engine)
+
 Base.query = session.query_property()
 
 ### Class declarations go here
@@ -64,8 +66,10 @@ class Waypoint(Base):
 		return "<id:%d, route_id:%d, point:%d>" %(self.id, self.route_id, self.point)
 
 def main():
-    """In case we need this for something"""
-    pass
-    
+	connect()
+	sarah = User(email='sarah@test.com', password='hello' )
+	session.add(sarah)
+	session.commit()
+
 if __name__ == "__main__":
     main()		

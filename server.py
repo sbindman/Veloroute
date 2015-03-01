@@ -20,6 +20,10 @@ def index():
 @app.route('/login')
 def process_login():
 	"""Show users ability to sign up or login"""
+
+	email = request.form.get('email');
+	password = request.form.get('password');
+
 	return render_template("login.html")
 
 @app.route('/')
