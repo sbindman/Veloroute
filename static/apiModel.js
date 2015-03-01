@@ -1,15 +1,5 @@
 //api connections
 
-function showElevation(point) {
-	//This function that (calculates) displays elevation for a given point
-	var elevation_url = 'https://api.tiles.mapbox.com/v4/surface/mapbox.mapbox-terrain-v1.json?layer=contour&fields=ele&points='+point.lng+','+point.lat+'&access_token=pk.eyJ1Ijoic2JpbmRtYW4iLCJhIjoiaENWQnlrVSJ9.0DQyCLWgA0j8yBpmvt3bGA';
-	$.get(elevation_url, function (result) {
-		elevation = result.results[0].ele;
-		$("#map-results").text(elevation);
-	return elevation;
-	});
-}
-
 
 function getDistanceAndLefts(route) { 
 	//This function calculates the total distance and number of left turns for a given route
@@ -20,19 +10,16 @@ function getDistanceAndLefts(route) {
 	var mostDirectDistance = null; //FIXIT this should be cleaned up to be null and connected to a specific object
 	$.when($.get(direction_url)).done( function (result) {
 		distance = result.routes[0].distance; //distance is in meters, route 0 is the "optimal" route
-		routeDict[route.id].distance = distance //distance stored in miles
-
 
 		for (var i = 0; i < result.routes[0].steps.length; i++) {
 		 	if (result.routes[0].steps[i].maneuver.type.match(/left/g)) {
 		 		leftTurns += 1;
 		 	}
 		}
-		routeDict[route.id].leftTurns = leftTurns;
 
 		console.log("distance" + distance);
 		console.log("left turns: " + leftTurns);
-		defer.resolve("mysteries");
+		defer.resolve([distance, leftTurns]);
 	}).fail( function() {
 		alert("get distance and lefts error");
 	});	
@@ -51,8 +38,7 @@ function getDirectRouteRatio(route) {
 
  	$.when($.get(mostDirectDirection_url)).done(function (result) {
  		mostDirectDistance = result.routes[0].distance;
- 		routeDict[route.id].mostDirectDistance = mostDirectDistance;
- 		defer2.resolve("this is a secret test");
+ 		defer2.resolve(mostDirectDistance);
  	}).fail( function() {
  		alert("error with get direct route ratio");
  	});
@@ -149,6 +135,20 @@ function calcElevation (route) {
 		});
 		return defer.promise();
 	}
+
+
+// function showElevation(point) {
+// 	//This function that (calculates) displays elevation for a given point
+// 	var elevation_url = 'https://api.tiles.mapbox.com/v4/surface/mapbox.mapbox-terrain-v1.json?layer=contour&fields=ele&points='+point.lng+','+point.lat+'&access_token=pk.eyJ1Ijoic2JpbmRtYW4iLCJhIjoiaENWQnlrVSJ9.0DQyCLWgA0j8yBpmvt3bGA';
+// 	$.get(elevation_url, function (result) {
+// 		elevation = result.results[0].ele;
+// 		$("#map-results").text(elevation);
+// 	return elevation;
+// 	});
+// }
+
+
+	
 	// console.log("elevation points length: " + elevationPoints.length);	
 	// var currentEle = elevationPoints[0];	
 	// for (var i = 1; i < elevationPoints.length; i++) {

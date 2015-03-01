@@ -11,6 +11,8 @@ $("#add-route").on("click", function() {
 //end route
 map.on("dblclick", function () {
 	endLine(currentLine);
+
+
 	$("#add-route").css('background-color', '#E89599');
 	$("#add-route").removeAttr('disabled');
 });
