@@ -12,11 +12,11 @@ maintain or invert existing value (light to dark) scale.
 */
 
 // Color palette //
-@road:  #fff;
-@land:  #eee;
+@road:  #aba7a7;
+@land:  #ffffff;
 
 @fill1: #fff;
-@fill2: #bbb;
+@fill2: #bebbbb;
 @fill3: #777;
 @fill4: #000;
 

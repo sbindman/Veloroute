@@ -115,6 +115,7 @@ th {
     /*border: 1px solid black;*/
     width: 125px;
     height:40px;
+    background-color: white;
 }
 
 td {
@@ -123,18 +124,19 @@ td {
     /*border: 1px solid orange;*/
     width: 125px;
     height:40px;
+    color:white;
 }
 
 /*highlights specific lines in table*/
-#tableRow0:hover {
+#tableRow0 {
       background-color: #793FFF;
 }
 
-#tableRow1:hover {
+#tableRow1 {
       background-color: #394EE8;
 }
 
-#tableRow2:hover {
+#tableRow2 {
       background-color: #4CAAFF;
 }
 
@@ -146,6 +148,9 @@ td {
       background-color: #33FFB4;
 }
 
+#tableRow0:hover {
+      background-color: #B9A5FC;
+}
 
 
 .overlay {
@@ -155,7 +160,7 @@ td {
     width: 100%;
     z-index: 1;
     /*opacity: .1;*/
-    background: white;
+    /*background: white;*/
  
 } 
 

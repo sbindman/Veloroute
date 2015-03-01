@@ -31,6 +31,12 @@ def callback():
 	"""test for working on callbacks"""
 	return render_template('callbackPractice.html')
 
+@app.route('/testing')
+def tests():
+	"""This route is used for testing"""
+
+	return render_template("testing.html")
+
 
 
 if __name__ == "__main__":

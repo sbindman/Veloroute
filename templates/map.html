@@ -12,16 +12,15 @@
   <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script> 
   <script src="/static/lodash/lodash.js"></script>
 
-
+<!-- jasmine -->
+  <link rel="shortcut icon" type="image/png" href="/jasmine/dist/lib/jasmine-2.0.0/jasmine_favicon.png">
+  <link rel="stylesheet" href="/static/jasmine/dist/lib/jasmine-2.0.0/jasmine.css">
 
   <!-- mapbox -->
   <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
   <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.js'></script>
   <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.css' rel='stylesheet' />
 
-<!-- jasmine -->
-  <link rel="shortcut icon" type="image/png" href="/jasmine/dist/lib/jasmine-2.0.0/jasmine_favicon.png">
-  <link rel="stylesheet" href="/static/jasmine/dist/lib/jasmine-2.0.0/jasmine.css">
 
 <!-- custom css --> 
   <link rel="stylesheet" href='/static/style.css' /> 
@@ -67,11 +66,9 @@
       <div id='map'></div>
         <script>
         L.mapbox.accessToken = 'pk.eyJ1Ijoic2JpbmRtYW4iLCJhIjoiaENWQnlrVSJ9.0DQyCLWgA0j8yBpmvt3bGA';
-        var map = L.mapbox.map('map', 'sbindman.l524amgg'); 
+        var map = L.mapbox.map('map', 'sbindman.719fd15d').setView([37.78, -122.44], 14); 
         map.doubleClickZoom.disable();
         </script>
-
-
 
 
   
@@ -81,14 +78,15 @@
   <script src="/static/functionality.js"></script>
   <script src="/static/pageActions.js"></script>
   
-
-<!-- testing -->
- <!-- <script src="/static/jasmine/dist/lib/jasmine-2.0.0/jasmine.js"></script>
+  <!-- testing -->
+  <script src="/static/jasmine/dist/lib/jasmine-2.0.0/jasmine.js"></script>
   <script src="/static/jasmine/dist/lib/jasmine-2.0.0/jasmine-html.js"></script>
   <script src="/static/jasmine/dist/lib/jasmine-2.0.0/boot.js"></script>
-  <script src="/static/calc-specs.js"></script>
+   
+  <!-- turn on to run tests <script src="/static/test-specs.js"></script> -->
 
--->
+
+
 
 </body>
 </html>

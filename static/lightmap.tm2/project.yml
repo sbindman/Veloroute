@@ -18,7 +18,7 @@ description: A monotone basemap that's easy to recolor.
 format: "png8:m=h"
 interactivity_layer: ''
 layers: null
-maxzoom: 22
+maxzoom: 19
 minzoom: 0
 name: Mapbox Light
 source: "mapbox:///mapbox.mapbox-streets-v5"

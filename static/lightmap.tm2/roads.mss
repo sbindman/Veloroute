@@ -23,8 +23,8 @@
 #bridge::fill[zoom>=11] {
   ['mapnik::geometry_type'=2] {
     line-color: @road;
-    line-width: 0.5;
-    [zoom>=15] { line-width: 1; } 
+    line-width: 0.3;
+    [zoom>=15] { line-width: .8; } 
     [class='path'] { line-dasharray: 2,2;}
     [class='major_rail'],
     [class='minor_rail'] { line-dasharray: 3,3; }
@@ -37,8 +37,8 @@
     }
     [class='motorway_link'],
     [class='main'] {
-      [zoom>=11] { line-width: 1; }
-      [zoom>=12] { line-width: 2; }
+      [zoom>=12] { line-width: 1; }
+      [zoom>=13] { line-width: 2; }
       [zoom>=14] { line-width: 3; }
       [zoom>=16] { line-width: 5; }
       [zoom>=18] { line-width: 7; }
