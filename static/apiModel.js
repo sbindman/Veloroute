@@ -99,6 +99,7 @@ function getDirectRouteRatio(route) {
 
 function getElevation(point) {
 	var defer = $.Deferred();
+	
 	// function that (calculates) displays elevation for a given point
 	var elevation_url = 'https://api.tiles.mapbox.com/v4/surface/mapbox.mapbox-terrain-v1.json?layer=contour&fields=ele&points='+ point[0]+','+ point[1] +'&access_token=pk.eyJ1Ijoic2JpbmRtYW4iLCJhIjoiaENWQnlrVSJ9.0DQyCLWgA0j8yBpmvt3bGA';
 	console.log(elevation_url);
@@ -113,29 +114,36 @@ function getElevation(point) {
 	return defer.promise();
 }
 
+
 function calcElevation (route) {
-	var defer = $.Deferred();
-	var elevationPoints = [];
+	var promises = [];
+	var results;
+
 	// calculates overall elevation
 	var totalEle = 0; //does not take into account total positive or total neg
 	var routePoints = routeDict[route.id].coordinates;
 
 	for (var j = 0; j < routePoints.length; j++) {
+		var defer = $.Deferred();
+
 		$.when( getElevation(routePoints[j] ) 
-		).then(function (result) {
-			elev = result;
-			//console.log("elev" + elev);	
-			elevationPoints.push(elev);
-		}).done( function () {
-			console.log("about to be resolved");
-			defer.resolve(elevationPoints);
-			
+		).done( function (elev) {
+			console.log("about to be resolved" + elev);
+			defer.resolve(elev);	
 		}).fail( function () {
 			alert("error with calc elevation");
 		});
-		return defer.promise();
+		promises.push(defer);
 	}
+	//FIXIT I can't get it to jump to this part in the code
+	$.when.apply(undefined, promises).done (function(results) {
+		console.log("all elevation data collected");
+		elevPoints = results;
+	});
+	return elevPoints;
+	//returns an array of elevations?
 
+}
 
 // function showElevation(point) {
 // 	//This function that (calculates) displays elevation for a given point
@@ -148,7 +156,7 @@ function calcElevation (route) {
 // }
 
 
-	
+
 	// console.log("elevation points length: " + elevationPoints.length);	
 	// var currentEle = elevationPoints[0];	
 	// for (var i = 1; i < elevationPoints.length; i++) {
@@ -161,7 +169,7 @@ function calcElevation (route) {
 	// console.log("total elevation" + routeDict[route.id].elevation);		
 
 		
-	}
+	
 
 
 
@@ -201,5 +209,5 @@ function calcElevation (route) {
 
 // $.when([d1, d2]) 
 
-// unscore 
+// underscore 
 

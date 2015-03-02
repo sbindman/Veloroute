@@ -10,6 +10,8 @@ function startNewLine(rNum) {
  	var firstRequest = getDistanceAndLefts(route1);
  	var secondRequest = calcElevation(route1);
  	var thirdRequest = getDirectRouteRatio(route1); //this will return the direct route distance
+ 	//dummy variable sine elevation doesn't seem to be working
+ 	//var secondRequest = 5;
 
 	$.when( firstRequest, secondRequest, thirdRequest 
 	).done(function (firstResponse, secondResponse, thirdResponse) {
@@ -18,6 +20,10 @@ function startNewLine(rNum) {
 			routeDict[route1.id].distance = firstResponse[0]; 
 			routeDict[route1.id].leftTurns = firstResponse[1];
 			routeDict[route1.id].mostDirectDistance = thirdResponse;
+
+			//tests when elevation seems to be working
+			//console.log("THIRD RESPONSE" + secondResponse);
+			//console.log("THIRD RESPONSE[0]" + secondResponse[0]);
 
 			routeDict[route1.id].sDistance = standardizeDistance(firstResponse[0], thirdResponse);
 			routeDict[route1.id].sLeftTurns = standardizeLefts(firstResponse[1]);

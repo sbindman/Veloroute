@@ -116,6 +116,7 @@ th {
     width: 125px;
     height:40px;
     background-color: white;
+    font-family: sans-serif;
 }
 
 td {
@@ -125,6 +126,8 @@ td {
     width: 125px;
     height:40px;
     color:white;
+    font-size: 20px;
+    font-family: sans-serif;
 }
 
 /*highlights specific lines in table*/
