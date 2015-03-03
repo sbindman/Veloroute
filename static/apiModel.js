@@ -1,5 +1,23 @@
 //api connections
 
+// Put somewhere in your scripting environment. used to return a list of deferred objects
+//http://stackoverflow.com/questions/5627284/pass-in-an-array-of-deferreds-to-when
+if (jQuery.when.all===undefined) {
+    jQuery.when.all = function(deferreds) {
+        var deferred = new jQuery.Deferred();
+        $.when.apply(jQuery, deferreds).then(
+            function() {
+                deferred.resolve(Array.prototype.slice.call(arguments));
+            },
+            function() {
+                deferred.fail(Array.prototype.slice.call(arguments));
+            });
+
+        return deferred;
+    }
+}
+
+
 
 function getDistanceAndLefts(route) { 
 	//This function calculates the total distance and number of left turns for a given route
@@ -49,54 +67,6 @@ function getDirectRouteRatio(route) {
 
 
 
-// function getSpeedLimit(point, callback) {
-// 	//function that returns speed limit at a given point
-// 	var speedUrl = 'https://api.tiles.mapbox.com/v4/surface/sbindman.e7527b3f.json?layer=MTA_DPT_SpeedLimits&fields=speedlimit&access_token=pk.eyJ1IjoiZHVuY2FuZ3JhaGFtIiwiYSI6IlJJcWdFczQifQ.9HUpTV1es8IjaGAf_s64VQ&points='+ point[0]+','+ point[1] +'&zoom=17&interpolate=true'
-
-// 	console.log(speedUrl);
-
-// 	$.get(speedUrl, function (answer) {
-// 		var speed = answer.results[0].speedlimit;
-// 		console.log("get speed limit: " + speed);
-// 		return callback(undefined, speed);
-// 	});
-// }
-
-
-// function calcAverageSpeed (route) {
-// 	// calculates overall elevation
-// 	//FIXIT this calculation is not working
-// 	var avgSpeed = 0; //does not take into account total positive or total neg
-// 	var speedPoints = [5,6];
-// 	var speedRoutePoints = routeDict[route.id].coordinates;
-// 	console.log("route points" + speedRoutePoints[0]);
-// 	for (var i = 0; i < speedRoutePoints.length; i++) {
-// 		var pointSpeed = getSpeedLimit(speedRoutePoints[i], function(err, ele) {
-// 			console.log("point speed" + pointSpeed);
-// 			if (parseInt(pointSpeed) > 0) {
-// 			speedPoints.push(pointSpeed);
-// 			} else {
-// 				console.log("not added: " + pointSpeed);
-// 			}
-// 		});
-// 	}
-
-// 	setTimeout(function () {  //FIXIT add in async
-// 		var totalSpeed = 0;
-// 		console.log("length speed points" + speedPoints.length);
-	
-// 	for (var i = 0; i < speedPoints.length; i++) {
-// 		totalSpeed += speedPoints[i];
-// 		}
-
-// 	avgSpeed = totalSpeed / speedPoints.length;
-// 	console.log("average speed" + avgSpeed);
-
-// 	//routeDict[route.id].elevation = totalEle;
-// 		} , 1000);	
-// }
-
-
 function getElevation(point) {
 	var defer = $.Deferred();
 	
@@ -111,38 +81,72 @@ function getElevation(point) {
 	}).fail( function() {
 		alert("error with getting elevation");
 	});
+
+	//this might just need to be defer not defer.promise()
 	return defer.promise();
 }
 
 
 function calcElevation (route) {
-	var promises = [];
-	var results;
 
 	// calculates overall elevation
 	var totalEle = 0; //does not take into account total positive or total neg
 	var routePoints = routeDict[route.id].coordinates;
+	var elevPoints = [];
+	var deferred = $.Deferred();
 
-	for (var j = 0; j < routePoints.length; j++) {
-		var defer = $.Deferred();
+	//results is currently only showing last item
+	var deferreds = routePoints.map(getElevation);
 
-		$.when( getElevation(routePoints[j] ) 
-		).done( function (elev) {
-			console.log("about to be resolved" + elev);
-			defer.resolve(elev);	
-		}).fail( function () {
-			alert("error with calc elevation");
-		});
-		promises.push(defer);
-	}
-	//FIXIT I can't get it to jump to this part in the code
-	$.when.apply(undefined, promises).done (function(results) {
-		console.log("all elevation data collected");
-		elevPoints = results;
+	$.when.all(deferreds).done(function (result) {
+		console.log("done", deferreds, result);
+		elevPoints = result;
+		deferred.resolve(elevPoints);
 	});
-	return elevPoints;
-	//returns an array of elevations?
+	return deferred.promise();
+}
 
+
+	
+	
+
+function getSpeedLimit(point) {
+	var defer = $.Deferred();
+	
+	// function that returns speed for a given point
+	var speed_url = 'https://api.tiles.mapbox.com/v4/surface/sbindman.e7527b3f.json?layer=MTA_DPT_SpeedLimits&fields=speedlimit&access_token=pk.eyJ1IjoiZHVuY2FuZ3JhaGFtIiwiYSI6IlJJcWdFczQifQ.9HUpTV1es8IjaGAf_s64VQ&points='+ point[0]+','+ point[1] +'&interpolate=false&zoom=17&interpolate=true';
+	console.log(speed_url);
+
+	$.get(speed_url, function (result) {
+		var speed_limit = result.results[0].speedlimit;
+		console.log("get speed: " + speed_limit);
+		defer.resolve(speed_limit);
+	}).fail( function() {
+		alert("error with getting speed");
+	});
+
+	//this might just need to be defer not defer.promise()
+	return defer.promise();
+}
+
+
+	
+
+function calcSpeed (route) {
+	// calculates average speed along a route
+	var totalSpeed = 0; //does not take into account total positive or total neg
+	var speedRoutePoints = routeDict[route.id].coordinates;
+	var speedPoints = [];
+	var defer4 = $.Deferred();
+
+	var defer_list = speedRoutePoints.map(getSpeedLimit);
+
+	$.when.all(defer_list).done(function (result) {
+		console.log("finished", defer_list, result);
+		speedPoints = result;
+		defer4.resolve(speedPoints);
+	});
+	return defer4.promise();
 }
 
 // function showElevation(point) {
@@ -156,54 +160,6 @@ function calcElevation (route) {
 // }
 
 
-
-	// console.log("elevation points length: " + elevationPoints.length);	
-	// var currentEle = elevationPoints[0];	
-	// for (var i = 1; i < elevationPoints.length; i++) {
-	// 	totalEle += Math.abs(elevationPoints[i] - currentEle);
-	// 	 console.log ("total elev: " + elevationPoints[i]);
-	// 	currentEle = elevationPoints[i];
-
-	// }
-	// routeDict[route.id].elevation = totalEle;
-	// console.log("total elevation" + routeDict[route.id].elevation);		
-
-		
-	
-
-
-
-// function calcElevation (route) {
-// 	// calculates overall elevation
-// 	var totalEle = 0; //does not take into account total positive or total neg
-// 	var elevationPoints = [];
-// 	var routePoints = routeDict[route.id].coordinates;
-// 	console.log("route point length: " + routePoints.length);
-// 	console.log("route points" + routePoints[0]);
-// 	console.log("rp"+routePoints);
-// 	var counter = 0;
-// 	for (var j = 0; j < routePoints.length; j++) {
-// 		var elev = getElevation(routePoints[counter], function(err, ele) {
-// 			elevationPoints.push(elev);
-// 			counter += 1;
-			
-// 		});
-// 	}
-
-// 	setTimeout(function () {  //FIXIT add in async
-// 	var currentEle = elevationPoints[0];
-// 	for (var i = 1; i < routePoints.length; i++) {
-// 		totalEle += Math.abs(elevationPoints[i] - currentEle);
-// 		 console.log ("total elev: " + elevationPoints[0]);
-// 		// console.log ("total: " + elevationPoints[1]);
-// 		// console.log ("lev: " + currentEle);
-// 		// console.log ("total elevation: " + totalEle);
-// 		currentEle = elevationPoints[i];
-// 	}
-// 	routeDict[route.id].elevation = totalEle;
-// 		} , 2000);	
-	
-// }
 
 // $.when(v1, v2, v3)    // "variadic" == ? of parameters
 

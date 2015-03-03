@@ -10,20 +10,18 @@ function startNewLine(rNum) {
  	var firstRequest = getDistanceAndLefts(route1);
  	var secondRequest = calcElevation(route1);
  	var thirdRequest = getDirectRouteRatio(route1); //this will return the direct route distance
- 	//dummy variable sine elevation doesn't seem to be working
- 	//var secondRequest = 5;
+ 	var fourthRequest = calcSpeed(route1);
 
-	$.when( firstRequest, secondRequest, thirdRequest 
-	).done(function (firstResponse, secondResponse, thirdResponse) {
-			console.log("RESPONSES:" + firstResponse[0] + " , " + firstResponse[1] + " , " + secondResponse + " , " + thirdResponse);
-			//firstresponse[0] = distance, firstResponse[1] = lefts, thirdresponse = direct distance
+
+	$.when( firstRequest, secondRequest, thirdRequest, fourthRequest 
+	).done(function (firstResponse, secondResponse, thirdResponse, fourthResponse) {
+			console.log("RESPONSES:" + firstResponse[0] + " , " + firstResponse[1] + " , " + secondResponse + " , " + thirdResponse + " , " + fourthResponse);
+			//firstresponse[0] = distance, firstResponse[1] = lefts, secondresponse = elevation, thirdresponse = direct distance
 			routeDict[route1.id].distance = firstResponse[0]; 
 			routeDict[route1.id].leftTurns = firstResponse[1];
+			routeDict[route1.id].elevation = netElevation(secondResponse);
 			routeDict[route1.id].mostDirectDistance = thirdResponse;
-
-			//tests when elevation seems to be working
-			//console.log("THIRD RESPONSE" + secondResponse);
-			//console.log("THIRD RESPONSE[0]" + secondResponse[0]);
+			routeDict[route1.id].averageSpeed = avgSpeed(fourthResponse);
 
 			routeDict[route1.id].sDistance = standardizeDistance(firstResponse[0], thirdResponse);
 			routeDict[route1.id].sLeftTurns = standardizeLefts(firstResponse[1]);
@@ -107,6 +105,41 @@ function drawRoute(route2) {
 
 
 //calculations
+function netElevation(elevationPoints) {
+	//calculates net elevation from a list of points
+	var currentEle = elevationPoints[0];
+	var totalEle = 0;	
+	for (var i = 1; i < elevationPoints.length; i++) {
+		console.log("EVP: " +elevationPoints[i]);
+	 	totalEle += Math.abs(elevationPoints[i] - currentEle);
+	 	currentEle = elevationPoints[i];
+	 }
+	console.log("total elevation" + totalEle);
+	return totalEle;		
+}
+
+
+
+function avgSpeed(speedPoints) {
+	//calculates net elevation from a list of points
+	var totalSpeed = 0;	
+
+	for (var i = 0; i < speedPoints.length; i++) {
+	 	if (speedPoints[i] <= 25){
+	 		totalSpeed += 25;
+	 	} else if (speedPoints[i] > 25 && speedPoints[i] < 99){
+	 		totalSpeed += speedPoints[i];
+	 	} else if (speedPoints[i] === 99){
+	 		totalSpeed += 45;
+	 	} else {
+	 		alert("issue with average speed" + speedPoints[i]);
+	 	}
+	 }
+	console.log("average speed: " + totalSpeed/speedPoints.length);
+	return (totalSpeed/speedPoints.length);		
+}
+
+
 
 	//standarize elevation -- these value cutoffs can be changed but seem reasonable, meters?
 function standardizeElevation (elev) {	
