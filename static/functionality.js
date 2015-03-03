@@ -45,7 +45,7 @@ function addMarker(evt) {
 		console.log("Error: Can't add a point when there is no active route");
 	}
 	else if (currentLine != null) {
-		var marker = L.marker(evt.latlng, { draggable:true });
+		var marker = L.marker(evt.latlng, { draggable:true, icon:circleIcon });
 		//marker.setIcon(circleIcon);
 		marker.on('dragend', function() {
 			drawRoute(currentLine);
@@ -232,7 +232,7 @@ function standardizeSpeed (rawSpeed){
 //display information
 function showRouteDict (routeDictionary) {
 	var html2 = "";
-	
+
 	for (var i = 0; i < Object.keys(routeDictionary).length; i++) {
 		var r = routeDictionary[i];
 		var totalScore = r.sDistance + r.sLeftTurns + r.sElevation + r.sAverageSpeed;
