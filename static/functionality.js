@@ -25,7 +25,8 @@ function startNewLine(rNum) {
 
 			routeDict[route1.id].sDistance = standardizeDistance(firstResponse[0], thirdResponse);
 			routeDict[route1.id].sLeftTurns = standardizeLefts(firstResponse[1]);
-			routeDict[route1.id].sElevation = standardizeElevation(thirdResponse);
+			routeDict[route1.id].sElevation = standardizeElevation(netElevation(secondResponse));
+			routeDict[route1.id].sAverageSpeed = standardizeSpeed(avgSpeed(fourthResponse));
 		
 			showRouteDict(routeDict);
 			
@@ -115,6 +116,7 @@ function netElevation(elevationPoints) {
 	 	currentEle = elevationPoints[i];
 	 }
 	console.log("total elevation" + totalEle);
+	totalEle = totalEle.toPrecision(3);
 	return totalEle;		
 }
 
@@ -135,8 +137,11 @@ function avgSpeed(speedPoints) {
 	 		alert("issue with average speed" + speedPoints[i]);
 	 	}
 	 }
-	console.log("average speed: " + totalSpeed/speedPoints.length);
-	return (totalSpeed/speedPoints.length);		
+	var avg = totalSpeed/speedPoints.length;
+	console.log("average speed: " + avg);
+	avg = avg.toPrecision(2);
+
+	return (avg);		
 }
 
 
@@ -146,11 +151,11 @@ function standardizeElevation (elev) {
 
 	var sElev = null;
 
-	if (elev < 150) { 
+	if (elev < 75) { 
 		sElev = 3;
-	} else if ( elev >= 150 && elev < 250 ) { 
+	} else if ( elev >= 75 && elev < 150 ) { 
 		sElev = 2;
-	} else if (elev >= 250 ) { 
+	} else if (elev >= 150 ) { 
 		sElev = 1; 
 	} else {
 		alert("no standar elevation calculated, raw elevation is: " + elev);
@@ -185,6 +190,7 @@ function standardizeDistance (dist, directDist) {
 	return responseValue;
 }
 
+
 function standardizeLefts (rawLefts){
 //standardize left turns
 	var sLefts = null;
@@ -204,14 +210,34 @@ function standardizeLefts (rawLefts){
 }
 
 
+function standardizeSpeed (rawSpeed){
+//standardize left turns
+	var sSpeed = null;
+
+	if (rawSpeed <= 25) { 
+		sSpeed = 3;
+	} else if ( rawSpeed > 25 && rawSpeed < 30 ) { 
+		sSpeed = 2;
+	} else if (rawSpeed >= 30 ) { 
+		sSpeed = 1; 
+	} else {
+		alert("no standard left turns, " + rawSpeed);
+	}
+
+	console.log("standardized speed: " + sSpeed);
+	return sSpeed;
+}
+
+
 //display information
 function showRouteDict (routeDictionary) {
-	var html = "";
 	var html2 = "";
+	
 	for (var i = 0; i < Object.keys(routeDictionary).length; i++) {
-		var totalScore = routeDictionary[i].sDistance + routeDictionary[i].sLeftTurns;
+		var r = routeDictionary[i];
+		var totalScore = r.sDistance + r.sLeftTurns + r.sElevation + r.sAverageSpeed;
 		//adds a string of data that will be pushed to the popup table
-		html2 += "<tr id=tableRow"+routeDictionary[i].id+"><td>" + i + "</td><td>" + routeDictionary[i].distance + "</td><td>" + routeDictionary[i].leftTurns + "</td><td>" + routeDictionary[i].sDistance +  "</td><td>" + routeDictionary[i].sLeftTurns + "</td><td>" + totalScore + "</td></tr>" ;
+		html2 += "<tr id=tableRow"+r.id+"><td>" + i + "</td><td>" + r.distance + "</td><td>" + r.leftTurns + "</td><td>" + r.elevation + "</td><td>" + r.averageSpeed + "</td><td>" + r.sDistance +  "</td><td>" + r.sLeftTurns + "</td><td>" + r.sElevation + "</td><td>" + r.sAverageSpeed + "</td><td>" + totalScore + "</td></tr>" ;
 	}
 	$("#table_route_info").html(html2);
 }

@@ -30,6 +30,7 @@ function line(id) {
 	this.sElevation = null;
 	this.sDistance = null;
 	this.sLeftTurns = null;
+	this.sAverageSpeed = null;
 }
 
 
