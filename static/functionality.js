@@ -45,7 +45,7 @@ function addMarker(evt) {
 		console.log("Error: Can't add a point when there is no active route");
 	}
 	else if (currentLine != null) {
-		var marker = L.marker(evt.latlng, { draggable:true, icon:circleIcon });
+		var marker = L.marker(evt.latlng, { draggable:true });
 		//marker.setIcon(circleIcon);
 		marker.on('dragend', function() {
 			drawRoute(currentLine);

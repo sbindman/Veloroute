@@ -66,10 +66,7 @@ class Waypoint(Base):
 		return "<id:%d, route_id:%d, point:%d>" %(self.id, self.route_id, self.point)
 
 def main():
-	connect()
-	sarah = User(email='sarah@test.com', password='hello' )
-	session.add(sarah)
-	session.commit()
+	pass
 
 if __name__ == "__main__":
     main()		

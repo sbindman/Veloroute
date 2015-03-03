@@ -17,12 +17,15 @@ def index():
 
 
 
-@app.route('/login')
+@app.route('/login', methods=["GET", "POST"])
 def process_login():
 	"""Show users ability to sign up or login"""
 
 	email = request.form.get('email');
 	password = request.form.get('password');
+
+	if email:
+		print email, password
 
 	return render_template("login.html")
 
