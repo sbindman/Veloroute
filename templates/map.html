@@ -45,24 +45,11 @@
 
 <!-- popup table -->
        <div id="tablePop" class="overlay">
-          <table class="table, hoverTable">
-            <thead>
-               <tr>
-                <th> Route ID </th>
-                <th> Total Distance </th>
-                <th> Total Lefts </th>
-                <th> Elevation Change </th>
-                <th> Average Speed </th>
-                <th> Standarized Distance </th>
-                <th> Standardize Lefts </th>
-                <th> Standardize Elevation </th>
-                <th> Standardize Speed </th>
-                <th> Total Score </th>
-              <tr>
-            </thead>      
-            <tbody id="table_route_info"></tbody>
+          <table class="table, hoverTable" id="table_route_info">
           </table>
         <!-- <button class="table_close" id="table_close">Close</button> -->
+          <button class="button" id="show-raw-data">Show Raw Data</button>
+          <button class="button" id="show-standard-data">Show Standard Data</button>
       </div>
 
 
@@ -87,7 +74,8 @@
   <script src="/static/jasmine/dist/lib/jasmine-2.0.0/jasmine-html.js"></script>
   <script src="/static/jasmine/dist/lib/jasmine-2.0.0/boot.js"></script>
    
-  <!-- turn on to run tests <script src="/static/test-specs.js"></script> -->
+  <!-- turn on to run tests -->
+<!--  <script src="/static/test-specs.js"></script> -->
 
 
 

@@ -28,7 +28,6 @@ function startNewLine(rNum) {
 			routeDict[route1.id].sElevation = standardizeElevation(netElevation(secondResponse));
 			routeDict[route1.id].sAverageSpeed = standardizeSpeed(avgSpeed(fourthResponse));
 		
-			showRouteDict(routeDict);
 			
 			console.log("ENDING LINE");
 			routeNum ++;
@@ -45,7 +44,7 @@ function addMarker(evt) {
 		console.log("Error: Can't add a point when there is no active route");
 	}
 	else if (currentLine != null) {
-		var marker = L.marker(evt.latlng, { draggable:true });
+		var marker = L.marker(evt.latlng, { draggable:true, icon:circleIcon });
 		//marker.setIcon(circleIcon);
 		marker.on('dragend', function() {
 			drawRoute(currentLine);
@@ -53,6 +52,13 @@ function addMarker(evt) {
 		marker.addTo(map);
 		currentLine.waypoints.push(marker);
 		drawRoute(currentLine);
+
+
+		marker.on("click", function () {
+			endLine(currentLine);
+			$("#add-route").css('background-color', '#E89599');
+			$("#add-route").removeAttr('disabled');
+		})
 	}
 }
 
@@ -151,11 +157,15 @@ function standardizeElevation (elev) {
 
 	var sElev = null;
 
-	if (elev < 75) { 
+	if (elev < 30) { 
+		sElev = 5;
+	} else if ( elev >= 30 && elev < 60 ) { 
+		sElev = 4;
+	} else if ( elev >= 60 && elev < 90 ) { 
 		sElev = 3;
-	} else if ( elev >= 75 && elev < 150 ) { 
+	} else if ( elev >= 90 && elev < 120 ) { 
 		sElev = 2;
-	} else if (elev >= 150 ) { 
+	} else if (elev >= 120 ) { 
 		sElev = 1; 
 	} else {
 		alert("no standar elevation calculated, raw elevation is: " + elev);
@@ -173,11 +183,15 @@ function standardizeDistance (dist, directDist) {
 
 	if (ratio < 1) { 
 		alert("Error can't have ratio less than 1. distance and direct distance are:" + dist + " , " + directDist);
-	} else if ( ratio >= 1 && ratio < 1.2) { 
+	} else if ( ratio >= 1 && ratio < 1.1) { 
+		responseValue = 5;
+	} else if (ratio >= 1.1 && ratio < 1.2 ) { 
+		responseValue = 4;
+	} else if (ratio >= 1.2 && ratio < 1.3 ) { 
 		responseValue = 3;
-	} else if (ratio >= 1.2 && ratio < 1.5 ) { 
+	} else if (ratio >= 1.3 && ratio < 1.4 ) { 
 		responseValue = 2;
-	} else if (ratio >= 1.5) { 
+	} else if (ratio >= 1.4) { 
 		responseValue = 1;  
 	} else {
 		responseValue = null;
@@ -195,12 +209,16 @@ function standardizeLefts (rawLefts){
 //standardize left turns
 	var sLefts = null;
 
-	if (rawLefts < 5) { 
+	if (rawLefts === 0) { 
+		sLefts = 5;
+	} else if ( rawLefts > 0 && rawLefts < 3 ) { 
+		sLefts = 4;
+	} else if ( rawLefts >= 3 && rawLefts < 6 ) { 
 		sLefts = 3;
-	} else if ( rawLefts >= 5 && rawLefts < 10 ) { 
+	} else if ( rawLefts >= 6 && rawLefts < 10 ) { 
 		sLefts = 2;
 	} else if (rawLefts >= 10 ) { 
-		sLefts = 1; 
+		sLefts = 1;  
 	} else {
 		alert("no standard left turns, " + rawLefts);
 	}
@@ -215,10 +233,14 @@ function standardizeSpeed (rawSpeed){
 	var sSpeed = null;
 
 	if (rawSpeed <= 25) { 
+		sSpeed = 5;
+	} else if ( rawSpeed > 25 && rawSpeed < 27 ) { 
+		sSpeed = 4;
+	} else if ( rawSpeed >= 27 && rawSpeed < 29 ) { 
 		sSpeed = 3;
-	} else if ( rawSpeed > 25 && rawSpeed < 30 ) { 
+	} else if ( rawSpeed >= 29 && rawSpeed < 31 ) { 
 		sSpeed = 2;
-	} else if (rawSpeed >= 30 ) { 
+	} else if (rawSpeed >= 31 ) { 
 		sSpeed = 1; 
 	} else {
 		alert("no standard left turns, " + rawSpeed);
@@ -230,17 +252,37 @@ function standardizeSpeed (rawSpeed){
 
 
 //display information
-function showRouteDict (routeDictionary) {
-	var html2 = "";
+function showStandardData (routeDictionary) {
+	//shows standard data
+	var html2 = "<thead><tr><th> Route ID </th><th> Standarized Distance </th><th> Standardize Lefts </th><th> Standardize Elevation </th><th> Standardize Speed </th><th> Total Score </th><tr></thead><tbody>";
 
 	for (var i = 0; i < Object.keys(routeDictionary).length; i++) {
 		var r = routeDictionary[i];
 		var totalScore = r.sDistance + r.sLeftTurns + r.sElevation + r.sAverageSpeed;
 		//adds a string of data that will be pushed to the popup table
-		html2 += "<tr id=tableRow"+r.id+"><td>" + i + "</td><td>" + r.distance + "</td><td>" + r.leftTurns + "</td><td>" + r.elevation + "</td><td>" + r.averageSpeed + "</td><td>" + r.sDistance +  "</td><td>" + r.sLeftTurns + "</td><td>" + r.sElevation + "</td><td>" + r.sAverageSpeed + "</td><td>" + totalScore + "</td></tr>" ;
+		html2 += "<tr id=tableRow" + r.id +"><td>" + i + "</td><td>" + r.sDistance +  "</td><td>" + r.sLeftTurns + "</td><td>" + r.sElevation + "</td><td>" + r.sAverageSpeed + "</td><td>" + totalScore + "</td></tr>";
 	}
+	html2 += "</tbody>";
 	$("#table_route_info").html(html2);
 }
+
+
+function showRawData (routeDictionary) {
+	//shows raw data
+	var html2 = "<thead><tr><th> Route ID </th><th> Total Distance </th><th> Total Lefts </th><th> Elevation Change </th><th> Average Speed </th><tr></thead><tbody>";
+
+	for (var i = 0; i < Object.keys(routeDictionary).length; i++) {
+		var r = routeDictionary[i];
+		var totalScore = r.sDistance + r.sLeftTurns + r.sElevation + r.sAverageSpeed;
+		//adds a string of data that will be pushed to the popup table
+		html2 += "<tr id=tableRow"+r.id+"><td>" + i + "</td><td>" + r.distance + "</td><td>" + r.leftTurns + "</td><td>" + r.elevation + "</td><td>" + r.averageSpeed + "</td></tr>";
+	}
+	html2 += "</tbody>";
+	$("#table_route_info").html(html2);
+}
+
+
+            
 
 
 //remove line

@@ -1,5 +1,5 @@
 import random
-import model
+#import model
 import os
 from flask import Flask, request, render_template, jsonify, session, flash
 from selenium import webdriver

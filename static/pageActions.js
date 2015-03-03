@@ -8,16 +8,6 @@ $("#add-route").on("click", function() {
 });
 
 
-//end route
-map.on("dblclick", function () {
-	endLine(currentLine);
-
-
-	$("#add-route").css('background-color', '#E89599');
-	$("#add-route").removeAttr('disabled');
-});
-
-
 
 //add marker
 map.on('click', addMarker);
@@ -27,12 +17,28 @@ map.on('click', addMarker);
 //set popup
 $(document).ready(function () {
 	$('#tablePop').popup({});
+	$('#show-standard-data').toggle();
 });
 //show popup
 $('#table_open').on( "click", function () {
+	showStandardData(routeDict);
 	$('#tablePop').popup('show');
 });
 
+
+//show raw data
+$('#show-raw-data').click( function () {
+	$('#show-raw-data').toggle();
+	$('#show-standard-data').toggle();
+	showRawData(routeDict);
+});
+
+//show standard data
+$('#show-standard-data').click( function () {
+	$('#show-standard-data').toggle();
+	$('#show-raw-data').toggle();
+	showStandardData(routeDict);
+});
 
 
 // $('#table_close').on( "click", function () {
