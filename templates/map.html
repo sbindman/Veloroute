@@ -1,56 +1,47 @@
-<!doctype html>
-<html>
-<head>
 
-
-<!-- jquery -->
-  <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
-  <script src="http://vast-engineering.github.io/jquery-popup-overlay/jquery.popupoverlay.js"></script>
-
-<!-- leaflet -->
-  <link rel="stylesheet" href='http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css' />
-  <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script> 
-  <script src="/static/lodash/lodash.js"></script>
-
-<!-- jasmine -->
-  <link rel="shortcut icon" type="image/png" href="/jasmine/dist/lib/jasmine-2.0.0/jasmine_favicon.png">
-  <link rel="stylesheet" href="/static/jasmine/dist/lib/jasmine-2.0.0/jasmine.css">
-
-  <!-- mapbox -->
-  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-  <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.js'></script>
-  <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.css' rel='stylesheet' />
-
-
-<!-- custom css --> 
-  <link rel="stylesheet" href='/static/style.css' /> 
-
-<!-- fonts -->
-  <link href='http://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
-
-  <title>Map</title>
-</head>
+{% extends 'base.html' %}
+{% block body %}
 
 
 <body>
   <div id="topBar"><div id="projectName"><h1>design better bike lanes!</h1></div></div><br>
   <div id="leftBar">
-    <button id="remove-route" class="remove-button, button">Remove Route</button><br>
-    <button id="routes" class="routes, button">Show Route Objects</button><br>
+    <a href="/login"><button id="login" class="remove-button, button">Login</button></a><br>
+    <a href="/sign_up"><button id="signup" class="routes, button">Sign Up</button><br></a>
+<!--     <button id="logout" class="button">Logout</button><br> -->
     <button id="add-route" class="button">Add Route</button><br>
     <button class="table_open, button" id="table_open">Open Table</button><br>
   </div>
 
 
-<!-- popup table -->
-       <div id="tablePop" class="overlay">
-          <table class="table, hoverTable" id="table_route_info">
+
+<!-- standard table -->
+       <div id="sTableDiv" class="modal">
+          <table class="table" id="sTable">
+            <thead><tr><th> Route ID </th><th> Standarized Distance </th><th> Standardize Lefts </th><th> Standardize Elevation </th><th> Standardize Speed </th><th> Total Score </th><tr><tr><td>Weighting</td><td><select class='weighting' id='dWeight' name='dWeight'><option value='1'>Somewhat important</option><option value='2'>Important</option><option value='3'>Very important</option></select></td><td><select name='lWeight' class='weighting' id='lWeight' ><option value='1'>Somewhat important</option><option value='2'>Important</option><option value='3'>Very important</option></select></td><td><select name='eWeight' class='weighting' id='eWeight'><option value='1'>Somewhat important</option><option value='2'>Important</option><option value='3'>Very important</option></select></td><td><select name='sWeight' class='weighting' id='sWeight'><option value='1'>Somewhat important</option><option value='2'>Important</option><option value='3'>Very important</option></select></td></tr></thead>
+
+            <!-- dynamically update this information -->
+            <tbody id="table_route_info"></tbody>
+
           </table>
-        <!-- <button class="table_close" id="table_close">Close</button> -->
           <button class="button" id="show-raw-data">Show Raw Data</button>
+          <button class="button" id="close">Close</button>
+      </div>
+
+
+<!-- raw table -->
+       <div id="rTableDiv" class="modal">
+          <table class="table" id="rTable">
+            <thead><tr><th> Route ID </th><th> Total Distance </th><th> Total Lefts </th><th> Elevation Change </th><th> Average Speed </th><tr></thead>
+            <!-- dynamically update this information -->
+            <tbody id="raw_info"></tbody>
+
+          </table>
           <button class="button" id="show-standard-data">Show Standard Data</button>
       </div>
+
+
+
 
 
       <!-- set up the map -->
@@ -75,13 +66,14 @@
   <script src="/static/jasmine/dist/lib/jasmine-2.0.0/boot.js"></script>
    
   <!-- turn on to run tests -->
-<!--  <script src="/static/test-specs.js"></script> -->
-
-
+<!--  
+  <script src="/static/test-specs.js"></script> -->
 
 
 </body>
-</html>
+
+{% endblock %}
+
 
 
 

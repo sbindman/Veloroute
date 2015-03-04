@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- jquery -->
+  <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+  <script src="http://vast-engineering.github.io/jquery-popup-overlay/jquery.popupoverlay.js"></script>
+
+<!-- leaflet -->
+  <link rel="stylesheet" href='http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css' />
+  <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script> 
+  <script src="/static/lodash/lodash.js"></script>
+
+<!-- jasmine -->
+  <link rel="shortcut icon" type="image/png" href="/jasmine/dist/lib/jasmine-2.0.0/jasmine_favicon.png">
+  <link rel="stylesheet" href="/static/jasmine/dist/lib/jasmine-2.0.0/jasmine.css">
+
+  <!-- mapbox -->
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.css' rel='stylesheet' />
+
+
+<!-- custom css --> 
+  <link rel="stylesheet" href='/static/style.css' /> 
+
+<!-- fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
+
+  <title>Design Better Bike Lanes</title>
+</head>
+<body> 
+	{% block body %}{% endblock %}
+</body>
+</html>

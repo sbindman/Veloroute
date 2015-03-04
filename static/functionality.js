@@ -23,7 +23,7 @@ function startNewLine(rNum) {
 			routeDict[route1.id].mostDirectDistance = thirdResponse;
 			routeDict[route1.id].averageSpeed = avgSpeed(fourthResponse);
 
-			routeDict[route1.id].sDistance = standardizeDistance(firstResponse[0], thirdResponse);
+			routeDict[route1.id].sDistance = standardizeDistance(firstResponse[0], thirdResponse, 3);
 			routeDict[route1.id].sLeftTurns = standardizeLefts(firstResponse[1]);
 			routeDict[route1.id].sElevation = standardizeElevation(netElevation(secondResponse));
 			routeDict[route1.id].sAverageSpeed = standardizeSpeed(avgSpeed(fourthResponse));
@@ -32,6 +32,8 @@ function startNewLine(rNum) {
 			console.log("ENDING LINE");
 			routeNum ++;
 			currentLine = null;
+			$("#add-route").css('background-color', '#E89599');
+			$("#add-route").removeAttr('disabled');
 	});
 }
 
@@ -56,8 +58,6 @@ function addMarker(evt) {
 
 		marker.on("click", function () {
 			endLine(currentLine);
-			$("#add-route").css('background-color', '#E89599');
-			$("#add-route").removeAttr('disabled');
 		})
 	}
 }
@@ -175,7 +175,7 @@ function standardizeElevation (elev) {
 	return sElev;
 }	
 
-function standardizeDistance (dist, directDist) {
+function standardizeDistance (dist, directDist, weight) {
 	//standardize distance -- these value cutoffs can be changed but seem reasonable
 
 	var ratio = dist / directDist;
@@ -201,7 +201,7 @@ function standardizeDistance (dist, directDist) {
 	console.log("most mostDirectDistance: " + directDist);
 	console.log("Distance: " + dist);
 
-	return responseValue;
+	return responseValue * weight;
 }
 
 
@@ -254,7 +254,8 @@ function standardizeSpeed (rawSpeed){
 //display information
 function showStandardData (routeDictionary) {
 	//shows standard data
-	var html2 = "<thead><tr><th> Route ID </th><th> Standarized Distance </th><th> Standardize Lefts </th><th> Standardize Elevation </th><th> Standardize Speed </th><th> Total Score </th><tr></thead><tbody>";
+
+	var html2 = "";
 
 	for (var i = 0; i < Object.keys(routeDictionary).length; i++) {
 		var r = routeDictionary[i];
@@ -262,14 +263,15 @@ function showStandardData (routeDictionary) {
 		//adds a string of data that will be pushed to the popup table
 		html2 += "<tr id=tableRow" + r.id +"><td>" + i + "</td><td>" + r.sDistance +  "</td><td>" + r.sLeftTurns + "</td><td>" + r.sElevation + "</td><td>" + r.sAverageSpeed + "</td><td>" + totalScore + "</td></tr>";
 	}
-	html2 += "</tbody>";
+	html2 += "";
 	$("#table_route_info").html(html2);
 }
 
 
+
 function showRawData (routeDictionary) {
 	//shows raw data
-	var html2 = "<thead><tr><th> Route ID </th><th> Total Distance </th><th> Total Lefts </th><th> Elevation Change </th><th> Average Speed </th><tr></thead><tbody>";
+	var html2 = "";
 
 	for (var i = 0; i < Object.keys(routeDictionary).length; i++) {
 		var r = routeDictionary[i];
@@ -277,8 +279,7 @@ function showRawData (routeDictionary) {
 		//adds a string of data that will be pushed to the popup table
 		html2 += "<tr id=tableRow"+r.id+"><td>" + i + "</td><td>" + r.distance + "</td><td>" + r.leftTurns + "</td><td>" + r.elevation + "</td><td>" + r.averageSpeed + "</td></tr>";
 	}
-	html2 += "</tbody>";
-	$("#table_route_info").html(html2);
+	$("#raw_info").html(html2);
 }
 
 

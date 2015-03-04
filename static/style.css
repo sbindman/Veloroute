@@ -11,8 +11,6 @@
 }
 
 
-
-
 body {
     padding: -1px;
     margin: -1px;
@@ -33,6 +31,8 @@ h1 {
     margin: -1px;
 }
 
+
+
 button:focus {outline:0;}
 
 #projectName {
@@ -45,8 +45,6 @@ button:focus {outline:0;}
 #map { 
     position:absolute; 
     top:120px; bottom:0; left:120px; width:100%;
-    /*z-index: -1;*/
-
 }
 
 
@@ -79,11 +77,11 @@ button:focus {outline:0;}
     line-height: normal;
 }
 
-#routes {
+#signup {
     background-color: #C6B3FF;
     font-family: 'porter_sans_blockblock';
 }
-#remove-route{
+#login{
     background-color: #AAFFEE;
     font-family: 'porter_sans_blockblock';
 }
@@ -130,6 +128,20 @@ td {
     font-family: sans-serif;
 }
 
+
+
+/*buttons related to weighting*/
+.weighting {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    text-align: center;
+    color:green;
+    border-radius: 0px;
+}
+
+
 /*highlights specific lines in table*/
 #tableRow0 {
       background-color: #793FFF;
@@ -166,4 +178,17 @@ td {
     /*background: white;*/
  
 } 
+
+.modal {
+    left: 100px;
+    width: 100%;
+    z-index: 1000;
+    position:relative;
+    /*display:none;*/
+
+}
+
+a {
+    text-decoration: none;
+}
 

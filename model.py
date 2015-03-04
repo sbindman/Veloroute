@@ -65,6 +65,24 @@ class Waypoint(Base):
 	def __repr__(self):
 		return "<id:%d, route_id:%d, point:%d>" %(self.id, self.route_id, self.point)
 
+
+
+def get_user(email, p):
+	print "email", email
+	print "password", p
+	user_query = session.query(User).filter(User.email == email).first()
+
+	#if email is in db
+	if user_query:
+		if user_query.password == p:
+			return True
+			
+		else:
+			return False
+	else:
+		return False
+
+
 def main():
 	pass
 

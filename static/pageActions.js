@@ -16,29 +16,84 @@ map.on('click', addMarker);
 //popup
 //set popup
 $(document).ready(function () {
-	$('#tablePop').popup({});
-	$('#show-standard-data').toggle();
+	// everything starts hidden
+	$('#logout').toggle();
+	$('#sTable').hide();
+	$('#rTable').hide();
+	$('#show-raw-data').hide();
+	$('#show-standard-data').hide();
+	$('#close').hide();
+
 });
-//show popup
+//show standard table when click open table
 $('#table_open').on( "click", function () {
 	showStandardData(routeDict);
-	$('#tablePop').popup('show');
+	$('#sTable').show();
+	$('#close').show();
+	$('#show-raw-data').show();
 });
 
 
 //show raw data
 $('#show-raw-data').click( function () {
-	$('#show-raw-data').toggle();
-	$('#show-standard-data').toggle();
+	$('#show-raw-data').hide();
+	$('#show-standard-data').show();
+	$('#sTable').hide();
+	$('#rTable').show();
 	showRawData(routeDict);
 });
 
 //show standard data
 $('#show-standard-data').click( function () {
-	$('#show-standard-data').toggle();
-	$('#show-raw-data').toggle();
+	$('#show-standard-data').hide();
+	$('#show-raw-data').show();
+	$('#sTable').show();
+	$('#rTable').hide();
 	showStandardData(routeDict);
 });
+
+//close tables
+$('#close').click( function () {
+	$('#rTable').hide();
+	$('#sTable').hide();
+	$('#close').hide();
+	$('#show-raw-data').hide();
+	$('#show-standard-data').hide();
+})
+
+
+
+
+//event changes for dropdown menus
+$("#sWeight").on("change", function () {
+		var weight = $("#sWeight").val();
+		console.log("speed weight" + weight);
+	});
+
+$("#dWeight").on("change", function () {
+	var weight = $("#dWeight").val();
+	console.log("distance weight" + weight);
+});
+
+
+$("#eWeight").on("change", function () {
+		var weight = $("#eWeight").val();
+		console.log("elevation weight" + weight);
+	});
+
+$("#lWeight").on("change", function () {
+	var weight = $("#lWeight").val();
+	console.log("lefts weight" + weight);
+});
+
+
+
+// if ( $('#session').innerHTML != undefined ){
+// 	$('#login').hide();
+// 	$('#signup').hide();
+// }
+
+// $('#logout').on("click", function)
 
 
 // $('#table_close').on( "click", function () {

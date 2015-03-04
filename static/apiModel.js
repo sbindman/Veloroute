@@ -114,7 +114,7 @@ function getSpeedLimit(point) {
 	var defer = $.Deferred();
 	
 	// function that returns speed for a given point
-	var speed_url = 'https://api.tiles.mapbox.com/v4/surface/sbindman.e7527b3f.json?layer=MTA_DPT_SpeedLimits&fields=speedlimit&access_token=pk.eyJ1IjoiZHVuY2FuZ3JhaGFtIiwiYSI6IlJJcWdFczQifQ.9HUpTV1es8IjaGAf_s64VQ&points='+ point[0]+','+ point[1] +'&interpolate=false&zoom=17&interpolate=true';
+	var speed_url = 'https://api.tiles.mapbox.com/v4/surface/sbindman.e7527b3f.json?layer=MTA_DPT_SpeedLimits&fields=speedlimit&access_token=pk.eyJ1IjoiZHVuY2FuZ3JhaGFtIiwiYSI6IlJJcWdFczQifQ.9HUpTV1es8IjaGAf_s64VQ&points='+ point[0]+','+ point[1] +'&zoom=17&interpolate=true';
 	console.log(speed_url);
 
 	$.get(speed_url, function (result) {
@@ -149,15 +149,12 @@ function calcSpeed (route) {
 	return defer4.promise();
 }
 
-// function showElevation(point) {
-// 	//This function that (calculates) displays elevation for a given point
-// 	var elevation_url = 'https://api.tiles.mapbox.com/v4/surface/mapbox.mapbox-terrain-v1.json?layer=contour&fields=ele&points='+point.lng+','+point.lat+'&access_token=pk.eyJ1Ijoic2JpbmRtYW4iLCJhIjoiaENWQnlrVSJ9.0DQyCLWgA0j8yBpmvt3bGA';
-// 	$.get(elevation_url, function (result) {
-// 		elevation = result.results[0].ele;
-// 		$("#map-results").text(elevation);
-// 	return elevation;
-// 	});
-// }
+
+//show traffic density data
+//Daily vehicle count per mile of street segment aggregated at the U.S. Census Tract level in San Francisco, CA.
+//https://data.sfgov.org/Transportation/Traffic-Density-San-Francisco-CA/rhp4-jr7s?category=Transportation&view_name=Traffic-Density-San-Francisco-CA
+"https://api.tiles.mapbox.com/v4/surface/sbindman.e7527b3f.json?layer=SanFranciscoTrafficDensity_2010CensusTracts&fields=Area_A,Area_smi,Shape_Area,Shape_Leng,StreetLe_1,StreetLeng,Sum_Shape_,TotalTfcCn,Tract2010,Tract2010_,TrfcCnt_Mi&access_token=pk.eyJ1IjoiZHVuY2FuZ3JhaGFtIiwiYSI6IlJJcWdFczQifQ.9HUpTV1es8IjaGAf_s64VQ&points=-122.46889114379881,37.76501541890696;-122.44760513305664,37.782383403274565;-122.43867874145509,37.77207165460911&zoom=17&interpolate=true"
+
 
 
 
