@@ -23,7 +23,7 @@ function startNewLine(rNum) {
 			routeDict[route1.id].mostDirectDistance = thirdResponse;
 			routeDict[route1.id].averageSpeed = avgSpeed(fourthResponse);
 
-			routeDict[route1.id].sDistance = standardizeDistance(firstResponse[0], thirdResponse, 3);
+			routeDict[route1.id].sDistance = standardizeDistance(firstResponse[0], thirdResponse);
 			routeDict[route1.id].sLeftTurns = standardizeLefts(firstResponse[1]);
 			routeDict[route1.id].sElevation = standardizeElevation(netElevation(secondResponse));
 			routeDict[route1.id].sAverageSpeed = standardizeSpeed(avgSpeed(fourthResponse));
@@ -175,7 +175,7 @@ function standardizeElevation (elev) {
 	return sElev;
 }	
 
-function standardizeDistance (dist, directDist, weight) {
+function standardizeDistance (dist, directDist) { 
 	//standardize distance -- these value cutoffs can be changed but seem reasonable
 
 	var ratio = dist / directDist;
@@ -201,7 +201,7 @@ function standardizeDistance (dist, directDist, weight) {
 	console.log("most mostDirectDistance: " + directDist);
 	console.log("Distance: " + dist);
 
-	return responseValue * weight;
+	return responseValue;
 }
 
 
@@ -249,6 +249,45 @@ function standardizeSpeed (rawSpeed){
 	console.log("standardized speed: " + sSpeed);
 	return sSpeed;
 }
+
+
+//weighting system
+function weightDistance(rd, weight) {
+	weight = parseInt(weight);
+	for (var i = 0; i < Object.keys(rd).length; i++) {
+		rd[i].sDistance = standardizeDistance(rd[i].distance, rd[i].mostDirectDistance) * weight;
+	}
+}
+
+
+function weightElevation(rd, weight) {
+	weight = parseInt(weight);
+	for (var i = 0; i < Object.keys(rd).length; i++) {
+		rd[i].sElevation = standardizeElevation(rd[i].elevation) * weight;
+	}
+}
+
+
+function weightLeft(rd, weight) {
+	weight = parseInt(weight);
+	for (var i = 0; i < Object.keys(rd).length; i++) {
+		rd[i].sLeftTurns = standardizeLefts(rd[i].leftTurns) * weight;
+	}
+}
+
+
+function weightSpeed(rd, weight) {
+	weight = parseInt(weight);
+	for (var i = 0; i < Object.keys(rd).length; i++) {
+		rd[i].sAverageSpeed = standardizeSpeed(rd[i].averageSpeed) * weight;
+	}
+}
+
+
+
+
+
+
 
 
 //display information

@@ -68,22 +68,34 @@ $('#close').click( function () {
 $("#sWeight").on("change", function () {
 		var weight = $("#sWeight").val();
 		console.log("speed weight" + weight);
-	});
+		weightSpeed(routeDict, weight);
+		showStandardData(routeDict);
+
+});
+
 
 $("#dWeight").on("change", function () {
 	var weight = $("#dWeight").val();
-	console.log("distance weight" + weight);
+	console.log("distance raw weight" + weight);
+	weightDistance(routeDict, weight);
+	showStandardData(routeDict);
 });
+
 
 
 $("#eWeight").on("change", function () {
 		var weight = $("#eWeight").val();
 		console.log("elevation weight" + weight);
-	});
+		weightElevation(routeDict, weight);
+		showStandardData(routeDict);
+});
+
 
 $("#lWeight").on("change", function () {
 	var weight = $("#lWeight").val();
 	console.log("lefts weight" + weight);
+	weightLeft(routeDict, weight);
+	showStandardData(routeDict);
 });
 
 
