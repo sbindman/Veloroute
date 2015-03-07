@@ -6,7 +6,7 @@ var currentLine = null;
 // var points = [];
 
 
-var colors = ['#793FFF', '#394EE8', '#4CAAFF', '#39DCE8', '#33FFB4'];
+var colors = ['#4AA0D3', '#2C9359', '#9BB31C', '#4BBCA1', '#B3A81D', '#31938B', '#4AD35A', '#99C946', '#ABE345'];
 
 //tests
 var routeDict = {};
@@ -35,7 +35,7 @@ function line(id) {
 
 
 var circleIcon = L.icon({
-    iconUrl: '/static/icon2.png',
+    iconUrl: '/static/img/icon2.png',
     iconSize:     [20, 20], // size of the icon
    	// iconAnchor:   [0, 0], // point of the icon which will correspond to marker's location
 });

@@ -1,9 +1,11 @@
 
+
+
 //button that starts a new route
 $("#add-route").on("click", function() {
 	currentLine = startNewLine(routeNum);
 
-	$("#add-route").css('background-color', '#E8B8CB');
+	$("#add-route").html('<img src="static/img/addrouteclicked.png" />');
 	$("#add-route").attr('disabled', 'disabled');
 });
 
@@ -27,10 +29,10 @@ $(document).ready(function () {
 });
 //show standard table when click open table
 $('#table_open').on( "click", function () {
-	showStandardData(routeDict);
-	$('#sTable').show();
+	$('#sTable').hide();
+	$('#rTable').show();
 	$('#close').show();
-	$('#show-raw-data').show();
+	$('#show-standard-data').show();
 });
 
 
@@ -40,7 +42,6 @@ $('#show-raw-data').click( function () {
 	$('#show-standard-data').show();
 	$('#sTable').hide();
 	$('#rTable').show();
-	showRawData(routeDict);
 });
 
 //show standard data
@@ -49,7 +50,6 @@ $('#show-standard-data').click( function () {
 	$('#show-raw-data').show();
 	$('#sTable').show();
 	$('#rTable').hide();
-	showStandardData(routeDict);
 });
 
 //close tables

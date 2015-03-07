@@ -4,13 +4,16 @@
 
 
 <body>
-  <div id="topBar"><div id="projectName"><h1>design better bike lanes!</h1></div></div><br>
+  <div id="topBar">
+    <div id="projectName"><h1>bike-O-rama </h1></div>
+      <a href="/login" id="login" class="login"></a>
+      <a href="/sign_up" id="signup" class="signup"></a>
+  </div><br>
   <div id="leftBar">
-    <a href="/login"><button id="login" class="remove-button, button">Login</button></a><br>
-    <a href="/sign_up"><button id="signup" class="routes, button">Sign Up</button><br></a>
+
 <!--     <button id="logout" class="button">Logout</button><br> -->
-    <button id="add-route" class="button">Add Route</button><br>
-    <button class="table_open, button" id="table_open">Open Table</button><br>
+    <div id="add-route"><img src="static/addroute.png" /></div><br>
+    <div class="table_open" id="table_open"></div><br>
   </div>
 
 
@@ -18,21 +21,22 @@
 <!-- standard table -->
        <div id="sTableDiv" class="modal">
           <table class="table" id="sTable">
-            <thead><tr><th> Route ID </th><th> Standarized Distance </th><th> Standardize Lefts </th><th> Standardize Elevation </th><th> Standardize Speed </th><th> Total Score </th><tr><tr><td>Weighting</td><td><select class='weighting' id='dWeight' name='dWeight'><option value='1'>Somewhat important</option><option value='2'>Important</option><option value='3'>Very important</option></select></td><td><select name='lWeight' class='weighting' id='lWeight' ><option value='1'>Somewhat important</option><option value='2'>Important</option><option value='3'>Very important</option></select></td><td><select name='eWeight' class='weighting' id='eWeight'><option value='1'>Somewhat important</option><option value='2'>Important</option><option value='3'>Very important</option></select></td><td><select name='sWeight' class='weighting' id='sWeight'><option value='1'>Somewhat important</option><option value='2'>Important</option><option value='3'>Very important</option></select></td></tr></thead>
+            <caption class='caption'>standard data</caption>
+            <thead><tr><th>route id</th><th>distance (meters)</th><th>traffic crossings</th><th>elevation change (meters)</th><th>average speed limit (mph)</th><th> total score </th><tr><tr id="weight"><td >weighting</td><td><select class='weighting' id='dWeight' name='dWeight'><option value='1'>  *  </option><option value='2'> * * </option><option value='3'>* * *</option></select></td><td><select name='lWeight' class='weighting' id='lWeight' ><option value='1'>*</option><option value='2'>* *</option><option value='3'>* * *</option></select></td><td><select name='eWeight' class='weighting' id='eWeight'><option value='1'>*</option><option value='2'>* *</option><option value='3'>* * *</option></select></td><td><select name='sWeight' class='weighting' id='sWeight'><option value='1'>*</option><option value='2'>* *</option><option value='3'>* * *</option></select></td><td></td></tr></thead>
 
             <!-- dynamically update this information -->
             <tbody id="table_route_info"></tbody>
-
+            <button class="button" id="show-raw-data">Show Raw Data</button>
+            <button class="button" id="close">Close</button>
           </table>
-          <button class="button" id="show-raw-data">Show Raw Data</button>
-          <button class="button" id="close">Close</button>
       </div>
 
 
 <!-- raw table -->
        <div id="rTableDiv" class="modal">
           <table class="table" id="rTable">
-            <thead><tr><th> Route ID </th><th> Total Distance </th><th> Total Lefts </th><th> Elevation Change </th><th> Average Speed </th><tr></thead>
+            <caption class='caption'>raw data</caption>
+            <thead><tr><th>route id</th><th>total distance (meters)</th><th> directness of route(%)</th><th>traffic crossings</th><th>elevation change (meters)</th><th> average speed limit (mph)</th><tr></thead>
             <!-- dynamically update this information -->
             <tbody id="raw_info"></tbody>
 

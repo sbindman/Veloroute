@@ -32,7 +32,16 @@ function startNewLine(rNum) {
 			console.log("ENDING LINE");
 			routeNum ++;
 			currentLine = null;
-			$("#add-route").css('background-color', '#E89599');
+			$("#add-route").html('<img src="static/addroute.png" />');
+			$("#add-route").removeAttr('disabled');
+			showStandardData(routeDict);
+			showRawData(routeDict);
+	}
+	).fail(function () {
+			console.log("ISSUE ENDING LINE");
+			routeNum ++;
+			currentLine = null;
+			$("#add-route").html('<img src="static/addroute.png" />');
 			$("#add-route").removeAttr('disabled');
 	});
 }
@@ -298,9 +307,10 @@ function showStandardData (routeDictionary) {
 
 	for (var i = 0; i < Object.keys(routeDictionary).length; i++) {
 		var r = routeDictionary[i];
+		var fixedRouteId = i + 1; //so no route 0
 		var totalScore = r.sDistance + r.sLeftTurns + r.sElevation + r.sAverageSpeed;
 		//adds a string of data that will be pushed to the popup table
-		html2 += "<tr id=tableRow" + r.id +"><td>" + i + "</td><td>" + r.sDistance +  "</td><td>" + r.sLeftTurns + "</td><td>" + r.sElevation + "</td><td>" + r.sAverageSpeed + "</td><td>" + totalScore + "</td></tr>";
+		html2 += "<tr id=tableRow" + r.id +"><td class='rowid'>" + fixedRouteId + "</td><td>" + r.sDistance + "</td><td>" + r.sLeftTurns + "</td><td>" + r.sElevation + "</td><td>" + r.sAverageSpeed + "</td><td>" + totalScore + "</td></tr>";
 	}
 	html2 += "";
 	$("#table_route_info").html(html2);
@@ -314,9 +324,11 @@ function showRawData (routeDictionary) {
 
 	for (var i = 0; i < Object.keys(routeDictionary).length; i++) {
 		var r = routeDictionary[i];
-		var totalScore = r.sDistance + r.sLeftTurns + r.sElevation + r.sAverageSpeed;
+		var directness = 100*(r.mostDirectDistance/r.distance);
+		directness = directness.toPrecision(2);
+		var fixedRouteId = i + 1; //so no route 0
 		//adds a string of data that will be pushed to the popup table
-		html2 += "<tr id=tableRow"+r.id+"><td>" + i + "</td><td>" + r.distance + "</td><td>" + r.leftTurns + "</td><td>" + r.elevation + "</td><td>" + r.averageSpeed + "</td></tr>";
+		html2 += "<tr id=tableRow"+r.id+"><td class='rowid'>" + fixedRouteId + "</td><td>" + r.distance +  "</td><td>" + directness + "</td><td>" + r.leftTurns + "</td><td>" + r.elevation + "</td><td>" + r.averageSpeed + "</td></tr>";
 	}
 	$("#raw_info").html(html2);
 }
