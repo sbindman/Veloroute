@@ -1,6 +1,3 @@
-
-
-
 //button that starts a new route
 $("#add-route").on("click", function() {
 	currentLine = startNewLine(routeNum);

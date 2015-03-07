@@ -153,14 +153,7 @@ function calcSpeed (route) {
 //show traffic density data
 //Daily vehicle count per mile of street segment aggregated at the U.S. Census Tract level in San Francisco, CA.
 //https://data.sfgov.org/Transportation/Traffic-Density-San-Francisco-CA/rhp4-jr7s?category=Transportation&view_name=Traffic-Density-San-Francisco-CA
-"https://api.tiles.mapbox.com/v4/surface/sbindman.e7527b3f.json?layer=SanFranciscoTrafficDensity_2010CensusTracts&fields=Area_A,Area_smi,Shape_Area,Shape_Leng,StreetLe_1,StreetLeng,Sum_Shape_,TotalTfcCn,Tract2010,Tract2010_,TrfcCnt_Mi&access_token=pk.eyJ1IjoiZHVuY2FuZ3JhaGFtIiwiYSI6IlJJcWdFczQifQ.9HUpTV1es8IjaGAf_s64VQ&points=-122.46889114379881,37.76501541890696;-122.44760513305664,37.782383403274565;-122.43867874145509,37.77207165460911&zoom=17&interpolate=true"
+// "https://api.tiles.mapbox.com/v4/surface/sbindman.e7527b3f.json?layer=SanFranciscoTrafficDensity_2010CensusTracts&fields=Area_A,Area_smi,Shape_Area,Shape_Leng,StreetLe_1,StreetLeng,Sum_Shape_,TotalTfcCn,Tract2010,Tract2010_,TrfcCnt_Mi&access_token=pk.eyJ1IjoiZHVuY2FuZ3JhaGFtIiwiYSI6IlJJcWdFczQifQ.9HUpTV1es8IjaGAf_s64VQ&points=-122.46889114379881,37.76501541890696;-122.44760513305664,37.782383403274565;-122.43867874145509,37.77207165460911&zoom=17&interpolate=true"
 
 
-
-
-// $.when(v1, v2, v3)    // "variadic" == ? of parameters
-
-// $.when([d1, d2]) 
-
-// underscore 
 

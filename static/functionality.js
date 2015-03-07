@@ -32,7 +32,7 @@ function startNewLine(rNum) {
 			console.log("ENDING LINE");
 			routeNum ++;
 			currentLine = null;
-			$("#add-route").html('<img src="static/addroute.png" />');
+			$("#add-route").html('<img src="static/img/addroute.png" />');
 			$("#add-route").removeAttr('disabled');
 			showStandardData(routeDict);
 			showRawData(routeDict);
@@ -41,7 +41,7 @@ function startNewLine(rNum) {
 			console.log("ISSUE ENDING LINE");
 			routeNum ++;
 			currentLine = null;
-			$("#add-route").html('<img src="static/addroute.png" />');
+			$("#add-route").html('<img src="static/img/addroute.png" />');
 			$("#add-route").removeAttr('disabled');
 	});
 }
@@ -332,18 +332,5 @@ function showRawData (routeDictionary) {
 	}
 	$("#raw_info").html(html2);
 }
-
-
-            
-
-
-//remove line
-//currently this deletes a line but does not move ids in hash table so that creates an issue with printing results
-
-// function deleteLine () {
-// 	currentLine = routeDict[1]; //example, should be able to delete whichever line is elected
-// 	map.removeLayer(currentLine.polyline);
-// 	delete routeDict[currentLine.id];
-// }
 
     

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<form class="form-login" method="POST" action="/sign_up">
+	<br>
+	<br>
+    <h2 class="form-signin-heading">Please Sign Up</h2>
+    <input type="email" name="email2" class="form-control" placeholder="Email Address" required autofocus /><br>
+    <input type="password" name="password2" class="form-control" placeholder="Password" required /><br>
+    <input type="submit" class="signup" value=""></input>
+</form>
+
+
+{% endblock %}
