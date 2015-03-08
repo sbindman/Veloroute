@@ -11,8 +11,17 @@ var colors = ['#4AA0D3', '#2C9359', '#9BB31C', '#4BBCA1', '#B3A81D', '#31938B', 
 //tests
 var routeDict = {};
 
+//stores state of table
+var tableopen = false;
+
 
 //constructor for a new line object
+
+/* Creates a line object 
+ *
+ *
+ *
+ */
 function line(id) {
 	this.id = id;
 	this.name = null;

@@ -1,3 +1,6 @@
+
+
+
 @font-face {
     font-family: '/fonts/porter_sans_blockblock';
     src: url('/fonts/porter-sans-inline-block-webfont.eot');
@@ -11,12 +14,23 @@
 
 }
 
+.tablebutton {
+    height:20px;
+    position: fixed;
+    z-index: 1000;
+    width: 100%;
+    background: rgba(62,129,154, .3);
+    bottom:  0;
+}
+
 /*buttons and hover on desktop*/
 .login {
    background-image: url('/static/img/loginhover.png');
    height: 110px;
    width: 110px;
    border:none;
+   position:relative;
+   margin-left: -12px;
 }
 
 .login:hover {
@@ -28,13 +42,15 @@
    height: 110px;
    width: 110px;
    border: none;
+   position:relative;
+   margin-left: -12px;
 }
 
 .signup:hover {
    background-image: url('/static/img/signupsmall.png');
 }
 
-#table_open {
+/*#table_open {
    background-image: url('/static/img/opentablehover.png');
    height: 120px;
    width: 120px;
@@ -42,7 +58,7 @@
 
 #table_open:hover {
    background-image: url('/static/img/opentable.png');
-}
+}*/
 
 
 
@@ -53,16 +69,11 @@ body {
 }
 
 h1 {
-    font-family: 'Josefin+Sans';
+    font-family: 'porter_sans_blockblock';
+    color: #434343;;
     color: #434343;
 }
 
-/*.button {
-    -webkit-box-shadow: none;     
-    -webkit-box-shadow: none;   
-    box-shadow: none;
-    border: none;
-}*/
 
 
 
@@ -82,13 +93,14 @@ select:focus {outline:0;}
 
 
 #topBar {
-    height:130px;
+    height:120px;
     text-align: left;
     vertical-align: middle;
-    margin-left: 10px;
-    position: fixed;
+/*    margin-top: 40px;*/
+    position: absolute;
     z-index: 1000;
     width: 100%;
+    background: rgba(0,0,0, .2);
 }
 
 
@@ -104,31 +116,27 @@ select:focus {outline:0;}
     left: 75%;
     z-index: 1000;
     position:absolute;
-    top:3%;
-
-
 }
+
 #login{
     left: 85%;
     z-index: 1000;
     position:absolute;
-    top:3%;
-
 }
 
 #add-route {
     left: 15px;
     z-index: 1000;
     position:absolute;
-    bottom:25%;
+    top:25%;
 }
 
-#table_open {
+/*#table_open {
     left: 15px;
     z-index: 1000;
     position:absolute;
     bottom:5%;
-}
+}*/
 
 
 .table {
@@ -137,7 +145,7 @@ select:focus {outline:0;}
     display: inline-block;
     text-align: center;
     border: 5px solid white;
-    width: 90%;
+    width: 100%;
 
 }
 
@@ -153,7 +161,6 @@ th {
     height:40px;
     background-color: #bcbcbc;
     font-family: 'Heiti SC';
-    font-weight: bold;
     color: #434343;
     opacity:.8;
     font-size: 14px;
@@ -176,7 +183,7 @@ td {
 
 /*buttons related to weighting*/
 .weighting {
-    display: block;
+    display: inline-block;
     position:relative;
     height: 100%;
     background-color: #bcbcbc;
@@ -187,7 +194,6 @@ td {
     font-size: 30px;
     list-style: none;
     -webkit-border: 0;
-    left:55px;
     -webkit-appearance:none;
 
 }
@@ -300,7 +306,7 @@ td {
 
 
 .modal {
-    left: 150px;
+    /*left: 150px;*/
     z-index: 1000;
     position:absolute;
     bottom:5%;
@@ -308,6 +314,18 @@ td {
     /*display:none;*/
 
 }
+
+/*.tablebutton {
+    position: fixed;
+    bottom: 1%;
+    -webkit-box-shadow: none;     
+    -webkit-box-shadow: none;   
+    box-shadow: none;
+    border: none;
+    color:#3585a3;
+    background-color: #cbcbcb;
+    border: 5px solid white;
+}*/
 
 select {
     -webkit-border: 0;

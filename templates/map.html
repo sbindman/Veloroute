@@ -13,7 +13,7 @@
 
 <!--     <button id="logout" class="button">Logout</button><br> -->
     <div id="add-route"><img src="static/img/addroute.png" /></div><br>
-    <div class="table_open" id="table_open"></div><br>
+<!--     <div class="table_open" id="table_open"></div><br> -->
   </div>
 
 
@@ -21,13 +21,11 @@
 <!-- standard table -->
        <div id="sTableDiv" class="modal">
           <table class="table" id="sTable">
-            <caption class='caption'>standard data</caption>
-            <thead><tr><th>route id</th><th>distance (meters)</th><th>traffic crossings</th><th>elevation change (meters)</th><th>average speed limit (mph)</th><th> total score </th><tr><tr id="weight"><td >weighting</td><td><select class='weighting' id='dWeight' name='dWeight'><option value='1'>  *  </option><option value='2'> * * </option><option value='3'>* * *</option></select></td><td><select name='lWeight' class='weighting' id='lWeight' ><option value='1'>*</option><option value='2'>* *</option><option value='3'>* * *</option></select></td><td><select name='eWeight' class='weighting' id='eWeight'><option value='1'>*</option><option value='2'>* *</option><option value='3'>* * *</option></select></td><td><select name='sWeight' class='weighting' id='sWeight'><option value='1'>*</option><option value='2'>* *</option><option value='3'>* * *</option></select></td><td></td></tr></thead>
+            <caption class='caption'><span class="show-raw-data">raw data |</span><span class="show-standard-data">| standard data</span></caption>
+            <thead><tr><th>route id</th><th>directness of route</th><th>traffic crossings</th><th>elevation change (meters)</th><th>average speed limit (mph)</th><th> total score </th><tr><tr id="weight"><td >weight</td><td><select class='weighting' id='dWeight' name='dWeight'><option value='1'>  *  </option><option value='2'> * * </option><option value='3'>* * *</option></select></td><td><select name='lWeight' class='weighting' id='lWeight' ><option value='1'>*</option><option value='2'>* *</option><option value='3'>* * *</option></select></td><td><select name='eWeight' class='weighting' id='eWeight'><option value='1'>*</option><option value='2'>* *</option><option value='3'>* * *</option></select></td><td><select name='sWeight' class='weighting' id='sWeight'><option value='1'>*</option><option value='2'>* *</option><option value='3'>* * *</option></select></td><td></td></tr></thead>
 
             <!-- dynamically update this information -->
             <tbody id="table_route_info"></tbody>
-            <button class="button" id="show-raw-data">Show Raw Data</button>
-            <button class="button" id="close">Close</button>
           </table>
       </div>
 
@@ -35,14 +33,15 @@
 <!-- raw table -->
        <div id="rTableDiv" class="modal">
           <table class="table" id="rTable">
-            <caption class='caption'>raw data</caption>
+            <caption class='caption'><span class="show-raw-data">raw data |</span><span class="show-standard-data">| standard data</span></caption>
             <thead><tr><th>route id</th><th>total distance (meters)</th><th> directness of route(%)</th><th>traffic crossings</th><th>elevation change (meters)</th><th> average speed limit (mph)</th><tr></thead>
             <!-- dynamically update this information -->
             <tbody id="raw_info"></tbody>
 
           </table>
-          <button class="button" id="show-standard-data">Show Standard Data</button>
       </div>
+
+      <div id="table_open" class="tablebutton">results</div>
 
 
 
@@ -52,8 +51,9 @@
       <div id='map'></div>
         <script>
         L.mapbox.accessToken = 'pk.eyJ1Ijoic2JpbmRtYW4iLCJhIjoiaENWQnlrVSJ9.0DQyCLWgA0j8yBpmvt3bGA';
-        var map = L.mapbox.map('map', 'sbindman.719fd15d').setView([37.78, -122.44], 14); 
-        map.doubleClickZoom.disable();
+        var map = L.mapbox.map('map', 'sbindman.719fd15d', {zoomControl: false}).setView([37.78, -122.44], 14); 
+       // map.doubleClickZoom.disable();
+        new L.Control.Zoom({ position: 'bottomright' }).addTo(map);
         </script>
 
 

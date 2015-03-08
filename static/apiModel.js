@@ -34,9 +34,8 @@ function getDistanceAndLefts(route) {
 		 		leftTurns += 1;
 		 	}
 		}
-
-		console.log("distance" + distance);
-		console.log("left turns: " + leftTurns);
+		// console.log("distance" + distance);
+		// console.log("left turns: " + leftTurns);
 		defer.resolve([distance, leftTurns]);
 	}).fail( function() {
 		alert("get distance and lefts error");
@@ -72,17 +71,21 @@ function getElevation(point) {
 	
 	// function that (calculates) displays elevation for a given point
 	var elevation_url = 'https://api.tiles.mapbox.com/v4/surface/mapbox.mapbox-terrain-v1.json?layer=contour&fields=ele&points='+ point[0]+','+ point[1] +'&access_token=pk.eyJ1Ijoic2JpbmRtYW4iLCJhIjoiaENWQnlrVSJ9.0DQyCLWgA0j8yBpmvt3bGA';
-	console.log(elevation_url);
+	//console.log(elevation_url);
 
 	$.get(elevation_url, function (result) {
+		if (result.results.length > 0) {
 		var elevation = result.results[0].ele;
-		console.log("get elevation: " + elevation);
+		//console.log("get elevation: " + elevation);
 		defer.resolve(elevation);
+		}
+		else {
+			defer.resolve();
+		}
 	}).fail( function() {
 		alert("error with getting elevation");
 	});
 
-	//this might just need to be defer not defer.promise()
 	return defer.promise();
 }
 
@@ -99,7 +102,7 @@ function calcElevation (route) {
 	var deferreds = routePoints.map(getElevation);
 
 	$.when.all(deferreds).done(function (result) {
-		console.log("done", deferreds, result);
+		//console.log("done", result);
 		elevPoints = result;
 		deferred.resolve(elevPoints);
 	});
@@ -115,12 +118,18 @@ function getSpeedLimit(point) {
 	
 	// function that returns speed for a given point
 	var speed_url = 'https://api.tiles.mapbox.com/v4/surface/sbindman.e7527b3f.json?layer=MTA_DPT_SpeedLimits&fields=speedlimit&access_token=pk.eyJ1IjoiZHVuY2FuZ3JhaGFtIiwiYSI6IlJJcWdFczQifQ.9HUpTV1es8IjaGAf_s64VQ&points='+ point[0]+','+ point[1] +'&zoom=17&interpolate=true';
-	console.log(speed_url);
+	//console.log(speed_url);
 
 	$.get(speed_url, function (result) {
-		var speed_limit = result.results[0].speedlimit;
-		console.log("get speed: " + speed_limit);
-		defer.resolve(speed_limit);
+		if (result.results.length > 0 ){
+			var speed_limit = result.results[0].speedlimit;
+			//console.log("get speed: " + speed_limit);
+			defer.resolve(speed_limit);
+		} else {
+			//FIXIT reject is not woring correcl
+			defer.resolve(999);
+			//code for in park
+		}
 	}).fail( function() {
 		alert("error with getting speed");
 	});
@@ -142,7 +151,7 @@ function calcSpeed (route) {
 	var defer_list = speedRoutePoints.map(getSpeedLimit);
 
 	$.when.all(defer_list).done(function (result) {
-		console.log("finished", defer_list, result);
+		// console.log("finished", defer_list, result);
 		speedPoints = result;
 		defer4.resolve(speedPoints);
 	});

@@ -15,7 +15,7 @@ function startNewLine(rNum) {
 
 	$.when( firstRequest, secondRequest, thirdRequest, fourthRequest 
 	).done(function (firstResponse, secondResponse, thirdResponse, fourthResponse) {
-			console.log("RESPONSES:" + firstResponse[0] + " , " + firstResponse[1] + " , " + secondResponse + " , " + thirdResponse + " , " + fourthResponse);
+			// console.log("RESPONSES:" + firstResponse[0] + " , " + firstResponse[1] + " , " + secondResponse + " , " + thirdResponse + " , " + fourthResponse);
 			//firstresponse[0] = distance, firstResponse[1] = lefts, secondresponse = elevation, thirdresponse = direct distance
 			routeDict[route1.id].distance = firstResponse[0]; 
 			routeDict[route1.id].leftTurns = firstResponse[1];
@@ -38,7 +38,7 @@ function startNewLine(rNum) {
 			showRawData(routeDict);
 	}
 	).fail(function () {
-			console.log("ISSUE ENDING LINE");
+			alert("ISSUE ENDING LINE");
 			routeNum ++;
 			currentLine = null;
 			$("#add-route").html('<img src="static/img/addroute.png" />');
@@ -126,9 +126,13 @@ function netElevation(elevationPoints) {
 	var currentEle = elevationPoints[0];
 	var totalEle = 0;	
 	for (var i = 1; i < elevationPoints.length; i++) {
-		console.log("EVP: " +elevationPoints[i]);
-	 	totalEle += Math.abs(elevationPoints[i] - currentEle);
-	 	currentEle = elevationPoints[i];
+		if (elevationPoints[i] === undefined){
+			continue;
+		} else{
+			// console.log("EVP: " +elevationPoints[i]);
+		 	totalEle += Math.abs(elevationPoints[i] - currentEle);
+		 	currentEle = elevationPoints[i];
+		 }
 	 }
 	console.log("total elevation" + totalEle);
 	totalEle = totalEle.toPrecision(3);
@@ -148,6 +152,8 @@ function avgSpeed(speedPoints) {
 	 		totalSpeed += speedPoints[i];
 	 	} else if (speedPoints[i] === 99){
 	 		totalSpeed += 45;
+	 	} else if (speedPoints[i] === 999){
+	 		totalSpeed += 10;
 	 	} else {
 	 		alert("issue with average speed" + speedPoints[i]);
 	 	}
@@ -206,9 +212,9 @@ function standardizeDistance (dist, directDist) {
 		responseValue = null;
 	}
 
-	console.log("standardized distance: " + responseValue);
-	console.log("most mostDirectDistance: " + directDist);
-	console.log("Distance: " + dist);
+	// console.log("standardized distance: " + responseValue);
+	// console.log("most mostDirectDistance: " + directDist);
+	// console.log("Distance: " + dist);
 
 	return responseValue;
 }
@@ -232,7 +238,7 @@ function standardizeLefts (rawLefts){
 		alert("no standard left turns, " + rawLefts);
 	}
 
-	console.log("standardized left turns: " + sLefts);
+	// console.log("standardized left turns: " + sLefts);
 	return sLefts;
 }
 
@@ -241,21 +247,21 @@ function standardizeSpeed (rawSpeed){
 //standardize left turns
 	var sSpeed = null;
 
-	if (rawSpeed <= 25) { 
+	if (rawSpeed <= 20) { 
 		sSpeed = 5;
-	} else if ( rawSpeed > 25 && rawSpeed < 27 ) { 
+	} else if ( rawSpeed > 20 && rawSpeed <= 25 ) { 
 		sSpeed = 4;
-	} else if ( rawSpeed >= 27 && rawSpeed < 29 ) { 
+	} else if ( rawSpeed > 25 && rawSpeed < 27 ) { 
 		sSpeed = 3;
-	} else if ( rawSpeed >= 29 && rawSpeed < 31 ) { 
+	} else if ( rawSpeed >= 27 && rawSpeed < 29 ) { 
 		sSpeed = 2;
-	} else if (rawSpeed >= 31 ) { 
+	} else if (rawSpeed >= 29 ) { 
 		sSpeed = 1; 
 	} else {
 		alert("no standard left turns, " + rawSpeed);
 	}
 
-	console.log("standardized speed: " + sSpeed);
+	// console.log("standardized speed: " + sSpeed);
 	return sSpeed;
 }
 
@@ -325,7 +331,7 @@ function showRawData (routeDictionary) {
 	for (var i = 0; i < Object.keys(routeDictionary).length; i++) {
 		var r = routeDictionary[i];
 		var directness = 100*(r.mostDirectDistance/r.distance);
-		directness = directness.toPrecision(2);
+		directness = directness.toPrecision(3);
 		var fixedRouteId = i + 1; //so no route 0
 		//adds a string of data that will be pushed to the popup table
 		html2 += "<tr id=tableRow"+r.id+"><td class='rowid'>" + fixedRouteId + "</td><td>" + r.distance +  "</td><td>" + directness + "</td><td>" + r.leftTurns + "</td><td>" + r.elevation + "</td><td>" + r.averageSpeed + "</td></tr>";
