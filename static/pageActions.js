@@ -33,6 +33,7 @@ $('#table_open').on( "click", function () {
 		$('.show-standard-data').show();
 		$('.show-raw-data').show();
 		$('.show-raw-data').css("color", "#3585a3");
+		$('#results').html('<i class="fa fa-angle-double-down"></i>');
 		tableopen = true;
 	} else {
 		$('.show-standard-data').css("color", "#434343");
@@ -42,6 +43,7 @@ $('#table_open').on( "click", function () {
 		$('#close').hide();
 		$('.show-raw-data').hide();
 		$('.show-standard-data').hide();
+		$('#results').html('<i class="fa fa-angle-double-up"></i>');
 		tableopen = false;
 	}
 });
@@ -62,6 +64,12 @@ $('.show-standard-data').click( function () {
 	$('#sTable').show();
 	$('#rTable').hide();
 });
+
+
+//toggle color of results tab
+$('.tablebutton').on("click", function () {
+	$('.tablebutton').toggleClass("invert");
+})
 
 
 

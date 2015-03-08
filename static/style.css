@@ -14,13 +14,39 @@
 
 }
 
-.tablebutton {
-    height:20px;
-    position: fixed;
+#tableElements {
+    bottom: 0;
+    display: table;
+    position: absolute;
     z-index: 1000;
     width: 100%;
-    background: rgba(62,129,154, .3);
-    bottom:  0;
+}
+
+
+.tablebutton {
+    height:30px;
+    width: 100%;
+    position: relative;
+    background: rgba(255,255,255, .8);
+    color:#3585a3;
+    font-family: 'Heiti SC';
+    font-size: 16px;
+}
+
+.tablebutton:hover {
+    color:white;
+    background: rgba(62,129,154, .8);
+}
+
+.invert {
+    color:white;
+    background: rgba(62,129,154, .8);
+}
+
+#results {
+    position: relative;
+    left: 50%;
+    font-size: 30px;
 }
 
 /*buttons and hover on desktop*/
@@ -49,16 +75,6 @@
 .signup:hover {
    background-image: url('/static/img/signupsmall.png');
 }
-
-/*#table_open {
-   background-image: url('/static/img/opentablehover.png');
-   height: 120px;
-   width: 120px;
-}
-
-#table_open:hover {
-   background-image: url('/static/img/opentable.png');
-}*/
 
 
 
@@ -131,12 +147,6 @@ select:focus {outline:0;}
     top:25%;
 }
 
-/*#table_open {
-    left: 15px;
-    z-index: 1000;
-    position:absolute;
-    bottom:5%;
-}*/
 
 
 .table {
@@ -144,9 +154,8 @@ select:focus {outline:0;}
     vertical-align: middle;
     display: inline-block;
     text-align: center;
-    border: 5px solid white;
     width: 100%;
-
+    display: table;
 }
 
 
@@ -156,25 +165,27 @@ th {
     vertical-align: middle;
     font-weight: bold;
     text-align: center;
-    /*border: 1px solid black;*/
-    width: 16.6%;
+    /*border: 1px dotted white;*/
+    /*width: 16.6%;*/
     height:40px;
     background-color: #bcbcbc;
     font-family: 'Heiti SC';
     color: #434343;
     opacity:.8;
     font-size: 14px;
+    padding: 1%;
 }
 
 td {
     border-collapse:collapse
     vertical-align: middle;
     text-align: center;
-    width: 16.6%;
+    /*width: 16.6%;*/
     height:40px;
     color:white;
     font-size: 14px;
     font-family: 'Heiti SC';
+    /*border: 1px solid white;*/
 }
 
 .rowid {
@@ -212,7 +223,8 @@ td {
     opacity:.8;
     font-size: 20px;
     width: 100%
-    vertical-align: center;
+    vertical-align: middle;
+    text-align: center;
 }
 
 
@@ -306,26 +318,12 @@ td {
 
 
 .modal {
-    /*left: 150px;*/
     z-index: 1000;
-    position:absolute;
-    bottom:5%;
-    /*background-color: #aba7a7;*/
-    /*display:none;*/
-
+    position:relative;
+    width:100;
 }
 
-/*.tablebutton {
-    position: fixed;
-    bottom: 1%;
-    -webkit-box-shadow: none;     
-    -webkit-box-shadow: none;   
-    box-shadow: none;
-    border: none;
-    color:#3585a3;
-    background-color: #cbcbcb;
-    border: 5px solid white;
-}*/
+
 
 select {
     -webkit-border: 0;
