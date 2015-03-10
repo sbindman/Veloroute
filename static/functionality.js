@@ -1,31 +1,36 @@
-//create a new line object
+
+/* Initiates a new route and adds it to a global dictionary 
+*/
 function startNewLine(rNum) {
 	var polyline = new line(rNum);
 	routeDict[polyline.id] = polyline;
 	return polyline;
 }
 
-
+/* Ends the current line
+ * All data related to a line is requested, calculated and standardized
+ * Data from the requests are used to update the line objects
+ */
  function endLine(route1) {
  	var firstRequest = getDistanceAndLefts(route1);
  	var secondRequest = calcElevation(route1);
- 	var thirdRequest = getDirectRouteRatio(route1); //this will return the direct route distance
+ 	var thirdRequest = getDirectRouteRatio(route1);
  	var fourthRequest = calcSpeed(route1);
 
 
 	$.when( firstRequest, secondRequest, thirdRequest, fourthRequest 
 	).done(function (firstResponse, secondResponse, thirdResponse, fourthResponse) {
-			// console.log("RESPONSES:" + firstResponse[0] + " , " + firstResponse[1] + " , " + secondResponse + " , " + thirdResponse + " , " + fourthResponse);
-			//firstresponse[0] = distance, firstResponse[1] = lefts, secondresponse = elevation, thirdresponse = direct distance
 			routeDict[route1.id].distance = firstResponse[0]; 
 			routeDict[route1.id].leftTurns = firstResponse[1];
-			routeDict[route1.id].elevation = netElevation(secondResponse);
+			routeDict[route1.id].elevation = netElevation(secondResponse)[0];
+			routeDict[route1.id].eGain = netElevation(secondResponse)[1];
+			routeDict[route1.id].eLoss = netElevation(secondResponse)[2];
 			routeDict[route1.id].mostDirectDistance = thirdResponse;
 			routeDict[route1.id].averageSpeed = avgSpeed(fourthResponse);
 
 			routeDict[route1.id].sDistance = standardizeDistance(firstResponse[0], thirdResponse);
 			routeDict[route1.id].sLeftTurns = standardizeLefts(firstResponse[1]);
-			routeDict[route1.id].sElevation = standardizeElevation(netElevation(secondResponse));
+			routeDict[route1.id].sElevation = standardizeElevation(netElevation(secondResponse)[0]);
 			routeDict[route1.id].sAverageSpeed = standardizeSpeed(avgSpeed(fourthResponse));
 		
 			
@@ -34,8 +39,15 @@ function startNewLine(rNum) {
 			currentLine = null;
 			$("#add-route").html('<img src="static/img/addroute.png" />');
 			$("#add-route").removeAttr('disabled');
+			weightAndUpdate();
 			showStandardData(routeDict);
 			showRawData(routeDict);
+
+			//highlight table after data
+			$('.tablebutton').toggleClass("invert");
+			setTimeout (function () {
+				$('.tablebutton').toggleClass("invert");
+			} , 300);
 	}
 	).fail(function () {
 			alert("ISSUE ENDING LINE");
@@ -47,9 +59,10 @@ function startNewLine(rNum) {
 }
 
 
-//functionality of lines
 
-//add marker
+/* Adds a marker to the current route 
+ * If a marker is clicked (simulates a double click) the route is ended
+ */
 function addMarker(evt) {
 	if (currentLine == null) {
 		console.log("Error: Can't add a point when there is no active route");
@@ -64,16 +77,20 @@ function addMarker(evt) {
 		currentLine.waypoints.push(marker);
 		drawRoute(currentLine);
 
-
 		marker.on("click", function () {
 			endLine(currentLine);
+
 		})
 	}
 }
 
 
+/* Draws the route between a given set of waypoints
+ * If there are at least 2 points then a request is sent to the directions api
+ * which includes user-added waypoints
+ * Those points are then added to the map
+ */
 function drawRoute(route2) {
-	//this function should draw a route based on a number of waypoints
 	var defer = $.Deferred();
 	if (route2.waypoints.length > 1 ) {
 		var waypointsString = "";
@@ -89,7 +106,6 @@ function drawRoute(route2) {
 	  	var lastLng = route2.waypoints[route2.waypoints.length - 1].getLatLng().lng;
 
 	  	waypointsString += lastLng + "," + lastLat;
-	  	//console.log("point string" + waypointsString);
 
 		var directionUrl = 'http://api.tiles.mapbox.com/v4/directions/mapbox.walking/'+ waypointsString + '.json?access_token=pk.eyJ1Ijoic2JpbmRtYW4iLCJhIjoiaENWQnlrVSJ9.0DQyCLWgA0j8yBpmvt3bGA'
 
@@ -120,29 +136,43 @@ function drawRoute(route2) {
 
 
 
-//calculations
+/* Formula calculates the total elevation gained and lost from
+ * a set of elevation points.
+ */
 function netElevation(elevationPoints) {
 	//calculates net elevation from a list of points
 	var currentEle = elevationPoints[0];
 	var totalEle = 0;	
+	var totalGain = 0;
+	var totalLoss = 0;
 	for (var i = 1; i < elevationPoints.length; i++) {
 		if (elevationPoints[i] === undefined){
 			continue;
 		} else{
-			// console.log("EVP: " +elevationPoints[i]);
+			if ((elevationPoints[i] - currentEle) > 0) {
+				totalGain += (elevationPoints[i] - currentEle);
+			} else {
+				totalLoss += Math.abs(elevationPoints[i] - currentEle);
+			}
 		 	totalEle += Math.abs(elevationPoints[i] - currentEle);
 		 	currentEle = elevationPoints[i];
 		 }
 	 }
-	console.log("total elevation" + totalEle);
+	console.log("total elevation" + totalEle + "gain" + totalGain + "loss" + totalLoss);
+	totalGain = totalGain.toPrecision(3);
+	totalLoss = totalLoss.toPrecision(3);
 	totalEle = totalEle.toPrecision(3);
-	return totalEle;		
+	return [totalEle,totalGain,totalLoss];		
 }
 
 
 
+/* Calculates average speed from a list of speed points
+ * 999 represents the case when there is no data available regarding 
+ * speed.  In SF this seems to only be the case on walking paths, hence
+ * speed is assumed to be 10 MPH.
+ */
 function avgSpeed(speedPoints) {
-	//calculates net elevation from a list of points
 	var totalSpeed = 0;	
 
 	for (var i = 0; i < speedPoints.length; i++) {
@@ -152,7 +182,8 @@ function avgSpeed(speedPoints) {
 	 		totalSpeed += speedPoints[i];
 	 	} else if (speedPoints[i] === 99){
 	 		totalSpeed += 45;
-	 	} else if (speedPoints[i] === 999){
+	 	} else if (speedPoints[i] === 999){ 
+
 	 		totalSpeed += 10;
 	 	} else {
 	 		alert("issue with average speed" + speedPoints[i]);
@@ -167,32 +198,36 @@ function avgSpeed(speedPoints) {
 
 
 
-	//standarize elevation -- these value cutoffs can be changed but seem reasonable, meters?
+/* Standardizes elevation from a unstandaridized number
+ * cutoffs (meters) are made using my best judgement and can
+ * be updated.
+ */
 function standardizeElevation (elev) {	
-
 	var sElev = null;
 
-	if (elev < 30) { 
+	if (elev < 40) { 
 		sElev = 5;
-	} else if ( elev >= 30 && elev < 60 ) { 
+	} else if ( elev >= 40 && elev < 80 ) { 
 		sElev = 4;
-	} else if ( elev >= 60 && elev < 90 ) { 
+	} else if ( elev >= 80 && elev < 120 ) { 
 		sElev = 3;
-	} else if ( elev >= 90 && elev < 120 ) { 
+	} else if ( elev >= 120 && elev < 160 ) { 
 		sElev = 2;
-	} else if (elev >= 120 ) { 
+	} else if (elev >= 160 ) { 
 		sElev = 1; 
 	} else {
 		alert("no standar elevation calculated, raw elevation is: " + elev);
 	}
-
-	console.log("standardized elevation: " + sElev);
 	return sElev;
 }	
 
-function standardizeDistance (dist, directDist) { 
-	//standardize distance -- these value cutoffs can be changed but seem reasonable
 
+/* Standardizes distance using the route between points A and B
+ * and the shortest route between points A and B.
+ * cutoffs (meters) are made using my best judgement and can
+ * be updated.
+ */
+function standardizeDistance (dist, directDist) { 
 	var ratio = dist / directDist;
 	var responseValue = null;
 
@@ -212,14 +247,15 @@ function standardizeDistance (dist, directDist) {
 		responseValue = null;
 	}
 
-	// console.log("standardized distance: " + responseValue);
-	// console.log("most mostDirectDistance: " + directDist);
-	// console.log("Distance: " + dist);
-
 	return responseValue;
 }
 
 
+
+/* Standardizes left turns.
+ * cutoffs are made using my best judgement and can
+ * be updated.
+ */
 function standardizeLefts (rawLefts){
 //standardize left turns
 	var sLefts = null;
@@ -238,20 +274,22 @@ function standardizeLefts (rawLefts){
 		alert("no standard left turns, " + rawLefts);
 	}
 
-	// console.log("standardized left turns: " + sLefts);
 	return sLefts;
 }
 
 
+/* Standardizes speed.
+ * cutoffs are made using my best judgement and can
+ * be updated.
+ */
 function standardizeSpeed (rawSpeed){
-//standardize left turns
 	var sSpeed = null;
 
 	if (rawSpeed <= 20) { 
 		sSpeed = 5;
-	} else if ( rawSpeed > 20 && rawSpeed <= 25 ) { 
+	} else if ( rawSpeed > 20 && rawSpeed < 25 ) { 
 		sSpeed = 4;
-	} else if ( rawSpeed > 25 && rawSpeed < 27 ) { 
+	} else if ( rawSpeed >= 25 && rawSpeed < 27 ) { 
 		sSpeed = 3;
 	} else if ( rawSpeed >= 27 && rawSpeed < 29 ) { 
 		sSpeed = 2;
@@ -261,47 +299,57 @@ function standardizeSpeed (rawSpeed){
 		alert("no standard left turns, " + rawSpeed);
 	}
 
-	// console.log("standardized speed: " + sSpeed);
 	return sSpeed;
 }
 
 
-//weighting system
-function weightDistance(rd, weight) {
+/* The following functions weight each of the variables when 
+ * a user updates the relative weighting.  This process ensures
+ * that scores will always be out of 100 for a given route.
+ */
+function weightDistance(rd, weight, tw) {
 	weight = parseInt(weight);
 	for (var i = 0; i < Object.keys(rd).length; i++) {
-		rd[i].sDistance = standardizeDistance(rd[i].distance, rd[i].mostDirectDistance) * weight;
+		rd[i].sDistance = parseInt((standardizeDistance(rd[i].distance, rd[i].mostDirectDistance) * weight * (20/tw)).toPrecision(3));
 	}
 }
 
 
-function weightElevation(rd, weight) {
+function weightElevation(rd, weight, tw) {
 	weight = parseInt(weight);
 	for (var i = 0; i < Object.keys(rd).length; i++) {
-		rd[i].sElevation = standardizeElevation(rd[i].elevation) * weight;
+		rd[i].sElevation = parseInt((standardizeElevation(rd[i].elevation) * weight * (20/tw)).toPrecision(3));
 	}
 }
 
 
-function weightLeft(rd, weight) {
+function weightLeft(rd, weight, tw) {
 	weight = parseInt(weight);
 	for (var i = 0; i < Object.keys(rd).length; i++) {
-		rd[i].sLeftTurns = standardizeLefts(rd[i].leftTurns) * weight;
+		rd[i].sLeftTurns = parseInt((standardizeLefts(rd[i].leftTurns) * weight * (20/tw)).toPrecision(3));
 	}
 }
 
 
-function weightSpeed(rd, weight) {
+function weightSpeed(rd, weight, tw) {
 	weight = parseInt(weight);
 	for (var i = 0; i < Object.keys(rd).length; i++) {
-		rd[i].sAverageSpeed = standardizeSpeed(rd[i].averageSpeed) * weight;
+		rd[i].sAverageSpeed = parseInt((standardizeSpeed(rd[i].averageSpeed) * weight * (20/tw)).toPrecision(3));
 	}
 }
 
 
-
-
-
+/* Function ensures that all catergories will be updated
+ * when a weight for a particular variable is updated.
+ */
+function weightAndUpdate() {
+	console.log("total weight" + totalWeight());
+	weightSpeed(routeDict, sWeight, totalWeight());
+	weightDistance(routeDict, dWeight, totalWeight());
+	weightElevation(routeDict, eWeight, totalWeight());
+	weightLeft(routeDict, lWeight, totalWeight());
+	showStandardData(routeDict);
+}
 
 
 
@@ -334,9 +382,17 @@ function showRawData (routeDictionary) {
 		directness = directness.toPrecision(3);
 		var fixedRouteId = i + 1; //so no route 0
 		//adds a string of data that will be pushed to the popup table
-		html2 += "<tr id=tableRow"+r.id+"><td class='rowid'>" + fixedRouteId + "</td><td>" + r.distance +  "</td><td>" + directness + "</td><td>" + r.leftTurns + "</td><td>" + r.elevation + "</td><td>" + r.averageSpeed + "</td></tr>";
+		html2 += "<tr id=tableRow"+r.id+"><td class='rowid'>" + fixedRouteId + "</td><td>" + r.distance +  "</td><td>" + directness + "</td><td>" + r.leftTurns + "</td><td>" + r.eGain + "</td><td>" + r.eLoss + "</td><td>" + r.averageSpeed + "</td></tr>";
 	}
 	$("#raw_info").html(html2);
+}
+
+function drawSavedRoutes (routeDictionary) {
+		routeDict = routeDictionary;
+	for (var i = 0; i < Object.keys(routeDictionary).length; i++) {
+		routeDictionary.polyline.addTo(Map);
+	}
+	showRouteDict(routeDict);
 }
 
     

@@ -14,6 +14,9 @@
 
 }
 
+
+
+
 #tableElements {
     bottom: 0;
     display: table;
@@ -24,7 +27,7 @@
 
 
 .tablebutton {
-    height:30px;
+    height:35px;
     width: 100%;
     position: relative;
     background: rgba(255,255,255, .8);
@@ -46,16 +49,16 @@
 #results {
     position: relative;
     left: 50%;
-    font-size: 30px;
+    font-size: 40px;
 }
 
 /*buttons and hover on desktop*/
 .login {
    background-image: url('/static/img/loginhover.png');
-   height: 110px;
-   width: 110px;
-   border:none;
+   height: 100px;
+   width: 100px;
    position:relative;
+   bottom: 5%;
    margin-left: -12px;
 }
 
@@ -65,11 +68,11 @@
 
 .signup {
    background-image: url('/static/img/signuphover.png');
-   height: 110px;
-   width: 110px;
+   height: 100px;
+   width: 100px;
    border: none;
    position:relative;
-   margin-left: -12px;
+   bottom: 5%;
 }
 
 .signup:hover {
@@ -87,7 +90,6 @@ body {
 h1 {
     font-family: 'porter_sans_blockblock';
     color: #434343;;
-    color: #434343;
 }
 
 
@@ -97,7 +99,6 @@ select:focus {outline:0;}
 
 
 #projectName {
-    margin-top: 50px;
     display: inline-block;
     margin-left: 5px;
 }
@@ -109,7 +110,7 @@ select:focus {outline:0;}
 
 
 #topBar {
-    height:120px;
+    height:80px;
     text-align: left;
     vertical-align: middle;
 /*    margin-top: 40px;*/
@@ -129,22 +130,22 @@ select:focus {outline:0;}
 
 #signup {
     font-family: 'porter_sans_blockblock';
-    left: 75%;
+    left: 80%;
     z-index: 1000;
     position:absolute;
 }
 
 #login{
-    left: 85%;
+    left: 89%;
     z-index: 1000;
     position:absolute;
 }
 
 #add-route {
-    left: 15px;
+    left: 0;
     z-index: 1000;
     position:absolute;
-    top:25%;
+    top:12%;
 }
 
 
@@ -171,7 +172,7 @@ th {
     background-color: #bcbcbc;
     font-family: 'Heiti SC';
     color: #434343;
-    opacity:.8;
+    opacity:.9;
     font-size: 14px;
     padding: 1%;
 }
@@ -196,23 +197,22 @@ td {
 .weighting {
     display: inline-block;
     position:relative;
-    height: 100%;
     background-color: #bcbcbc;
     text-align: center;
     color:white;
-    border-radius: 20px;
+    border-radius: 0;
     border:none;
-    font-size: 30px;
+    font-size: 14px;
     list-style: none;
     -webkit-border: 0;
-    -webkit-appearance:none;
+    font-family: 'Heiti SC';
+    /*-webkit-appearance:none;*/
 
 }
 
 #weight {
     background-color: #bcbcbc;
-    opacity:.8;
-    font-size: 10px;
+    opacity:.9;
 }
 
 .caption{
@@ -220,7 +220,7 @@ td {
     background-color: white;
     font-family: 'Heiti SC';
     height:24px;
-    opacity:.8;
+    opacity:.9;
     font-size: 20px;
     width: 100%
     vertical-align: middle;
@@ -229,49 +229,54 @@ td {
 
 
 /*adds colors to specific lines in table*/
+#weight:hover {
+    background-color: #bcbcbc;
+    opacity:1;
+}
+
 #tableRow0 {
       background-color: #4AA0D3;
-      opacity:.8;
+      opacity:.9;
 }
 
 #tableRow1 {
       background-color: #2C9359;
-      opacity:.8;
+      opacity:.9;
 }
 
 #tableRow2 {
       background-color: #9BB31C;
-      opacity:.8;
+      opacity:.9;
 }
 
 #tableRow3 {
       background-color: #4BBCA1;
-      opacity:.8;
+      opacity:.9;
 }
 
 #tableRow4 {
       background-color: #B3A81D;
-      opacity:.8;
+      opacity:.9;
 }
 
 #tableRow5 {
       background-color: #31938B;
-      opacity:.8;
+      opacity:.9;
 }
 
 #tableRow6 {
       background-color: #4AD35A;
-      opacity:.8;
+      opacity:.9;
 }
 
 #tableRow7 {
       background-color: #99C946;
-      opacity:.8;
+      opacity:.9;
 }
 
 #tableRow8 {
       background-color: #ABE345;
-      opacity:.8;
+      opacity:.9;
 }
 
 
@@ -310,7 +315,7 @@ td {
     font-family: 'Heiti SC';
     opacity:.8;
     height: 300px;
-    margin-top: 10%;
+    margin-top: 3%;
     vertical-align: center;
     text-align: center;
 }
@@ -324,13 +329,101 @@ td {
 }
 
 
-
+/*
 select {
     -webkit-border: 0;
-}
+    outline: none;
+    cursor: pointer;
+     padding: 10px;
+    margin: 0 auto;
+}*/
+
+
 
 
 a {
     text-decoration: none;
 }
 
+
+/*
+
+.nav {
+    width:100%;
+    display:block;
+    background-color:white;
+    }
+ 
+.nav ul {
+    padding:0;
+    margin:0;
+    list-style: none;
+    position: relative;
+    }
+ 
+.nav ul:After {
+    content: "";
+    display:block;
+    clear:both;
+    }    
+ 
+.nav ul li {
+    display:list-item;
+    list-style: none;
+    float:left;
+    background-color:white;
+    }
+ 
+ .nav ul li i {
+     font-size:25px;
+     width:30px;
+     } 
+
+/* The Dropdown Styles */
+
+/* Hide Dropdowns by Default */
+/*/*.nav ul ul {
+    display: none;
+    position: absolute;
+}
+ 
+/* Display Dropdowns on Hover */
+/*.nav ul li:hover > ul {
+    display:list-item;
+}*/
+ 
+/* Fisrt Tier Dropdown */
+/*.nav ul ul li {
+    width:200px;
+    float:none;
+    position: relative;
+    border-bottom:none;
+}
+ 
+.nav ul ul li i {
+    margin-right:10px;
+    }
+ 
+.nav ul ul li a {
+    padding:15px 20px;
+    text-align:left;
+    }*/
+ 
+/* Second, Third and more Tiers */
+/*nav ul ul ul li {
+    position: absolute relative;
+    top:-79px;
+    left:200px;
+}
+
+.nav li > a:after { content: ' »'; }
+ 
+.nav > li > a:after {content: ' »'; }
+ 
+.nav li > a:only-child:after {content: ''; }
+
+.nav ul .active {
+    color:#FFF;
+}*/
+*/
+*/*/

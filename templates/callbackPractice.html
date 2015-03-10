@@ -1,11 +1,75 @@
-<!DOCTYPE html>
-<html>
-<head>
-    
-  <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
-  <script src="/static/callbackPractice.js"></script>
-</head>
-<body>
+
+{% extends 'base.html' %}
+{% block body %}
+	<script src="http://d3js.org/d.v3.js"></script>
+	 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" rel="stylesheet">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+
     HELLO
-</body>
-</html>
+
+
+<nav class="nav">
+  <ul>
+    <li><i class="fa fa-folder fa-2x"></i>
+        <ul>
+           <li id="test" value="5"><i class="fa fa-bicycle"></i></li>
+           <li value="7"><i class="fa fa-bicycle"></i><i class="fa fa-bicycle"></i></li>
+        </ul>
+    </li>
+    </ul>
+</nav>
+
+<br>
+<br>
+<br>
+<br>
+<td><nav class="nav"><ul><li><i class="fa fa-folder fa-2x"></i><ul><li id="d1" value='1'> <i class="fa fa-bicycle"></i> </li><li id="d2" value='2'> <i class="fa fa-bicycle"></i><i class="fa fa-bicycle"></i> </li><li id="d3" value='3'><i class="fa fa-bicycle"></i><i class="fa fa-bicycle"></i><i class="fa fa-bicycle"></i></li></ul></li></ul></nav></td>
+
+<td><nav name='lWeight' class="nav" id='lWeight' ><ul><li><i class="fa fa-folder fa-2x"></i><ul><li id="l1" value='1'><i class="fa fa-bicycle"></i></li><li id="l2" value='2'><i class="fa fa-bicycle"></i><i class="fa fa-bicycle"></i></li><li id="l3" value='3'><i class="fa fa-bicycle"></i><i class="fa fa-bicycle"></i><i class="fa fa-bicycle"></i></li></ul></li></ul></nav></td>
+
+<td><nav name='eWeight' class="nav" id='eWeight'><ul><li><i class="fa fa-folder fa-2x"></i><ul><li id="e1" value='1'><i class="fa fa-bicycle"></i></li><li id="e2" value='2'><i class="fa fa-bicycle"></i><i class="fa fa-bicycle"></i></li><li id="e3" value='3'><i class="fa fa-bicycle"></i><i class="fa fa-bicycle"></i><i class="fa fa-bicycle"></i></li></ul></li></ul></nav></td>
+
+<td><nav name='sWeight' class="nav" id='sWeight'><ul><li><i class="fa fa-folder fa-2x"></i><ul><li id="s1" value='1'><i class="fa fa-bicycle"></i></li><li id="s2" value='2'><i class="fa fa-bicycle"></i><i class="fa fa-bicycle"></i></li><li id="s3" value='3'><i class="fa fa-bicycle"></i><i class="fa fa-bicycle"></i><i class="fa fa-bicycle"></i></li></ul></li></ul></nav></td>
+
+
+
+
+<script>
+var dWeight = 10;
+var totalWeight = 10 + dWeight;
+
+$('#d1').on("click", function () {
+	dWeight = 1;
+	console.log("dwiehgt" + dWeight);
+	console.log("totalWeight" + totalWeight);
+})
+
+$('#d2').on("click", function () {
+	dWeight = 2;
+	console.log("dwiehgt" + dWeight);
+	console.log("totalWeight" + totalWeight);
+})
+
+$('#d3').on("click", function () {
+	dWeight = 3;
+	console.log("dwiehgt" + dWeight);
+	console.log("totalWeight" + totalWeight);
+})
+
+</script>
+
+
+
+    <svg>
+    	<circle cx="200" cy="100" r="20"></circle>
+    </svg>
+
+<script>
+	var circle = d3.selectAll("circle");
+	circle.attr("r", 50);
+
+</script>
+{% endblock %}

@@ -74,38 +74,31 @@ $('.tablebutton').on("click", function () {
 
 
 
+
 //event changes for dropdown menus
 $("#sWeight").on("change", function () {
-		var weight = $("#sWeight").val();
-		console.log("speed weight" + weight);
-		weightSpeed(routeDict, weight);
-		showStandardData(routeDict);
+	sWeight = parseInt($("#sWeight").val());
+	weightAndUpdate();
 
 });
 
 
 $("#dWeight").on("change", function () {
-	var weight = $("#dWeight").val();
-	console.log("distance raw weight" + weight);
-	weightDistance(routeDict, weight);
-	showStandardData(routeDict);
+	dWeight = parseInt($("#dWeight").val());
+	weightAndUpdate();
 });
 
 
 
 $("#eWeight").on("change", function () {
-		var weight = $("#eWeight").val();
-		console.log("elevation weight" + weight);
-		weightElevation(routeDict, weight);
-		showStandardData(routeDict);
+		eWeight = parseInt($("#eWeight").val());
+		weightAndUpdate();
 });
 
 
 $("#lWeight").on("change", function () {
-	var weight = $("#lWeight").val();
-	console.log("lefts weight" + weight);
-	weightLeft(routeDict, weight);
-	showStandardData(routeDict);
+	lWeight = parseInt($("#lWeight").val());
+	weightAndUpdate();
 });
 
 

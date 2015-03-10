@@ -61,7 +61,7 @@ def process_login():
 
 
 
-@app.route('/', methods=["POST"])
+@app.route('/', methods=["POST", "GET"])
 def callback():
 	"""test for working on callbacks"""
 
@@ -77,4 +77,4 @@ def tests():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run( debug=True)

@@ -14,13 +14,19 @@ var routeDict = {};
 //stores state of table
 var tableopen = false;
 
+ var lWeight = 1;
+ var dWeight = 1;
+ var sWeight = 1;
+ var eWeight = 1;
 
-//constructor for a new line object
+ var totalWeight = function () {
+   return lWeight + dWeight + sWeight + eWeight;
+}
 
-/* Creates a line object 
- *
- *
- *
+
+
+
+/* constructor for a new line object
  */
 function line(id) {
 	this.id = id;
@@ -29,6 +35,8 @@ function line(id) {
 	this.polyline = L.polyline([], { color:lineColor, weight:5.5, opacity:.8 }).addTo(map);
 	this.waypoints = [];
 	this.elevation = null;
+	this.eGain = null;
+	this.eLoss = null;
 	this.distance = null;
 	this.mostDirectDistance = null;
 	this.averageSpeed = null;
@@ -41,6 +49,7 @@ function line(id) {
 	this.sLeftTurns = null;
 	this.sAverageSpeed = null;
 }
+
 
 
 var circleIcon = L.icon({
