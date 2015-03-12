@@ -411,6 +411,27 @@ function drawChart (rd) {
 //list which will contain lists of data from each line
 var routeList = []; 
 
+
+for (j = 0; j < Object.keys(rd).length; j++) {
+	xlist = [];
+	var xname = "x" + (rd[j].id + 1);
+	xlist.push(xname);
+	var fraction = 1.0 / (rd[j].elePoints.length - 1);
+	console.log("fraction" + fraction);
+	var value = 0;
+	console.log("wer here" + xlist);
+
+	for (i = 0; i < rd[j].elePoints.length; i++) {
+		xlist.push(value);
+		value += fraction;
+		console.log("xlist" + xlist);
+	}
+	routeList.push(xlist);
+	console.log(routeList);
+}
+
+
+
 for (j = 0; j < Object.keys(rd).length; j++) {
 	var name = "route" + (rd[j].id + 1);
 	var elevation = rd[j].elePoints;
@@ -430,7 +451,20 @@ for (j = 0; j < Object.keys(rd).length; j++) {
 var chart = c3.generate({
     bindto: '#echart',
     data: {
+    	xs: {
+            'route1': 'x1',
+            'route2': 'x2',
+            'route3': 'x3',
+            'route4': 'x4',
+            'route5': 'x5',
+            'route6': 'x6',
+            'route7': 'x7',
+            'route8': 'x8',
+            'route9': 'x9',
+        },
+
       columns: routeList,
+      
       colors: {
       	route1: '#4AA0D3',
       	route2: '#2C9359',

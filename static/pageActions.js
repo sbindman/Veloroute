@@ -39,6 +39,7 @@ $('#table_open').on( "click", function () {
 	} else {
 		$('.show-standard-data').css("color", "#434343");
 		$('.show-raw-data').css("color", "#434343");
+		$('.eChart').css("color", "#434343");
 		$('#rTable').hide();
 		$('#sTable').hide();
 		$('#close').hide();
