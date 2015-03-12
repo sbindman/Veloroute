@@ -22,6 +22,7 @@ $(document).ready(function () {
 	$('.show-raw-data').hide();
 	$('.show-standard-data').hide();
 	$('#close').hide();
+	$('#chart').hide();
 
 });
 //show standard table when click open table
@@ -43,17 +44,28 @@ $('#table_open').on( "click", function () {
 		$('#close').hide();
 		$('.show-raw-data').hide();
 		$('.show-standard-data').hide();
+		$('#chart').hide();
 		$('#results').html('<i class="fa fa-angle-double-up"></i>');
 		tableopen = false;
 	}
 });
 
+$(".eChart").on("click", function () {
+	$('.eChart').css("color", "#3585a3");
+	$('.show-standard-data').css("color", "#434343");
+	$('.show-raw-data').css("color", "#434343");
+	$('#sTable').hide();
+	$('#rTable').hide();
+	$("#chart").show();
+});
 
 //show raw data
 $('.show-raw-data').click( function () {
 	$('.show-raw-data').css("color", "#3585a3");
 	$('.show-standard-data').css("color", "#434343");
+	$('.eChart').css("color", "#434343");
 	$('#sTable').hide();
+	$("#chart").hide();
 	$('#rTable').show();
 });
 
@@ -61,8 +73,10 @@ $('.show-raw-data').click( function () {
 $('.show-standard-data').click( function () {
 	$('.show-standard-data').css("color", "#3585a3");
 	$('.show-raw-data').css("color", "#434343");
-	$('#sTable').show();
+	$('.eChart').css("color", "#434343");
+	$("#chart").hide();
 	$('#rTable').hide();
+	$('#sTable').show();
 });
 
 
@@ -103,6 +117,7 @@ $("#lWeight").on("change", function () {
 
 
 
+
 // if ( $('#session').innerHTML != undefined ){
 // 	$('#login').hide();
 // 	$('#signup').hide();
@@ -110,15 +125,3 @@ $("#lWeight").on("change", function () {
 
 // $('#logout').on("click", function)
 
-
-// $('#table_close').on( "click", function () {
-// 	$('#table_close').popup('hide');
-// });
-
-
-// $("#routes").on("click", showRouteDict);
-
-//remove route
-//$("#remove-route").on("click", deleteLine);
-
-//$("tableid").css('background-color', color);

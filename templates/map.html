@@ -5,7 +5,7 @@
 
 <body>
   <div id="topBar">
-    <div id="projectName"><h1></h1>
+    <div id="projectName"><h1><img src="https://i.imgflip.com/ioyvo.gif" title="made at imgflip.com"/></h1>
 
 
 
@@ -17,7 +17,6 @@
 
 <!--     <button id="logout" class="button">Logout</button><br> -->
     <div id="add-route"><img src="static/img/addroute.png" /></div><br>
-<!--     <div class="table_open" id="table_open"></div><br> -->
   </div>
 
   <div id="tableElements">
@@ -27,7 +26,7 @@
 <!-- standard table -->
        <div id="sTableDiv" class="modal">
           <table class="table" id="sTable">
-            <caption class='caption'><span class="show-raw-data">raw data |</span><span class="show-standard-data">| standardized data</span></caption>
+            <caption class='caption'><span class="show-raw-data">raw data | </span><span class="show-standard-data">| standardized data |</span><span class="eChart"> | elevation data</span></caption>
             <thead><tr><th>route id</th><th>directness of route</th><th>traffic crossings</th><th>elevation change</th><th>average speed limit</th><th> total score </th><tr><tr id="weight"><td > importance </td><td><select class='weighting' id='dWeight' name='dWeight'><option value='1'> low </option><option value='2'> medium </option><option value='3'> high </option></select></td><td><select name='lWeight' class='weighting' id='lWeight' ><option value='1'> low </option><option value='2'> medium </option><option value='3'> high </option></select></td><td><select name='eWeight' class='weighting' id='eWeight'><option value='1'> low </option><option value='2'> medium </option><option value='3'> high </option></select></td><td><select name='sWeight' class='weighting' id='sWeight'><option value='1'> low </option><option value='2'> medium </option><option value='3'> high </option></select></td><td></td></tr></thead>
 
             <!-- dynamically update this information -->
@@ -39,14 +38,27 @@
 <!-- raw table -->
        <div id="rTableDiv" class="modal">
           <table class="table" id="rTable">
-            <caption class='caption'><span class="show-raw-data">raw data |</span><span class="show-standard-data">| standardized data</span></caption>
+            <caption class='caption'><span class="show-raw-data">raw data | </span><span class="show-standard-data">| standardized data |</span><span class="eChart"> | elevation data</span></caption>
             <thead><tr><th>route id</th><th>total distance (meters)</th><th> directness of route(%)</th><th>traffic crossings</th><th>elevation gain (meters)</th><th>elevation loss (meters)</th><th> average speed limit (mph)</th><tr></thead>
             <!-- dynamically update this information -->
             <tbody id="raw_info"></tbody>
 
           </table>
       </div>
+
+
+       <!-- elevation data table -->
+       <div id="chart" class="modal">
+        <table class="table">
+            <caption class='caption'><span class="show-raw-data">raw data | </span><span class="show-standard-data">| standardized data |</span><span class="eChart"> | elevation data</span></caption>
+            <tbody>
+              <tr><td><div id="echart"></div></td></tr>
+            </tbody>
+        </table>
+      </div>
+
     </div>
+
 
       <!-- set up the map -->
       <div id='map'></div>

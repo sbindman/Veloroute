@@ -22,6 +22,7 @@ function startNewLine(rNum) {
 	).done(function (firstResponse, secondResponse, thirdResponse, fourthResponse) {
 			routeDict[route1.id].distance = firstResponse[0]; 
 			routeDict[route1.id].leftTurns = firstResponse[1];
+			routeDict[route1.id].elePoints = secondResponse;
 			routeDict[route1.id].elevation = netElevation(secondResponse)[0];
 			routeDict[route1.id].eGain = netElevation(secondResponse)[1];
 			routeDict[route1.id].eLoss = netElevation(secondResponse)[2];
@@ -32,6 +33,7 @@ function startNewLine(rNum) {
 			routeDict[route1.id].sLeftTurns = standardizeLefts(firstResponse[1]);
 			routeDict[route1.id].sElevation = standardizeElevation(netElevation(secondResponse)[0]);
 			routeDict[route1.id].sAverageSpeed = standardizeSpeed(avgSpeed(fourthResponse));
+
 		
 			
 			console.log("ENDING LINE");
@@ -42,6 +44,7 @@ function startNewLine(rNum) {
 			weightAndUpdate();
 			showStandardData(routeDict);
 			showRawData(routeDict);
+			drawChart(routeDict);
 
 			//highlight table after data
 			$('.tablebutton').toggleClass("invert");
@@ -385,14 +388,76 @@ function showRawData (routeDictionary) {
 		html2 += "<tr id=tableRow"+r.id+"><td class='rowid'>" + fixedRouteId + "</td><td>" + r.distance +  "</td><td>" + directness + "</td><td>" + r.leftTurns + "</td><td>" + r.eGain + "</td><td>" + r.eLoss + "</td><td>" + r.averageSpeed + "</td></tr>";
 	}
 	$("#raw_info").html(html2);
+
 }
 
-function drawSavedRoutes (routeDictionary) {
+
+
+function drawSavedRoutes (routeDictionary,routenumber) {
 		routeDict = routeDictionary;
 	for (var i = 0; i < Object.keys(routeDictionary).length; i++) {
-		routeDictionary.polyline.addTo(Map);
+		var route = startNewLine(routenumber);
+		route.polyline = 5; //this needs to be reworked
 	}
 	showRouteDict(routeDict);
+}
+
+
+
+//makes chart -- this should be moved to a different place
+
+
+function drawChart (rd) {
+//list which will contain lists of data from each line
+var routeList = []; 
+
+for (j = 0; j < Object.keys(rd).length; j++) {
+	var name = "route" + (rd[j].id + 1);
+	var elevation = rd[j].elePoints;
+	var dataList = [];
+	dataList.push(name);
+
+	for (i = 0; i < elevation.length; i++) {
+		if  (elevation[i] != undefined) {
+			dataList.push(elevation[i].toPrecision(3));
+		}
+	}
+	routeList.push(dataList);
+	console.log(routeList);
+}
+
+
+var chart = c3.generate({
+    bindto: '#echart',
+    data: {
+      columns: routeList,
+      colors: {
+      	route1: '#4AA0D3',
+      	route2: '#2C9359',
+      	route3: '#9BB31C',
+      	route4: '#4BBCA1',
+      	route5: '#B3A81D',
+      	route6: '#31938B',
+      	route7: '#4AD35A',
+      	route8: '#99C946',
+      	route9: '#ABE345'
+      }
+    },
+    axis: {
+    	y: {
+    		label: {
+    			text: "elevation (meters)",
+    			position: "outer-middle"
+    		}
+    	},
+    	x: {
+    		tick: {
+    			values: ["route origin"]
+    		}
+    	}
+    }
+});
+
 }
 
     
