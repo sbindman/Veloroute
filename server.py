@@ -16,6 +16,13 @@ def index():
 
 
 
+@app.route('/testing')
+def testing():
+    """Show our index page."""
+    return render_template("testing.html")
+
+
+
 @app.route('/sign_up', methods=["GET", "POST"])
 def process_signup():
 	"""Show users ability to sign up or login"""

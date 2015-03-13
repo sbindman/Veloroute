@@ -6,18 +6,36 @@
 <body>
   <div id="topBar">
     <div id="projectName"><h1><img src="https://i.imgflip.com/ioyvo.gif" title="made at imgflip.com"/></h1>
-
-
-
-</div>
+    </div>
       <a href="/login" id="login" class="login"></a>
       <a href="/sign_up" id="signup" class="signup"></a>
-  </div><br>
-  <div id="leftBar">
-
-<!--     <button id="logout" class="button">Logout</button><br> -->
-    <div id="add-route"><img src="static/img/addroute.png" /></div><br>
+      <span id="about_button" class="signup"></span>
+      <span id="help_button" class="signup"></span>
   </div>
+
+
+  <div id="leftBar">
+<!--     <button id="logout" class="button">Logout</button><br> -->
+    <div id="add-route"><img src="static/img/addroute.png" /></div>
+  </div>
+
+
+    <!-- about modal -->
+  <div id="about_table" class="info">
+    <h3>about section</h3>
+    <p>This explains the reasoning behind this project and general assumptions about this data etc.
+    </p>
+  </div>
+
+
+    <!-- help modal -->
+  <div id="help_table" class="info">
+    <h3>Help section</h3>
+    <p> this provides a general tutorial for how to use the website and how data is stored etc.
+    </p>
+  </div>
+
+
 
   <div id="tableElements">
 
@@ -39,7 +57,7 @@
        <div id="rTableDiv" class="modal">
           <table class="table" id="rTable">
             <caption class='caption'><span class="show-raw-data">raw data | </span><span class="show-standard-data">| standardized data |</span><span class="eChart"> | elevation data</span></caption>
-            <thead><tr><th>route id</th><th>total distance (meters)</th><th> directness of route(%)</th><th>traffic crossings</th><th>elevation gain (meters)</th><th>elevation loss (meters)</th><th> average speed limit (mph)</th><tr></thead>
+            <thead><tr><th>route id</th><th>total distance (meters)</th><th> directness of route(%)</th><th>traffic crossings</th><th>elevation <i class="fa fa-arrow-down"></i> (meters)</th><th>elevation loss (meters)</th><th> average speed limit (mph)</th><tr></thead>
             <!-- dynamically update this information -->
             <tbody id="raw_info"></tbody>
 
@@ -60,11 +78,13 @@
     </div>
 
 
+
+
       <!-- set up the map -->
       <div id='map'></div>
         <script>
         L.mapbox.accessToken = 'pk.eyJ1Ijoic2JpbmRtYW4iLCJhIjoiaENWQnlrVSJ9.0DQyCLWgA0j8yBpmvt3bGA';
-        var map = L.mapbox.map('map', 'sbindman.719fd15d', {zoomControl: false}).setView([37.78, -122.44], 14); 
+        var map = L.mapbox.map('map', 'sbindman.719fd15d', {zoomControl: false}).setView([37.78, -122.45], 14); 
        // map.doubleClickZoom.disable();
         new L.Control.Zoom({ position: 'bottomright' }).addTo(map);
         </script>
@@ -72,10 +92,12 @@
 
   
 <!-- js files -->
-  <script src="/static/definitions.js"></script>
-  <script src="/static/apiModel.js"></script>
-  <script src="/static/functionality.js"></script>
-  <script src="/static/pageActions.js"></script>
+  <script src="/static/js/definitions.js"></script>
+  <script src="/static/js/apiModel.js"></script>
+  <script src="/static/js/functionality.js"></script>
+  <script src="/static/js/calculations.js"></script>
+  <script src="/static/js/displaydata.js"></script>
+  <script src="/static/js/pageActions.js"></script>
   
   <!-- testing -->
   <script src="/static/jasmine/dist/lib/jasmine-2.0.0/jasmine.js"></script>
@@ -83,8 +105,7 @@
   <script src="/static/jasmine/dist/lib/jasmine-2.0.0/boot.js"></script>
    
   <!-- turn on to run tests -->
-<!--  
-  <script src="/static/test-specs.js"></script> -->
+  <script  src="/static/test-specs.js"></script>
 
 
 </body>

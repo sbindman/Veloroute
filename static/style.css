@@ -15,7 +15,11 @@
 }
 
 
-
+#spinner {
+  font-size: 80px;
+  margin: 25px;
+  color:#3585a3;
+}
 
 #tableElements {
     bottom: 0;
@@ -363,7 +367,7 @@ a {
 }
 
 #tdchart {
-  width:200px.,;
+  width:200px;
 }
 
 
@@ -414,4 +418,16 @@ a {
     z-index: 1000;
     position:relative;
     width:100%;
+}
+
+.about {
+    z-index: 1000;
+    position:fixed;
+    width:40%;
+    height:100px;
+    bottom: 0;
+    display: inline-block;
+    background-color: red;
+    color:orange;
+
 }
