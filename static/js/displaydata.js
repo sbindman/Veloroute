@@ -1,32 +1,30 @@
-//display information
+/* displays standard information about each route */
 function showStandardData (routeDictionary) {
 	//shows standard data
-
-	var html2 = "";
+	var html = "";
 
 	for (var i = 0; i < Object.keys(routeDictionary).length; i++) {
 		var r = routeDictionary[i];
-		var fixedRouteId = i + 1; //so no route 0
+		var fixedRouteId = i + 1; //so no route 0 (UX)
 		var totalScore = r.sDistance + r.sLeftTurns + r.sElevation + r.sAverageSpeed;
-		//adds a string of data that will be pushed to the popup table
-		html2 += "<tr id=tableRow" + r.id +"><td class='rowid'>" + fixedRouteId + "</td><td>" + r.sDistance + "</td><td>" + r.sLeftTurns + "</td><td>" + r.sElevation + "</td><td>" + r.sAverageSpeed + "</td><td>" + totalScore + "</td></tr>";
+		//adds a string of data that will be pushed to the standard data table
+		html += "<tr id=tableRow" + r.id +"><td class='rowid'>" + fixedRouteId + "</td><td>" + r.sDistance + "</td><td>" + r.sLeftTurns + "</td><td>" + r.sElevation + "</td><td>" + r.sAverageSpeed + "</td><td>" + totalScore + "</td></tr>";
 	}
-	html2 += "";
-	$("#table_route_info").html(html2);
+	html += "";
+	$("#table_route_info").html(html);
 }
 
 
-
+/* displays raw information about each route */
 function showRawData (routeDictionary) {
-	//shows raw data
 	var html2 = "";
 
 	for (var i = 0; i < Object.keys(routeDictionary).length; i++) {
 		var r = routeDictionary[i];
 		var directness = 100*(r.mostDirectDistance/r.distance);
 		directness = directness.toPrecision(3);
-		var fixedRouteId = i + 1; //so no route 0
-		//adds a string of data that will be pushed to the popup table
+		var fixedRouteId = i + 1; //so no route 0 (UX)
+		//adds a string of data that will be pushed to the raw data table
 		html2 += "<tr id=tableRow"+r.id+"><td class='rowid'>" + fixedRouteId + "</td><td>" + r.distance +  "</td><td>" + directness + "</td><td>" + r.leftTurns + "</td><td>" + r.eGain + "</td><td>" + r.eLoss + "</td><td>" + r.averageSpeed + "</td></tr>";
 	}
 	$("#raw_info").html(html2);
@@ -34,26 +32,13 @@ function showRawData (routeDictionary) {
 }
 
 
-
-function drawSavedRoutes (routeDictionary,routenumber) {
-		routeDict = routeDictionary;
-	for (var i = 0; i < Object.keys(routeDictionary).length; i++) {
-		var route = startNewLine(routenumber);
-		route.polyline = 5; //this needs to be reworked
-	}
-	showRouteDict(routeDict);
-}
-
-
-
-//makes chart -- this should be moved to a different place
-
-
+/* creates the elevation chart
+ * this requires creating a dummy x axis
+*/
 function drawChart (rd) {
-//list which will contain lists of data from each line
 var routeList = []; 
 
-
+//creates a dummy x-axis
 for (j = 0; j < Object.keys(rd).length; j++) {
 	xlist = [];
 	var xname = "x" + (rd[j].id + 1);
@@ -66,10 +51,7 @@ for (j = 0; j < Object.keys(rd).length; j++) {
 		value += fraction;
 	}
 	routeList.push(xlist);
-	console.log(routeList);
 }
-
-
 
 for (j = 0; j < Object.keys(rd).length; j++) {
 	var name = "route" + (rd[j].id + 1);
@@ -78,12 +60,11 @@ for (j = 0; j < Object.keys(rd).length; j++) {
 	dataList.push(name);
 
 	for (i = 0; i < elevation.length; i++) {
-		if  (elevation[i] != undefined) {
+		if  (elevation[i] !== undefined) {
 			dataList.push(elevation[i].toPrecision(3));
 		}
 	}
 	routeList.push(dataList);
-	console.log(routeList);
 }
 
 

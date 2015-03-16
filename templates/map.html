@@ -15,28 +15,36 @@
 
 
   <div id="leftBar">
-<!--     <button id="logout" class="button">Logout</button><br> -->
     <div id="add-route"><img src="static/img/addroute.png" /></div>
   </div>
 
 
     <!-- about modal -->
   <div id="about_table" class="info">
-    <h3>about section</h3>
-    <p>This explains the reasoning behind this project and general assumptions about this data etc.
+    <br>
+    <span class="helptitle">about</span>
+    <p class="description">veloroute is a tool which can be used to evaluate proposed bike route alternatives.  the application allows the user to add potential routes to the map, and compare them with the click of a button.
     </p>
+    <span class="helptitle">data assumptions</span>
+    <p><span class="blue"> distance </span>: distance data came from mapbox's directions api. </p>
   </div>
 
 
     <!-- help modal -->
   <div id="help_table" class="info">
-    <h3>Help section</h3>
-    <p> this provides a general tutorial for how to use the website and how data is stored etc.
+    <br>
+    <span class="helptitle">getting started</span>
+      <p> <img id="plusimage" src="static/img/addroute.png" width="50px" height="50px"/>select the plus symbol to begin adding a new route to your analysis.  click to add additional waypoints.  markers can be adjusted to define your route.  <span class="blue"> double click </span> to end a route.  routes cannot be adjusted after completion. for best results <span class="blue"> draw slowly </span>. if no route is drawn between markers, <span class="blue" > try adjusting the markers </span>.
+    <br>
     </p>
+    <p><i id="resultsdemo" class="fa fa-angle-double-up"></i>
+      once you have added all of the routes you care to analyze, click the blue chevron symbol to bring up the results.  toggle between the <span class="blue"> raw data, standardized data, and elevation data tabs </span> to view different summary data.  it is possible to adjust the variable weights according to your perceived level of importance by selecting the <span class="blue"> dropdown marked "importance" </span> on that standardized data tab.
+    </p>
+    
   </div>
 
 
-
+<!-- elements that holds all of the information tables -->
   <div id="tableElements">
 
       <div id="table_open" class="tablebutton"> <span id="results"><i class="fa fa-angle-double-up"></i></span></div>
@@ -45,7 +53,7 @@
        <div id="sTableDiv" class="modal">
           <table class="table" id="sTable">
             <caption class='caption'><span class="show-raw-data">raw data | </span><span class="show-standard-data">| standardized data |</span><span class="eChart"> | elevation data</span></caption>
-            <thead><tr><th>route id</th><th>directness of route</th><th>traffic crossings</th><th>elevation change</th><th>average speed limit</th><th> total score </th><tr><tr id="weight"><td > importance </td><td><select class='weighting' id='dWeight' name='dWeight'><option value='1'> low </option><option value='2'> medium </option><option value='3'> high </option></select></td><td><select name='lWeight' class='weighting' id='lWeight' ><option value='1'> low </option><option value='2'> medium </option><option value='3'> high </option></select></td><td><select name='eWeight' class='weighting' id='eWeight'><option value='1'> low </option><option value='2'> medium </option><option value='3'> high </option></select></td><td><select name='sWeight' class='weighting' id='sWeight'><option value='1'> low </option><option value='2'> medium </option><option value='3'> high </option></select></td><td></td></tr></thead>
+            <thead><tr><th>route id</th><th>directness of route</th><th>traffic crossings</th><th>elevation change</th><th>average speed limit</th><th> total score </th><tr><tr id="weight"><td > importance </td><td><select class='weighting' id='dWeight' name='dWeight'><option value='1'> low </option><option value='2'> medium </option><option value='3'> high </option></select></td><td><select name='lWeight' class='weighting' id='lWeight' ><option value='1'> low </option><option value='2'> medium </option><option value='3'> high </option></select></td><td><select name='eWeight' class='weighting' id='eWeight'><option value='1'> low </option><option value='2'> medium </option><option value='3'> high </option></select></td><td><select name='sWeight' class='weighting' id='sWeight'><option value='1'> low </option><option value='2'> medium </option><option value='3'> high </option></select></td><td> /100 </td></tr></thead>
 
             <!-- dynamically update this information -->
             <tbody id="table_route_info"></tbody>
@@ -57,7 +65,7 @@
        <div id="rTableDiv" class="modal">
           <table class="table" id="rTable">
             <caption class='caption'><span class="show-raw-data">raw data | </span><span class="show-standard-data">| standardized data |</span><span class="eChart"> | elevation data</span></caption>
-            <thead><tr><th>route id</th><th>total distance (meters)</th><th> directness of route(%)</th><th>traffic crossings</th><th>elevation <i class="fa fa-arrow-down"></i> (meters)</th><th>elevation loss (meters)</th><th> average speed limit (mph)</th><tr></thead>
+            <thead><tr><th>route id</th><th>total distance<br>(meters)</th><th> directness of route<br>(%)</th><th>traffic crossings</th><th>elevation gain<br/>(meters)</th><th>elevation loss<br>(meters)</th><th> average speed limit<br>(mph)</th><tr></thead>
             <!-- dynamically update this information -->
             <tbody id="raw_info"></tbody>
 
@@ -85,6 +93,7 @@
         <script>
         L.mapbox.accessToken = 'pk.eyJ1Ijoic2JpbmRtYW4iLCJhIjoiaENWQnlrVSJ9.0DQyCLWgA0j8yBpmvt3bGA';
         var map = L.mapbox.map('map', 'sbindman.719fd15d', {zoomControl: false}).setView([37.78, -122.45], 14); 
+
        // map.doubleClickZoom.disable();
         new L.Control.Zoom({ position: 'bottomright' }).addTo(map);
         </script>
@@ -99,13 +108,7 @@
   <script src="/static/js/displaydata.js"></script>
   <script src="/static/js/pageActions.js"></script>
   
-  <!-- testing -->
-  <script src="/static/jasmine/dist/lib/jasmine-2.0.0/jasmine.js"></script>
-  <script src="/static/jasmine/dist/lib/jasmine-2.0.0/jasmine-html.js"></script>
-  <script src="/static/jasmine/dist/lib/jasmine-2.0.0/boot.js"></script>
-   
-  <!-- turn on to run tests -->
-  <script  src="/static/test-specs.js"></script>
+
 
 
 </body>

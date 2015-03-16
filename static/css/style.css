@@ -438,13 +438,39 @@ a {
     z-index: 1000;
     position:relative;
     width:40%;
-    height:300px;
-    left:60%;
-    top:80px;
+    height:350px;
+    left:53%;
+    top:82px;
     display: inline-block;
-    background-color: white;
-    color:orange;
+    background: rgba(255,255,255, .9);
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: 300;
+    padding:30px;
+    font-size: 12px;
 
+}
+
+
+
+#resultsdemo {
+  font-size: 30px;
+  color:#3585a3;
+  margin:27px;
+  float:left;
+}
+
+.blue {
+  color:#3585a3;
+  display:inline-block;
+  vertical-align:top;
+}
+
+#plusimage {
+  float:left;
+  margin:15px;
+}
+
+.helptitle {
+  font-weight: 600;
+  font-size: 14px;
 }

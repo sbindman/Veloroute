@@ -19,7 +19,7 @@ function netElevation(elevationPoints) {
 		 	currentEle = elevationPoints[i];
 		 }
 	 }
-	console.log("total elevation" + totalEle + "gain" + totalGain + "loss" + totalLoss);
+	// console.log("total elevation" + totalEle + "gain" + totalGain + "loss" + totalLoss);
 	totalGain = totalGain.toPrecision(3);
 	totalLoss = totalLoss.toPrecision(3);
 	totalEle = totalEle.toPrecision(3);
@@ -50,7 +50,7 @@ function avgSpeed(speedPoints) {
 	 	}
 	 }
 	var avg = totalSpeed/speedPoints.length;
-	console.log("average speed: " + avg);
+	// console.log("average speed: " + avg);
 	avg = avg.toPrecision(2);
 
 	return (avg);		
@@ -199,7 +199,7 @@ function weightSpeed(rd, weight, tw) {
 }
 
 
-/* Function ensures that all catergories will be updated
+/* Function ensures that all variable weights will be updated
  * when a weight for a particular variable is updated.
  */
 function weightAndUpdate() {

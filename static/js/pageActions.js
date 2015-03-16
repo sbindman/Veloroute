@@ -1,21 +1,18 @@
-//button that starts a new route
+//button that triggers the start of a new route
 $("#add-route").on("click", function() {
 	currentLine = startNewLine(routeNum);
-
 	$("#add-route").html('<img src="static/img/addrouteclicked.png" />');
 	$("#add-route").attr('disabled', 'disabled');
 });
 
 
 
-//add marker
+//button the triggers adding a marker
 map.on('click', addMarker);
 
 
-//popup
-//set popup
+//hide all tables on page load
 $(document).ready(function () {
-	// everything starts hidden
 	$('#logout').toggle();
 	$('#sTable').hide();
 	$('#rTable').hide();
@@ -30,7 +27,6 @@ $(document).ready(function () {
 
 
 //toggle opening of help/about tables
-
 $('#about_button').on("click", function() {
 	if (aboutOpen) {
 		$('#about_table').hide();
@@ -42,7 +38,6 @@ $('#about_button').on("click", function() {
 		helpOpen = false;
 	}
 });
-
 
 $('#help_button').on("click", function() {
 	if (helpOpen) {
@@ -56,11 +51,10 @@ $('#help_button').on("click", function() {
 	}
 });
 
-	
 
-
-
-//show standard table when click open table
+/* show raw data when click "show results" table 
+ * or if table is already open, close all tables
+ */
 $('#table_open').on( "click", function () {
 	if (tableopen === false) {
 		$('#sTable').hide();
@@ -86,6 +80,7 @@ $('#table_open').on( "click", function () {
 	}
 });
 
+//show elevation chart
 $(".eChart").on("click", function () {
 	$('.eChart').css("color", "#3585a3");
 	$('.show-standard-data').css("color", "#434343");
@@ -95,7 +90,7 @@ $(".eChart").on("click", function () {
 	$("#chart").show();
 });
 
-//show raw data
+//show raw data table
 $('.show-raw-data').click( function () {
 	$('.show-raw-data').css("color", "#3585a3");
 	$('.show-standard-data').css("color", "#434343");
@@ -105,7 +100,7 @@ $('.show-raw-data').click( function () {
 	$('#rTable').show();
 });
 
-//show standard data
+//show standardized data table
 $('.show-standard-data').click( function () {
 	$('.show-standard-data').css("color", "#3585a3");
 	$('.show-raw-data').css("color", "#434343");
@@ -116,20 +111,20 @@ $('.show-standard-data').click( function () {
 });
 
 
-//toggle color of results tab
+//toggle color of results tab when table is opened/closed
 $('.tablebutton').on("click", function () {
 	$('.tablebutton').toggleClass("invert");
-})
+});
 
 
 
-
-
-//event changes for dropdown menus
+/* buttons that allow a user to update variable  
+ * weights.  when a weighting is updated, all 
+ * variable scores should be updated
+ */
 $("#sWeight").on("change", function () {
 	sWeight = parseInt($("#sWeight").val());
 	weightAndUpdate();
-
 });
 
 
@@ -137,7 +132,6 @@ $("#dWeight").on("change", function () {
 	dWeight = parseInt($("#dWeight").val());
 	weightAndUpdate();
 });
-
 
 
 $("#eWeight").on("change", function () {
@@ -151,13 +145,4 @@ $("#lWeight").on("change", function () {
 	weightAndUpdate();
 });
 
-
-
-
-// if ( $('#session').innerHTML != undefined ){
-// 	$('#login').hide();
-// 	$('#signup').hide();
-// }
-
-// $('#logout').on("click", function)
 
