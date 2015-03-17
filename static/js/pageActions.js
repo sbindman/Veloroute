@@ -1,4 +1,5 @@
-//button that triggers the start of a new route
+/* button that triggers the start of a new route
+ */
 $("#add-route").on("click", function() {
 	currentLine = startNewLine(routeNum);
 	$("#add-route").html('<img src="static/img/addrouteclicked.png" />');
@@ -7,7 +8,8 @@ $("#add-route").on("click", function() {
 
 
 
-//button the triggers adding a marker
+/* button the triggers adding a marker
+ */
 map.on('click', addMarker);
 
 
@@ -26,7 +28,8 @@ $(document).ready(function () {
 });
 
 
-//toggle opening of help/about tables
+/* toggle opening of help/about tables
+ */
 $('#about_button').on("click", function() {
 	if (aboutOpen) {
 		$('#about_table').hide();
@@ -80,7 +83,8 @@ $('#table_open').on( "click", function () {
 	}
 });
 
-//show elevation chart
+/* show elevation chart
+ */
 $(".eChart").on("click", function () {
 	$('.eChart').css("color", "#3585a3");
 	$('.show-standard-data').css("color", "#434343");
@@ -90,7 +94,8 @@ $(".eChart").on("click", function () {
 	$("#chart").show();
 });
 
-//show raw data table
+/* show raw data table
+ */
 $('.show-raw-data').click( function () {
 	$('.show-raw-data').css("color", "#3585a3");
 	$('.show-standard-data').css("color", "#434343");
@@ -100,7 +105,8 @@ $('.show-raw-data').click( function () {
 	$('#rTable').show();
 });
 
-//show standardized data table
+/*show standardized data table
+ */
 $('.show-standard-data').click( function () {
 	$('.show-standard-data').css("color", "#3585a3");
 	$('.show-raw-data').css("color", "#434343");
@@ -111,7 +117,8 @@ $('.show-standard-data').click( function () {
 });
 
 
-//toggle color of results tab when table is opened/closed
+/*toggle color of results tab when table is opened/closed
+ */
 $('.tablebutton').on("click", function () {
 	$('.tablebutton').toggleClass("invert");
 });

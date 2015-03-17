@@ -1,18 +1,21 @@
-/* global variables which store information about current route and all routes */
+/* global variables which store information about 
+ * current route and all routes 
+ */
 var routeNum = 0;
 var currentLine = null;
 var routeDict = {};
-
 var colors = ['#4AA0D3', '#2C9359', '#9BB31C', '#4BBCA1', '#B3A81D', '#31938B', '#4AD35A', '#99C946', '#ABE345'];
 
 
-
-/* stores state of tables */
+/* stores state of tables 
+ */
 var tableopen = false;
 var aboutOpen = false;
 var helpOpen = false;
 
-/* sets and updates information regarding variable weights */
+
+/* sets and updates information regarding variable weights 
+ */
  var lWeight = 1;
  var dWeight = 1;
  var sWeight = 1;
@@ -23,11 +26,10 @@ var helpOpen = false;
 };
 
 
-
-/* constructor for a new line object */
+/* constructor for a new line object 
+ */
 function line(id) {
 	this.id = id;
-	this.name = null;
 	if (colors[id]) {
 		var lineColor = colors[id];
 	} else {
@@ -44,8 +46,6 @@ function line(id) {
 	this.averageSpeed = null;
 	this.leftTurns = null;
 	this.coordinates = [];
-
-	//standardized values
 	this.sElevation = null;
 	this.sDistance = null;
 	this.sLeftTurns = null;
@@ -53,9 +53,10 @@ function line(id) {
 }
 
 
-/* custom icon used for markers */
+/* custom icon used for markers 
+ */
 var circleIcon = L.icon({
     iconUrl: '/static/img/icon2.png',
-    iconSize:     [20, 20]
+    iconSize: [20, 20]
 });
 

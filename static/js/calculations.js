@@ -9,7 +9,7 @@ function netElevation(elevationPoints) {
 	for (var i = 1; i < elevationPoints.length; i++) {
 		if (elevationPoints[i] === undefined){
 			continue;
-		} else{
+		} else {
 			if ((elevationPoints[i] - currentEle) > 0) {
 				totalGain += (elevationPoints[i] - currentEle);
 			} else {
@@ -19,13 +19,11 @@ function netElevation(elevationPoints) {
 		 	currentEle = elevationPoints[i];
 		 }
 	 }
-	// console.log("total elevation" + totalEle + "gain" + totalGain + "loss" + totalLoss);
 	totalGain = totalGain.toPrecision(3);
 	totalLoss = totalLoss.toPrecision(3);
 	totalEle = totalEle.toPrecision(3);
 	return [totalEle,totalGain,totalLoss];		
 }
-
 
 
 /* Calculates average speed from a list of speed points
@@ -39,23 +37,21 @@ function avgSpeed(speedPoints) {
 	for (var i = 0; i < speedPoints.length; i++) {
 	 	if (speedPoints[i] <= 25){
 	 		totalSpeed += 25;
-	 	} else if (speedPoints[i] > 25 && speedPoints[i] < 99){
+	 	} else if (speedPoints[i] > 25 && speedPoints[i] < 99) {
 	 		totalSpeed += speedPoints[i];
-	 	} else if (speedPoints[i] === 99){
+	 	} else if (speedPoints[i] === 99) {
 	 		totalSpeed += 45;
-	 	} else if (speedPoints[i] === 999){ 
+	 	} else if (speedPoints[i] === 999) { 
 	 		totalSpeed += 10;
 	 	} else {
 	 		alert("issue with average speed" + speedPoints[i]);
 	 	}
 	 }
 	var avg = totalSpeed/speedPoints.length;
-	// console.log("average speed: " + avg);
 	avg = avg.toPrecision(2);
 
 	return (avg);		
 }
-
 
 
 /* Standardizes elevation from a unstandaridized number
@@ -106,10 +102,8 @@ function standardizeDistance (dist, directDist) {
 	} else {
 		responseValue = null;
 	}
-
 	return responseValue;
 }
-
 
 
 /* Standardizes left turns.
@@ -130,10 +124,7 @@ function standardizeLefts (rawLefts){
 		sLefts = 2;
 	} else if (rawLefts >= 10 ) { 
 		sLefts = 1;  
-	} else {
-		alert("no standard left turns, " + rawLefts);
 	}
-
 	return sLefts;
 }
 
@@ -155,10 +146,7 @@ function standardizeSpeed (rawSpeed){
 		sSpeed = 2;
 	} else if (rawSpeed >= 29 ) { 
 		sSpeed = 1; 
-	} else {
-		alert("no standard left turns, " + rawSpeed);
 	}
-
 	return sSpeed;
 }
 
@@ -203,7 +191,6 @@ function weightSpeed(rd, weight, tw) {
  * when a weight for a particular variable is updated.
  */
 function weightAndUpdate() {
-	console.log("total weight" + totalWeight());
 	weightSpeed(routeDict, sWeight, totalWeight());
 	weightDistance(routeDict, dWeight, totalWeight());
 	weightElevation(routeDict, eWeight, totalWeight());

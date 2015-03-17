@@ -26,9 +26,9 @@ describe("standardize", function () {
 
  it("should standardize distance", function () {
 
- expect(standardizeDistance(100, 50).toBeDefined(1);
- expect(standardizeDistance(55, 50).toBeDefined(3);
- expect(standardizeDistance("banana", 50).toBeDefined(null);
+ expect(standardizeDistance(100, 50)).toBeDefined(1);
+ expect(standardizeDistance(55, 50)).toBeDefined(3);
+ expect(standardizeDistance("banana", 50)).toBeDefined(null);
 
  });
 

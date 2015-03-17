@@ -85,9 +85,8 @@
 
 
 body {
-    padding: -1px;
-    margin: -1px;
-    background-color: white;
+    overflow-x: hidden; 
+    overflow-y: hidden; 
 }
 
 
@@ -451,9 +450,9 @@ a {
     z-index: 1000;
     position:relative;
     width:40%;
-    height:350px;
-    left:53%;
-    top:82px;
+    height:300px;
+    left:54%;
+    top:80px;
     display: inline-block;
     background: rgba(255,255,255, .9);
     font-family: 'Source Sans Pro', sans-serif;
@@ -469,6 +468,7 @@ a {
   color:#3585a3;
   margin:30px;
   margin-bottom: 40px;
+  margin-left: 15px;
   float:left;
 }
 
@@ -481,18 +481,21 @@ a {
 #plusimage {
   float:left;
   margin:15px;
+  margin-left: 0;
 }
 
 .helptitle {
   font-weight: 600;
   font-size: 14px;
   position: relative;
+  left:5px;
+  text-align: bottom;
 }
 
 .helptitle2 {
   font-weight: 600;
   font-size: 14px;
-  left:20px;
+  left:5px;
   position: relative;
 }
 
@@ -503,11 +506,16 @@ a {
   height:400px;
 }
 
+#about_table p {
+  padding-left: 5px;
+}
+
 #explaintable {
   border-collapse:collapse;
-  width: 90%;
+  width: 100%;
   font-size: 10px;
   display:table;
+  left: 5px;
 }
 
 #explaintable td {
