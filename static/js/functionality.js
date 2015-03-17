@@ -46,14 +46,14 @@ function startNewLine(rNum) {
 			showRawData(routeDict);
 			drawChart(routeDict);
 
-			//highlight table after data is ready
-			$('.tablebutton').toggleClass("flash");
+
+			$('.tablebutton').toggleClass("flash"); 			//highlight table after data is ready
 			setTimeout (function () {
 				$('.tablebutton').toggleClass("flash");
 			} , 200);
 	}
 	).fail(function () {
-			alert("ISSUE ENDING LINE");
+			//alert("ISSUE ENDING LINE"); //this should be used for debugging
 			routeNum ++;
 			currentLine = null;
 			$("#add-route").html('<img src="static/img/addroute.png" />');

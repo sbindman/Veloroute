@@ -35,7 +35,7 @@ function getDistanceAndLefts(route) {
 		}
 		defer.resolve([distance, leftTurns]);
 	}).fail( function() {
-		alert("get distance and lefts error");
+		//alert("get distance and lefts error"); //this should be used for debugging
 	});	
 	return defer.promise();
 }
@@ -54,7 +54,7 @@ function getDirectRouteRatio(route) {
  		mostDirectDistance = result.routes[0].distance;
  		defer.resolve(mostDirectDistance);
  	}).fail( function() {
- 		alert("error with get direct route ratio");
+ 		//alert("error with get direct route ratio"); //this should be used for debugging
  	});
  	return defer.promise();
  }
@@ -75,7 +75,7 @@ function getElevation(point) {
 			defer.resolve();
 		}
 	}).fail( function() {
-		alert("error with getting elevation");
+		//alert("error with getting elevation"); //this should be used for debugging
 	});
 	return defer.promise();
 }
@@ -111,11 +111,10 @@ function getSpeedLimit(point) {
 			var speed_limit = result.results[0].speedlimit;
 			defer.resolve(speed_limit);
 		} else {
-			defer.resolve(999); 
-			//passes a dummy code if no value is returned
+			defer.resolve(999); //passes a dummy code if no value is returned
 		}
 	}).fail( function() {
-		alert("error with getting speed");
+		//alert("error with getting speed"); //this should be used for debugging
 	});
 	return defer.promise();
 }
