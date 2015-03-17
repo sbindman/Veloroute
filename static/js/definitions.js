@@ -28,7 +28,11 @@ var helpOpen = false;
 function line(id) {
 	this.id = id;
 	this.name = null;
-	var lineColor = colors[id];
+	if (colors[id]) {
+		var lineColor = colors[id];
+	} else {
+		var lineColor = "#575757";
+	}
 	this.polyline = L.polyline([], { color:lineColor, weight: 5.5, opacity: 0.8 }).addTo(map);
 	this.waypoints = [];
 	this.elePoints = null;

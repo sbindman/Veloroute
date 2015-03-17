@@ -4,26 +4,12 @@
 <form class="form-login" method="POST" action="/login">
 	<br>
 	<br>
-    <h2 class="form-login-heading">please login</h2>
-    <input type="email" name="email" class="form-control" placeholder="Email Address" required autofocus /><br>
-    <input type="password" name="password" class="form-control" placeholder="Password" required /><br>
+    <p class="form-heading">please login</p>
+    <input type="email" name="email" class="form-control" placeholder="email address" required autofocus /><br>
+    <input type="password" name="password" class="form-control" placeholder="password" required /><br>
     <div class="logindiv">
-	    <input type="submit" class="login" value=""></input>
-	    <!-- <a href="/map" class="mapreturn"></a>  --> 
-	    <!-- back to map button is not working correctly -->
+	    <input type="submit" class="login" id="loginpagebutton" value=""></input>
 	</div>
-
 </form>
-<br>
-Session:
-<div id="session" class="session">{{ session }}</div>
-<br>
-{{ note }}
-
-
-    <!-- about modal -->
-  <div class="about">
-    ABOUT SECTION, where is this information now
-  </div>
 
 {% endblock %}

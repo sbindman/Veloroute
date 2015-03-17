@@ -1,16 +1,16 @@
-
 {% extends 'base.html' %}
 {% block body %}
 
 
 <body>
   <div id="topBar">
-    <div id="projectName"><h1><img src="https://i.imgflip.com/ioyvo.gif" title="made at imgflip.com"/></h1>
+    <div id="projectName"><img src="https://i.imgflip.com/ioyvo.gif" title="made at imgflip.com" />
     </div>
+      <span id="help_button" class="signup"></span>
       <a href="/login" id="login" class="login"></a>
       <a href="/sign_up" id="signup" class="signup"></a>
       <span id="about_button" class="signup"></span>
-      <span id="help_button" class="signup"></span>
+      
   </div>
 
 
@@ -22,18 +22,45 @@
     <!-- about modal -->
   <div id="about_table" class="info">
     <br>
-    <span class="helptitle">about</span>
-    <p class="description">veloroute is a tool which can be used to evaluate proposed bike route alternatives.  the application allows the user to add potential routes to the map, and compare them with the click of a button.
+    <span class="helptitle">overview</span>
+    <p class="description">
+      veloroute is a tool that allows city enthusiasts to evaluate potential bike route alternatives.  veloroute aggregates data regarding distance, elevation, speed limits and required traffic crossings, from openstreetmap and the city of san francisco.  users are able to score routes by weighting variables according to their personal perception of importance.  additionally, users can visualize route-specific elevation data.
+      <br><br>
+      previous to attending hackbright, i worked as a transportation planner and frequently worked with local governemnt agencies to plan and design new bike route infrastructure.  this process was often very manual and as a result was costly.  for my hackbright project i was interested in developing a tool which made this process easier.  veloroute is fast, allows for repeated analyses and utilizes open-source data.
     </p>
-    <span class="helptitle">data assumptions</span>
-    <p><span class="blue"> distance </span>: distance data came from mapbox's directions api. </p>
+    <br><span class="helptitle">techonologies and stack</span>
+    <p>
+      veloroute is a python application built on flask and a sqlite database. the frontend is built using html5/css3, javascript, jquery, leaflet and mapbox.  veloroute utilizes mapbox's directions and surface apis.
+    </p>
+    <span class="helptitle">raw data</span>
+    <p><span class="blue">distance</span> : total distance is measured in meters.  once a user has completed a route for analysis, an api request is sent to mapbox's directions api which includes the origin, destination and user-selected waypoints.  this request returns total distance. 
+      <br><br><span class="blue">directness of route</span> : directness of route is calculated by taking the ratio of the total distance of the proposed route and the most direct distance between origin and destination (this distance is calculated by passing the origin and destination in mapbox's directions api).  this variable is  included because bike routes should be as direct as possible as riders are less likely to use routes which are out of the way. <br><br><span class="blue">traffic crossings</span> :the number of left turns along a route between origin and destination is used to approximate the number of difficult traffic crossings.  this number is calculated by iterating over the directions returned from the mapbox directions api and counting when the required direction is  a left turn.  this variable is  included because left turns are particularly challenging on a bike as it requires crossing a number of lanes of traffic.  as such, the number of left turns should be minimized. <br><br><span class="blue">elevation gain + loss</span>: elevation is measured in meters.  elevation data comes from the mapbox surface api.  the api returns the elevation at frequent points along  the proposed route. <br><br><span class="blue">average speed limit</span> : speed limit data comes from the city of san francisco.  using mapbox's surface api, i was able to upload speed limit data to mapbox's platform and run data requests.  this variable was included as it is safer for people to bicycle on roads with a lower speed limit and thus, roads with lower speed limits should be prioritized.  the average speed limit along a route is calculated by requesting the speed limit at  frequent intervals along a route and then calculating the average from that investigation.  this seemed to be a pretty messy dataset so i made some assumptions regarding the data: streets that reported speeds less than 25 mph were assumed to be 25 mph (the san francisco standard for residential streets).  additionally, along route segments without speed limits (for example pedestrian  paths) the speed limit was approximated at 10 mph.  speed limit data only exists within the city of san francisco.
+    </p>
+    <span class="helptitle">standardized data</span>
+      <p> standardized routes are given a score out of 100.  each variable is initaitely scored out of 25 points but can be adjusted according to a user's wieght preferences.  variables are consistent with raw data except elevation is condensed into a single variable which represents the total net elevation change.  scores were assigned to variables according to my best judgement and can be updated in my code in definitions.js.  standardized data cutoffs are as follows:
+        <table id="explaintable">
+          <thead>
+            <tr><th></th><th>5 points</th><th>10 points</th><th>15 points</th><th>20 points</th><th>25 points</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>directness (%)</td><td>67 - 71</td><td>71 - 77</td><td>77 - 83</td><td>83 - 91</td><td>91 - 100</td></tr>
+            <tr><td>crossings (#)</td><td> > 10 </td><td>6-10</td><td>3-6</td><td>1-3</td><td>0</td></tr>
+            <tr><td>elevation (meters)</td><td> > 200</td><td>150 - 200</td><td>100 - 150</td><td>50 - 100</td><td> < 50</td></tr>
+            <tr><td>average speed (mph) </td><td> > 29 </td><td>27 - 29</td><td>25 - 27</td><td>20 - 25 </td><td> < 20 </td></tr>
+          </tbody>
+        </table>
+      </p>
+    <span class="helptitle">elevation data</span>
+      <p> elevation data was charted using the c3 library.  the chart displays the change in elevation from origin to destination along a proposed route regardless of total distance.
+      </p>
+
   </div>
 
 
     <!-- help modal -->
   <div id="help_table" class="info">
     <br>
-    <span class="helptitle">getting started</span>
+    <span class="helptitle2">getting started</span><br><br><br>
       <p> <img id="plusimage" src="static/img/addroute.png" width="50px" height="50px"/>select the plus symbol to begin adding a new route to your analysis.  click to add additional waypoints.  markers can be adjusted to define your route.  <span class="blue"> double click </span> to end a route.  routes cannot be adjusted after completion. for best results <span class="blue"> draw slowly </span>. if no route is drawn between markers, <span class="blue" > try adjusting the markers </span>.
     <br>
     </p>

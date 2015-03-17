@@ -42,7 +42,7 @@ function startNewLine(rNum) {
 			console.log("ENDING LINE");
 			routeNum ++;
 			currentLine = null;
-			  
+
 			$("#add-route").removeAttr('disabled');
 			$("#add-route").html('<img src="static/img/addroute.png" />');
 			weightAndUpdate();
@@ -50,10 +50,10 @@ function startNewLine(rNum) {
 			showRawData(routeDict);
 			drawChart(routeDict);
 
-			//highlight table after data
-			$('.tablebutton').toggleClass("invert");
+			//highlight table after data is ready
+			$('.tablebutton').toggleClass("flash");
 			setTimeout (function () {
-				$('.tablebutton').toggleClass("invert");
+				$('.tablebutton').toggleClass("flash");
 			} , 200);
 	}
 	).fail(function () {

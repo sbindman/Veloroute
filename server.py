@@ -9,9 +9,9 @@ app = Flask(__name__)
 app.secret_key = '\xf5!\x07!qttt\xa4\x08\xc6\xf8\n\x8a\x95m\xe2\x04g\xbb\x98|U\xa2f\x03'
 
 
-@app.route('/map')
+@app.route('/')
 def index():
-    """Show our index page."""
+    """Show map page."""
     return render_template("map.html")
 
 
@@ -54,30 +54,18 @@ def process_login():
 		user = model.get_user(email2, password2)
 		#if user is correctly identified in the system
 		if user == True:
-			print "CONGRATS YOU ARE IN"
 			session['email'] = email2
 			note = "Welcome %s" %(email2)
 		else: #bad password
-			print "please re-enter password"
 			note = "Please make sure you correctly entered your email and password"
 
-	# sess = session.get('email')
-	# print "hello," , sess
-	return render_template("login.html", note=note)
+	return render_template("login.html")
 
 
-
-
-@app.route('/', methods=["POST", "GET"])
-def callback():
-	"""test for working on callbacks"""
-
-
-	return render_template('callbackPractice.html')
 
 @app.route('/testing')
 def tests():
-	"""This route is used for testing"""
+	"""This route is used for testing javascript / jasmine code"""
 
 	return render_template("testing.html")
 

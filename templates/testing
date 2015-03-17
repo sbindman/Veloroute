@@ -1,5 +1,0 @@
-<!-- testing -->
-  <script src="/static/jasmine/dist/lib/jasmine-2.0.0/jasmine.js"></script>
-  <script src="/static/jasmine/dist/lib/jasmine-2.0.0/jasmine-html.js"></script>
-  <script src="/static/jasmine/dist/lib/jasmine-2.0.0/boot.js"></script>
-  <script src="/static/calc-specs.js"></script>
