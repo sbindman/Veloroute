@@ -10,7 +10,7 @@ __Testing__: Jasmine unit tests <br>
 __APIs__: Mapbox Directions, Mapbox Surface
 <br><br>
 
-<img src="/static/img/veloroute.png" width="100%">
+<img src="/veloroute.png">
 
 ## Setting Up
 
