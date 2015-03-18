@@ -49,15 +49,15 @@ Navigate to `localhost:5000/` to draw your own bike routes!
 
 <h4>File Structure</h4>
 
-__server.py__ :  flask app 
-__model.py__ : sql database which stores user data
-__apiModel.js__ : makes API requests to Mapbox
-__calculations.js__ : calculates route-specific data based on request responses
-__definitions.js__ : defines global variables and class constructors
-__displaydata.js__ : populates data tables
-__functionality.js__ : controls map capabilities including starting routes, ending routes and adding markers
-__pageActions.js__ : defines jquery functions and button events
-__calc-specs.js__ : outlines tests to be run in jasmine
+__server.py__ :  flask app <br>
+__model.py__ : sql database which stores user data <br>
+__apiModel.js__ : makes API requests to Mapbox <br>
+__calculations.js__ : calculates route-specific data based on request responses <br>
+__definitions.js__ : defines global variables and class constructors <br>
+__displaydata.js__ : populates data tables <br>
+__functionality.js__ : controls map capabilities including starting routes, ending routes and adding markers <br>
+__pageActions.js__ : defines jquery functions and button events <br>
+__calc-specs.js__ : outlines tests to be run in jasmine <br>
 
 
 ## Data Decisions
