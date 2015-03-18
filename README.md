@@ -10,7 +10,7 @@ __Testing__: Jasmine unit tests <br>
 __APIs__: Mapbox Directions, Mapbox Surface
 <br><br>
 
-<img src="static/img/veloroute.png">
+<img src="static/img/veloroute.png"><br><br>
 
 ## Setting Up
 
@@ -46,7 +46,7 @@ python server.py
 ```
 Navigate to `localhost:5000/` to draw your own bike routes!
 
-
+<br>
 <h4>File Structure</h4>
 
 __server.py__ :  flask app <br>
@@ -59,7 +59,7 @@ __functionality.js__ : controls map capabilities including starting routes, endi
 __pageActions.js__ : defines jquery functions and button events <br>
 __calc-specs.js__ : outlines tests to be run in jasmine <br>
 
-
+<br>
 ## Data Decisions
 <h3> Raw Data </h3>
 - __Distance__ : total distance is measured in meters. Once a user has completed a route for analysis, an API request is sent to Mapbox's directions API which includes the origin, destination and user-selected waypoints. This request returns total distance. 
@@ -84,7 +84,7 @@ Standardized routes are given a score out of 100. Each variable is initaitely sc
 | Average Speed (mph)|> 29     |27 - 29  |25 - 27   |20 - 25  |< 20      |
 
 
-
+<br>
 <h3> Elevation Data </h3>
 
 Elevation data is charted using the C3 library.  The chart displays the change in elevation from origin to destination along a proposed route regardless of total distance.
