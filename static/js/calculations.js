@@ -44,7 +44,7 @@ function avgSpeed(speedPoints) {
 	 	} else if (speedPoints[i] === 999) { 
 	 		totalSpeed += 10;
 	 	} else {
-	 		alert("issue with average speed" + speedPoints[i]);
+	 		//alert("issue with average speed" + speedPoints[i]); //use for debugging
 	 	}
 	 }
 	var avg = totalSpeed/speedPoints.length;
@@ -72,7 +72,7 @@ function standardizeElevation (elev) {
 	} else if (elev >= 200 ) { 
 		sElev = 1; 
 	} else {
-		alert("no standar elevation calculated, raw elevation is: " + elev);
+		//alert("no standar elevation calculated, raw elevation is: " + elev); //use for debugging
 	}
 	return sElev;
 }	
@@ -88,7 +88,7 @@ function standardizeDistance (dist, directDist) {
 	var responseValue = null;
 
 	if (ratio < 1) { 
-		alert("Error can't have ratio less than 1. distance and direct distance are:" + dist + " , " + directDist);
+		//alert("Error can't have ratio less than 1. distance and direct distance are:" + dist + " , " + directDist); //use for debugging
 	} else if ( ratio >= 1 && ratio < 1.1) { 
 		responseValue = 5;
 	} else if (ratio >= 1.1 && ratio < 1.2 ) { 

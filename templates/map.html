@@ -26,18 +26,18 @@
     <p class="description">
       veloroute is a tool that allows city enthusiasts to evaluate potential bike route alternatives.  veloroute aggregates data regarding distance, elevation, speed limits and required traffic crossings, from openstreetmap and the city of san francisco.  users are able to score routes by weighting variables according to their personal perception of importance.  additionally, users can visualize route-specific elevation data.
       <br><br>
-      previous to attending hackbright, i worked as a transportation planner and frequently worked with local governemnt agencies to plan and design new bike route infrastructure.  this process was often very manual and as a result was costly.  for my hackbright project i was interested in developing a tool which made this process easier.  veloroute is fast, allows for repeated analyses and utilizes open-source data.
+    
     </p>
-    <br><span class="helptitle">techonologies and stack</span>
+    <br><span class="helptitle">techonology stack</span>
     <p>
       veloroute is a python application built on flask and a sqlite database. the frontend is built using html5/css3, javascript, jquery, leaflet and mapbox.  veloroute utilizes mapbox's directions and surface apis.
-    </p>
+    </p><br><br>
     <span class="helptitle">raw data</span>
     <p><font color="#3585a3">distance</font> : total distance is measured in meters.  once a user has completed a route for analysis, an api request is sent to mapbox's directions api which includes the origin, destination and user-selected waypoints.  this request returns total distance. 
-      <br><br><font color="#3585a3">directness of route</font> : directness of route is calculated by taking the ratio of the total distance of the proposed route and the most direct distance between origin and destination (this distance is calculated by passing the origin and destination in mapbox's directions api).  this variable is  included because bike routes should be as direct as possible as riders are less likely to use routes which are out of the way. <br><br><font color="#3585a3">traffic crossings</font> :the number of left turns along a route between origin and destination is used to approximate the number of difficult traffic crossings.  this number is calculated by iterating over the directions returned from the mapbox directions api and counting when the required direction is  a left turn.  this variable is  included because left turns are particularly challenging on a bike as it requires crossing a number of lanes of traffic.  as such, the number of left turns should be minimized. <br><br><font color="#3585a3">elevation gain + loss</font>: elevation is measured in meters.  elevation data comes from the mapbox surface api.  the api returns the elevation at frequent points along  the proposed route. <br><br><font color="#3585a3">average speed limit</font> : speed limit data comes from the city of san francisco.  using mapbox's surface api, i was able to upload speed limit data to mapbox's platform and run data requests.  this variable was included as it is safer for people to bicycle on roads with a lower speed limit and thus, roads with lower speed limits should be prioritized.  the average speed limit along a route is calculated by requesting the speed limit at  frequent intervals along a route and then calculating the average from that investigation.  this seemed to be a pretty messy dataset so i made some assumptions regarding the data: streets that reported speeds less than 25 mph were assumed to be 25 mph (the san francisco standard for residential streets).  additionally, along route segments without speed limits (for example pedestrian  paths) the speed limit was approximated at 10 mph.  speed limit data only exists within the city of san francisco.
-    </p>
+      <br><br><font color="#3585a3">directness of route</font> : directness of route is calculated by taking the ratio of the total distance of the proposed route and the most direct distance between origin and destination (this distance is calculated by passing the origin and destination in mapbox's directions api).  this variable is  included because bike routes should be as direct as possible as riders are less likely to use routes which are out of the way. <br><br><font color="#3585a3">traffic crossings</font> :the number of left turns along a route between origin and destination is used to approximate the number of difficult traffic crossings.  this number is calculated by iterating over the directions returned from the mapbox directions api and counting when the required direction is  a left turn.  this variable is  included because left turns are particularly challenging on a bike as it requires crossing a number of lanes of traffic.  as such, the number of left turns should be minimized. <br><br><font color="#3585a3">elevation gain + loss</font>: elevation is measured in meters. elevation data comes from the mapbox surface api. elevation is measured at frequent points along the proposed route. <br><br><font color="#3585a3">average speed limit</font> : speed limit data comes from the city of san francisco.  using mapbox's surface api, i was able to upload speed limit data to mapbox's platform and run data requests. it is safer for people to bicycle on roads with a lower speed limit and thus, roads with lower speed limits should be prioritized.  the average speed limit along a route is calculated by requesting the speed limit at  frequent intervals along a route and then calculating the average from that investigation.  this is a messy dataset so i made some assumptions regarding the data: streets that reported speeds less than 25 mph were assumed to be 25 mph (the san francisco standard for residential streets).  additionally, along route segments without speed limits (for example pedestrian  paths) the speed limit was approximated at 10 mph.  speed limit data only exists within the city of san francisco.
+    </p><br><br>
     <span class="helptitle">standardized data</span>
-      <p> standardized routes are given a score out of 100.  each variable is initaitely scored out of 25 points but can be adjusted according to a user's wieght preferences.  variables are consistent with raw data except elevation is condensed into a single variable which represents the total net elevation change.  scores were assigned to variables according to my best judgement and can be updated in my code in definitions.js.  standardized data cutoffs are as follows:
+      <p> standardized routes are given a score out of 100.  each variable is initaitely scored out of 25 points but can be adjusted according to a user's weight preferences.  variables are consistent with raw data except elevation is condensed into a single variable which represents the total net elevation change.  scores were assigned to variables according to my best judgement and can be updated in my code in definitions.js.  standardized data cutoffs are as follows:
         <table id="explaintable">
           <thead>
             <tr><th></th><th>5 points</th><th>10 points</th><th>15 points</th><th>20 points</th><th>25 points</th></tr>
@@ -50,9 +50,9 @@
           </tbody>
         </table>
       </p>
-      <br>
+      <br><br>
     <span class="helptitle">elevation data</span>
-      <p> elevation data was charted using the c3 library.  the chart displays the change in elevation from origin to destination along a proposed route regardless of total distance.
+      <p> elevation data is charted using the c3 library.  the chart displays the change in elevation from origin to destination along a proposed route regardless of total distance.
       </p>
 
   </div>
@@ -62,13 +62,13 @@
   <div id="help_table" class="info">
     <br>
     <span class="helptitle2">getting started</span><br><br><br>
-      <p> <img id="plusimage" src="static/img/addroute.png" width="50px" height="50px"/>select the plus symbol to begin adding a new route to your analysis.  click to add additional waypoints.  markers can be adjusted to define your route.  <span class="blue"> double click </span> to end a route.  routes cannot be adjusted after completion. for best results <span class="blue"> draw slowly </span>. if no route is drawn between markers, <span class="blue" > try adjusting the markers </span>.
-    <br>
-    </p>
-    <p><i id="resultsdemo" class="fa fa-angle-double-up"></i>
-      once you have added all of the routes you care to analyze, click the blue chevron symbol to bring up the results.  toggle between the <span class="blue"> raw data, standardized data, and elevation data tabs </span> to view different summary data.  it is possible to adjust the variable weights according to your perceived level of importance by selecting the <span class="blue"> dropdown marked "importance" </span> on that standardized data tab.
-    </p>
-    
+    <table id="help_table">
+      <tr><td><img id="plusimage" src="static/img/addroute.png" width="50px" height="50px"/></td>
+        <td>select the plus symbol to begin adding a new route to your analysis.  click to add additional waypoints.  markers can be adjusted to define your route.  <font color="#3585a3"> double click </font> to end a route.  routes cannot be adjusted after completion. for best results <font color="#3585a3"> draw slowly </font>. if no route is drawn between markers, <font color="#3585a3"> try adjusting the markers </font>.</td></tr>
+      <tr><td><i id="resultsdemo" class="fa fa-angle-double-up"></i></td>
+        <td>once you have added all of the routes you care to analyze, click the blue chevron symbol to bring up the results.  toggle between the <font color="#3585a3"> raw data, standardized data, and elevation data tabs </font> to view different summary data.  it is possible to adjust the variable weights according to your perceived level of importance by selecting the <font color="#3585a3"> dropdown marked "importance" </font> on that standardized data tab.</td></tr>
+    </table>
+
   </div>
 
 

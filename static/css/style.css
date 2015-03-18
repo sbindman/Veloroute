@@ -466,10 +466,10 @@ a {
 #resultsdemo {
   font-size: 30px;
   color:#3585a3;
-  margin:30px;
-  margin-bottom: 40px;
-  margin-left: 15px;
+  top:5px;
+  position:relative;
   float:left;
+  padding-left: 15px;
 }
 
 .blue {
@@ -526,3 +526,9 @@ a {
   font-size: 10px;
 }
 
+#help_table td {
+  background-color: white;
+  font-size: 12px;
+  text-align: left;
+  color:black;
+}

@@ -124,7 +124,7 @@ function drawRoute(routeToDraw) {
 			defer.resolve();
 		}
 		).fail( function (result) {
-			alert("there was an issue drawing the route");
+			//alert("there was an issue drawing the route"); //use for debugging
 		});
  	}
  	return defer.promise();
