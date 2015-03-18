@@ -1,4 +1,4 @@
-<img src="https://i.imgflip.com/ioyvo.gif" title="made at imgflip.com">
+<img src="static/img/logo_no_background.png" width="40%"><br><br>
 
 Veloroute is a tool that allows city enthusiasts to evaluate potential bike route alternatives. Veloroute aggregates data regarding distance, elevation, speed limits and required traffic crossings, from OpenStreetMap and the City of San Francisco. Users are able to score routes by weighting variables according to their personal perception of importance. Additionally, users can visualize route-specific elevation data. 
 <br><br>
