@@ -107,7 +107,7 @@ function drawRoute(routeToDraw) {
 
 	  	waypointsString += lastLng + "," + lastLat;
 
-		var directionUrl = 'http://api.tiles.mapbox.com/v4/directions/mapbox.walking/'+ waypointsString + '.json?access_token=pk.eyJ1Ijoic2JpbmRtYW4iLCJhIjoiaENWQnlrVSJ9.0DQyCLWgA0j8yBpmvt3bGA';
+		var directionUrl = 'https://api.tiles.mapbox.com/v4/directions/mapbox.walking/'+ waypointsString + '.json?access_token=pk.eyJ1Ijoic2JpbmRtYW4iLCJhIjoiaENWQnlrVSJ9.0DQyCLWgA0j8yBpmvt3bGA';
 
 		routeDict[routeToDraw.id].directionUrl = directionUrl;
 

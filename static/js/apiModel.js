@@ -48,7 +48,7 @@ function getDirectRouteRatio(route) {
 	var defer = $.Deferred();
 	var startPoint = routeDict[route.id].waypoints[0].getLatLng();
 	var endPoint = routeDict[route.id].waypoints[routeDict[route.id].waypoints.length -1].getLatLng();
- 	var mostDirectDirection_url = 'http://api.tiles.mapbox.com/v4/directions/mapbox.walking/'+ startPoint.lng + ',' + startPoint.lat + ';' + endPoint.lng + ',' + endPoint.lat + '.json?access_token=pk.eyJ1Ijoic2JpbmRtYW4iLCJhIjoiaENWQnlrVSJ9.0DQyCLWgA0j8yBpmvt3bGA';
+ 	var mostDirectDirection_url = 'https://api.tiles.mapbox.com/v4/directions/mapbox.walking/'+ startPoint.lng + ',' + startPoint.lat + ';' + endPoint.lng + ',' + endPoint.lat + '.json?access_token=pk.eyJ1Ijoic2JpbmRtYW4iLCJhIjoiaENWQnlrVSJ9.0DQyCLWgA0j8yBpmvt3bGA';
 
  	$.when($.get(mostDirectDirection_url)).done(function (result) {
  		mostDirectDistance = result.routes[0].distance;
