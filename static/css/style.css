@@ -110,6 +110,7 @@ select:focus {outline:0;}
     text-align: left;
     vertical-align: middle;
     position: fixed;
+    left:0;
     top: 0;
     z-index: 1000;
     width: 100%;
@@ -124,12 +125,6 @@ select:focus {outline:0;}
     line-height: normal;
 }
 
-#signup {
-    left: 83%;
-    z-index: 1000;
-    position:absolute;
-}
-
 #about_button {
     left: 90%;
     z-index: 1000;
@@ -142,7 +137,7 @@ select:focus {outline:0;}
 }
 
 #help_button {
-    left: 69%;
+    left: 83%;
     z-index: 1000;
     position:absolute;
     background-image: url('/static/img/help.png');
@@ -152,11 +147,6 @@ select:focus {outline:0;}
     background-image: url('/static/img/helphover.png');
 }
 
-#login{
-    left: 76%;
-    z-index: 1000;
-    position:absolute;
-}
 
 #add-route {
     left: 0;
