@@ -24,7 +24,9 @@ $(document).ready(function () {
 	$('#chart').hide();
 	$('#about_table').hide();
 	$('#help_table').hide();
-
+	$('.tooltip').tooltipster({
+    theme: 'tooltipster-noir'
+	});
 });
 
 
