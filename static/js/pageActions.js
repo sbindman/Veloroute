@@ -4,6 +4,7 @@ $("#add-route").on("click", function() {
 	currentLine = startNewLine(routeNum);
 	$("#add-route").html('<img src="static/img/addrouteclicked.png" />');
 	$("#add-route").attr('disabled', 'disabled');
+	$("#add-route").tooltipster("disable");
 });
 
 
@@ -24,9 +25,23 @@ $(document).ready(function () {
 	$('#chart').hide();
 	$('#about_table').hide();
 	$('#help_table').hide();
-	$('.tooltip').tooltipster({
-    theme: 'tooltipster-noir'
+
+	// initalize all of the tooltips
+	$('#add-route').tooltipster({
+	position: 'right'
 	});
+	$('#table_open').tooltipster({
+	position: 'top'
+	});
+	$('#raw_data_tooltip').tooltipster({
+	position: 'left',
+	positionTracker: true
+	});
+	$('#weight').tooltipster({
+	position: 'top',
+	positionTracker: true
+	});
+	$('#add-route').tooltipster('show');
 });
 
 
@@ -61,6 +76,8 @@ $('#help_button').on("click", function() {
  * or if table is already open, close all tables
  */
 $('#table_open').on( "click", function () {
+	$('#table_open').tooltipster('disable');
+	
 	if (tableopen === false) {
 		$('#sTable').hide();
 		$('#rTable').show();
@@ -83,11 +100,13 @@ $('#table_open').on( "click", function () {
 		$('#results').html('<i class="fa fa-angle-double-up"></i>');
 		tableopen = false;
 	}
+	$('#raw_data_tooltip').tooltipster('show');
 });
 
 /* show elevation chart
  */
 $(".eChart").on("click", function () {
+	$('#raw_data_tooltip').tooltipster('hide');
 	$('.eChart').css("color", "#3585a3");
 	$('.show-standard-data').css("color", "#434343");
 	$('.show-raw-data').css("color", "#434343");
@@ -99,6 +118,7 @@ $(".eChart").on("click", function () {
 /* show raw data table
  */
 $('.show-raw-data').click( function () {
+	$('#raw_data_tooltip').tooltipster('hide');
 	$('.show-raw-data').css("color", "#3585a3");
 	$('.show-standard-data').css("color", "#434343");
 	$('.eChart').css("color", "#434343");
@@ -110,12 +130,14 @@ $('.show-raw-data').click( function () {
 /*show standardized data table
  */
 $('.show-standard-data').click( function () {
+	$('#raw_data_tooltip').tooltipster('hide');
 	$('.show-standard-data').css("color", "#3585a3");
 	$('.show-raw-data').css("color", "#434343");
 	$('.eChart').css("color", "#434343");
 	$("#chart").hide();
 	$('#rTable').hide();
 	$('#sTable').show();
+	$('#weight').tooltipster('show');
 });
 
 
@@ -134,24 +156,53 @@ $('.tablebutton').on("click", function () {
 $("#sWeight").on("change", function () {
 	sWeight = parseInt($("#sWeight").val());
 	weightAndUpdate();
+	$('#weight').tooltipster('disable');
 });
 
 
 $("#dWeight").on("change", function () {
 	dWeight = parseInt($("#dWeight").val());
 	weightAndUpdate();
+	$('#weight').tooltipster('disable');
 });
 
 
 $("#eWeight").on("change", function () {
 		eWeight = parseInt($("#eWeight").val());
 		weightAndUpdate();
+		$('#weight').tooltipster('disable');
 });
 
 
 $("#lWeight").on("change", function () {
 	lWeight = parseInt($("#lWeight").val());
 	weightAndUpdate();
+	$('#weight').tooltipster('disable');
+});
+
+$(".show-standard-data").on("mouseover", function() {
+  $('.show-standard-data').css("color", "#3585a3");
 });
 
 
+$(".show-standard-data").on("mouseout", function() {
+  $('.show-standard-data').css("color", "#474747");
+});
+
+$(".show-raw-data").on("mouseover", function() {
+  $('.show-raw-data').css("color", "#3585a3");
+});
+
+
+$(".show-raw-data").on("mouseout", function() {
+  $('.show-raw-data').css("color", "#474747");
+});
+
+$(".eChart").on("mouseover", function() {
+  $('.eChart').css("color", "#3585a3");
+});
+
+
+$(".eChart").on("mouseout", function() {
+  $('.eChart').css("color", "#474747");
+});

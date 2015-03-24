@@ -51,6 +51,7 @@ function startNewLine(rNum) {
 			setTimeout (function () {
 				$('.tablebutton').toggleClass("flash");
 			} , 200);
+			$('#table_open').tooltipster('show');
 	}
 	).fail(function () {
 			//alert("ISSUE ENDING LINE"); //this should be used for debugging

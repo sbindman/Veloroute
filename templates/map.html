@@ -13,7 +13,7 @@
 
 
   <div id="leftBar">
-    <div id="add-route" class="tooltip" title="click to add a new route"><img src="static/img/addroute.png" /></div>
+    <div id="add-route" class="tooltip" title="Click to begin a new route. Add your points to the map.  Double click to end your route"><img src="static/img/addroute.png" /></div>
   </div>
 
 
@@ -75,13 +75,13 @@
 <!-- elements that holds all of the information tables -->
   <div id="tableElements">
 
-      <div id="table_open" class="tablebutton"> <span id="results"><i class="fa fa-angle-double-up"></i></span></div>
+      <div id="table_open" class="tablebutton tooltip" title="click to compare the results of each of your routes"> <span id="results"><i class="fa fa-angle-double-up"></i></span></div>
 
 <!-- standard table -->
        <div id="sTableDiv" class="modal">
           <table class="table" id="sTable">
             <caption class='caption'><span class="show-raw-data">raw data | </span><span class="show-standard-data">| standardized data |</span><span class="eChart"> | elevation data</span></caption>
-            <thead><tr><th>route id</th><th>directness of route</th><th>traffic crossings</th><th>elevation change</th><th>average speed limit</th><th> total score </th><tr><tr id="weight"><td > importance </td><td><select class='weighting' id='dWeight' name='dWeight'><option value='1'> low </option><option value='2'> medium </option><option value='3'> high </option></select></td><td><select name='lWeight' class='weighting' id='lWeight' ><option value='1'> low </option><option value='2'> medium </option><option value='3'> high </option></select></td><td><select name='eWeight' class='weighting' id='eWeight'><option value='1'> low </option><option value='2'> medium </option><option value='3'> high </option></select></td><td><select name='sWeight' class='weighting' id='sWeight'><option value='1'> low </option><option value='2'> medium </option><option value='3'> high </option></select></td><td> /100 </td></tr></thead>
+            <thead><tr><th>route id</th><th>directness of route</th><th>traffic crossings</th><th>elevation change</th><th>average speed limit</th><th> total score </th><tr><tr id="weight" class="tooltip" title="click to adjust variable weightings"><td > importance </td><td><select class='weighting' id='dWeight' name='dWeight'><option value='1'> low </option><option value='2'> medium </option><option value='3'> high </option></select></td><td><select name='lWeight' class='weighting' id='lWeight' ><option value='1'> low </option><option value='2'> medium </option><option value='3'> high </option></select></td><td><select name='eWeight' class='weighting' id='eWeight'><option value='1'> low </option><option value='2'> medium </option><option value='3'> high </option></select></td><td><select name='sWeight' class='weighting' id='sWeight'><option value='1'> low </option><option value='2'> medium </option><option value='3'> high </option></select></td><td> /100 </td></tr></thead>
 
             <!-- dynamically update this information -->
             <tbody id="table_route_info"></tbody>
@@ -92,7 +92,7 @@
 <!-- raw table -->
        <div id="rTableDiv" class="modal">
           <table class="table" id="rTable">
-            <caption class='caption'><span class="show-raw-data">raw data | </span><span class="show-standard-data">| standardized data |</span><span class="eChart"> | elevation data</span></caption>
+            <caption class='caption'><span id="raw_data_tooltip" class="show-raw-data tooltip" title="click on raw, standard or elevation data to toggle between the different data views">raw data | </span><span class="show-standard-data">| standardized data |</span><span class="eChart"> | elevation data</span></caption>
             <thead><tr><th>route id</th><th>total distance<br>(meters)</th><th> directness of route<br>(%)</th><th>traffic crossings</th><th>elevation gain<br/>(meters)</th><th>elevation loss<br>(meters)</th><th> average speed limit<br>(mph)</th><tr></thead>
             <!-- dynamically update this information -->
             <tbody id="raw_info"></tbody>
