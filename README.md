@@ -3,6 +3,12 @@
 Veloroute is a tool that allows city enthusiasts to evaluate potential bike route alternatives. Veloroute aggregates data regarding distance, elevation, speed limits and required traffic crossings, from OpenStreetMap and the City of San Francisco. Users are able to score routes by weighting variables according to their personal perception of importance. Additionally, users can visualize route-specific elevation data. 
 <br><br>
 
+A deployed version of this project can be found at : https://veloroute.herokuapp.com/
+
+<br><br>
+<img src="static/img/screenshot.png"><br><br>
+<br><br>
+
 <h4> Techonology Stack </h4>
 __Backend__: Python, Flask, SQLAlchemy, SQLite <br>
 __Frontend__: JavaScript, jQuery, HTML5, CSS3, Leaflet, Mapbox, C3 Charts <br>
@@ -10,13 +16,21 @@ __Testing__: Jasmine unit tests <br>
 __APIs__: Mapbox Directions, Mapbox Surface
 <br><br>
 
-<img src="static/img/screenshot.png"><br><br>
+## Features
 
-<img src="static/img/screenshot_raw.png"><br><br>
+Users are able to add routes to be analayzed by drawing lines on a map. Users are able to view raw, standardized and elevation data for each of their routes.
+<img src="static/img/screenshot_raw.png"><br>
+The raw data tab displays distance, directness of route, traffic crossings, elevation and average speed limit data for each route.
+<br><br>
 
-<img src="static/img/screenshot_standard.png"><br><br>
 
-<img src="static/img/screenshot_elevation.png"><br><br>
+<img src="static/img/screenshot_standard.png"><br>
+The standardized data tab allows users to weight variables according to their preferences and view a weighted score for each route.
+<br><br>
+
+<img src="static/img/screenshot_elevation.png"><br>
+The elevation tab allows users to track a route's change in elevation from beginning to end.
+<br><br>
 
 
 
