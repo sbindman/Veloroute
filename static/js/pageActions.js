@@ -33,8 +33,8 @@ $(document).ready(function () {
 	$('#table_open').tooltipster({
 	position: 'top'
 	});
-	$('#raw_data_tooltip').tooltipster({
-	position: 'left',
+	$('.caption').tooltipster({
+	position: 'top',
 	positionTracker: true
 	});
 	$('#weight').tooltipster({
@@ -100,13 +100,13 @@ $('#table_open').on( "click", function () {
 		$('#results').html('<i class="fa fa-angle-double-up"></i>');
 		tableopen = false;
 	}
-	$('#raw_data_tooltip').tooltipster('show');
+	$('.caption').tooltipster('show');
 });
 
 /* show elevation chart
  */
 $(".eChart").on("click", function () {
-	$('#raw_data_tooltip').tooltipster('hide');
+	$('.caption').tooltipster('disable');
 	$('.eChart').css("color", "#3585a3");
 	$('.show-standard-data').css("color", "#434343");
 	$('.show-raw-data').css("color", "#434343");
@@ -118,7 +118,7 @@ $(".eChart").on("click", function () {
 /* show raw data table
  */
 $('.show-raw-data').click( function () {
-	$('#raw_data_tooltip').tooltipster('hide');
+	$('.caption').tooltipster('disable');
 	$('.show-raw-data').css("color", "#3585a3");
 	$('.show-standard-data').css("color", "#434343");
 	$('.eChart').css("color", "#434343");
@@ -130,7 +130,7 @@ $('.show-raw-data').click( function () {
 /*show standardized data table
  */
 $('.show-standard-data').click( function () {
-	$('#raw_data_tooltip').tooltipster('hide');
+	$('.caption').tooltipster('disable');
 	$('.show-standard-data').css("color", "#3585a3");
 	$('.show-raw-data').css("color", "#434343");
 	$('.eChart').css("color", "#434343");
@@ -180,29 +180,33 @@ $("#lWeight").on("change", function () {
 	$('#weight').tooltipster('disable');
 });
 
+
+/* when data tabs in the popup are mousedover, 
+ * they turn from grey to blue
+ */
 $(".show-standard-data").on("mouseover", function() {
-  $('.show-standard-data').css("color", "#3585a3");
+  $('.show-standard-data').addClass("mouseover");
 });
 
 
 $(".show-standard-data").on("mouseout", function() {
-  $('.show-standard-data').css("color", "#474747");
+  $('.show-standard-data').removeClass("mouseover");
 });
 
 $(".show-raw-data").on("mouseover", function() {
-  $('.show-raw-data').css("color", "#3585a3");
+  $('.show-raw-data').addClass("mouseover");
 });
 
 
 $(".show-raw-data").on("mouseout", function() {
-  $('.show-raw-data').css("color", "#474747");
+  $('.show-raw-data').removeClass("mouseover");
 });
 
 $(".eChart").on("mouseover", function() {
-  $('.eChart').css("color", "#3585a3");
+  $('.eChart').addClass("mouseover");
 });
 
 
 $(".eChart").on("mouseout", function() {
-  $('.eChart').css("color", "#474747");
+  $('.eChart').removeClass("mouseover");
 });

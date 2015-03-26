@@ -43,7 +43,7 @@
 
 #results {
     position: relative;
-    left: 50%;
+    left: 49.5%;
     font-size: 26px;
 }
 
@@ -524,4 +524,7 @@ a {
 }
 
 
+.mouseover {
+   color: #3585a3;
+}
 

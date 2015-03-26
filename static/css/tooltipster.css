@@ -248,8 +248,8 @@
 /* This is the default Tooltipster theme (feel free to modify or duplicate and create multiple themes!): */
 .tooltipster-default {
 	border-radius: 0; 
-	border: 2px solid #3585a3;
-	background: #3585a3;
+	/*border: 2px solid #3585a3;*/
+	background: #B0A600;
 	color: white;
 	position:bottom;
 	positionTracker: true;

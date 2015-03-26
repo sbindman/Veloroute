@@ -80,7 +80,9 @@ function addMarker(evt) {
 		drawRoute(currentLine);
 
 		marker.on("click", function () {
-			endLine(currentLine);
+			if (currentLine) {
+				endLine(currentLine);
+			}
 		});
 	}
 }

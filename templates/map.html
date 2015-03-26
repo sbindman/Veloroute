@@ -13,7 +13,7 @@
 
 
   <div id="leftBar">
-    <div id="add-route" class="tooltip" title="Click to begin a new route. Add your points to the map.  Double click to end your route"><img src="static/img/addroute.png" /></div>
+    <div id="add-route" class="tooltip" title="Click to begin a new route.  Add your points to the map.  Double click to end your route"><img src="static/img/addroute.png" /></div>
   </div>
 
 
@@ -35,9 +35,12 @@
     <span class="helptitle">raw data</span>
     <p><font color="#3585a3">distance</font> : total distance is measured in meters.  once a user has completed a route for analysis, an api request is sent to mapbox's directions api which includes the origin, destination and user-selected waypoints.  this request returns total distance. 
       <br><br><font color="#3585a3">directness of route</font> : directness of route is calculated by taking the ratio of the total distance of the proposed route and the most direct distance between origin and destination (this distance is calculated by passing the origin and destination in mapbox's directions api).  this variable is  included because bike routes should be as direct as possible as riders are less likely to use routes which are out of the way. <br><br><font color="#3585a3">traffic crossings</font> :the number of left turns along a route between origin and destination is used to approximate the number of difficult traffic crossings.  this number is calculated by iterating over the directions returned from the mapbox directions api and counting when the required direction is  a left turn.  this variable is  included because left turns are particularly challenging on a bike as it requires crossing a number of lanes of traffic.  as such, the number of left turns should be minimized. <br><br><font color="#3585a3">elevation gain + loss</font>: elevation is measured in meters. elevation data comes from the mapbox surface api. elevation is measured at frequent points along the proposed route. <br><br><font color="#3585a3">average speed limit</font> : speed limit data comes from the city of san francisco.  using mapbox's surface api, i was able to upload speed limit data to mapbox's platform and run data requests. it is safer for people to bicycle on roads with a lower speed limit and thus, roads with lower speed limits should be prioritized.  the average speed limit along a route is calculated by requesting the speed limit at  frequent intervals along a route and then calculating the average from that investigation.  this is a messy dataset so i made some assumptions regarding the data: streets that reported speeds less than 25 mph were assumed to be 25 mph (the san francisco standard for residential streets).  additionally, along route segments without speed limits (for example pedestrian  paths) the speed limit was approximated at 10 mph.  speed limit data only exists within the city of san francisco.
-    </p><br><br>
+    </p>
+    
+    <br><br>
+
     <span class="helptitle">standardized data</span>
-      <p> standardized routes are given a score out of 100.  each variable is initaitely scored out of 25 points but can be adjusted according to a user's weight preferences.  variables are consistent with raw data except elevation is condensed into a single variable which represents the total net elevation change.  scores were assigned to variables according to my best judgement and can be updated in my code in definitions.js.  standardized data cutoffs are as follows:
+      <p> standardized routes are given a score out of 100.  each variable is initially scored out of 25 points but can be adjusted according to a user's weight preferences.  variables are consistent with raw data except elevation is condensed into a single variable which represents the total net elevation change.  scores were assigned to variables according to my best judgement and can be updated in my code in definitions.js.  standardized data cutoffs are as follows:
         <table id="explaintable">
           <thead>
             <tr><th></th><th>5 points</th><th>10 points</th><th>15 points</th><th>20 points</th><th>25 points</th></tr>
@@ -64,9 +67,9 @@
     <span class="helptitle2">getting started</span><br><br><br>
     <table id="help_table">
       <tr><td><img id="plusimage" src="static/img/addroute.png" width="50px" height="50px"/></td>
-        <td>select the plus symbol to begin adding a new route to your analysis.  click to add additional waypoints.  markers can be adjusted to define your route.  <font color="#3585a3"> double click </font> to end a route.  routes cannot be adjusted after completion. for best results <font color="#3585a3"> draw slowly </font>. if no route is drawn between markers, <font color="#3585a3"> try adjusting the markers </font>.</td></tr>
+        <td>select the <font color="#3585a3"> plus symbol </font> to add a new route to your analysis.  click the map to add points to define your route.  markers can be adjusted to define your route.  <font color="#3585a3"> double click </font> to end a route.  routes cannot be adjusted after completion. for best results <font color="#3585a3"> draw slowly </font>. if no route is drawn between markers, <font color="#3585a3"> try adjusting the markers</font>. repeat this process until all of the desired routes have been added to the analysis.</td></tr>
       <tr><td><i id="resultsdemo" class="fa fa-angle-double-up"></i></td>
-        <td>once you have added all of the routes you care to analyze, click the blue chevron symbol to bring up the results.  toggle between the <font color="#3585a3"> raw data, standardized data, and elevation data tabs </font> to view different summary data.  it is possible to adjust the variable weights according to your perceived level of importance by selecting the <font color="#3585a3"> dropdown marked "importance" </font> on that standardized data tab.</td></tr>
+        <td>once all of the desired routes have been added, click the blue chevron symbol to bring up the results.  toggle between the <font color="#3585a3"> raw data, standardized data, and elevation data tabs </font> to view different summary data.  on the standardized data tab, it is possible to adjust the variable weights according to your perceived level of importance by selecting the <font color="#3585a3"> dropdown marked "importance" </font>. the total score for each route will be updated according to the variable weights.</td></tr>
     </table>
 
   </div>
@@ -75,13 +78,13 @@
 <!-- elements that holds all of the information tables -->
   <div id="tableElements">
 
-      <div id="table_open" class="tablebutton tooltip" title="click to compare the results of each of your routes"> <span id="results"><i class="fa fa-angle-double-up"></i></span></div>
+      <div id="table_open" class="tablebutton tooltip" title="Click to compare the results of each of your routes"> <span id="results"><i class="fa fa-angle-double-up"></i></span></div>
 
 <!-- standard table -->
        <div id="sTableDiv" class="modal">
           <table class="table" id="sTable">
             <caption class='caption'><span class="show-raw-data">raw data | </span><span class="show-standard-data">| standardized data |</span><span class="eChart"> | elevation data</span></caption>
-            <thead><tr><th>route id</th><th>directness of route</th><th>traffic crossings</th><th>elevation change</th><th>average speed limit</th><th> total score </th><tr><tr id="weight" class="tooltip" title="click to adjust variable weightings"><td > importance </td><td><select class='weighting' id='dWeight' name='dWeight'><option value='1'> low </option><option value='2'> medium </option><option value='3'> high </option></select></td><td><select name='lWeight' class='weighting' id='lWeight' ><option value='1'> low </option><option value='2'> medium </option><option value='3'> high </option></select></td><td><select name='eWeight' class='weighting' id='eWeight'><option value='1'> low </option><option value='2'> medium </option><option value='3'> high </option></select></td><td><select name='sWeight' class='weighting' id='sWeight'><option value='1'> low </option><option value='2'> medium </option><option value='3'> high </option></select></td><td> /100 </td></tr></thead>
+            <thead><tr><th>route id</th><th>directness of route</th><th>traffic crossings</th><th>elevation change</th><th>average speed limit</th><th> total score </th><tr><tr id="weight" class="tooltip" title="Click to adjust variable weightings"><td > importance </td><td><select class='weighting' id='dWeight' name='dWeight'><option value='1'> low </option><option value='2'> medium </option><option value='3'> high </option></select></td><td><select name='lWeight' class='weighting' id='lWeight' ><option value='1'> low </option><option value='2'> medium </option><option value='3'> high </option></select></td><td><select name='eWeight' class='weighting' id='eWeight'><option value='1'> low </option><option value='2'> medium </option><option value='3'> high </option></select></td><td><select name='sWeight' class='weighting' id='sWeight'><option value='1'> low </option><option value='2'> medium </option><option value='3'> high </option></select></td><td> /100 </td></tr></thead>
 
             <!-- dynamically update this information -->
             <tbody id="table_route_info"></tbody>
@@ -92,7 +95,7 @@
 <!-- raw table -->
        <div id="rTableDiv" class="modal">
           <table class="table" id="rTable">
-            <caption class='caption'><span id="raw_data_tooltip" class="show-raw-data tooltip" title="click on raw, standard or elevation data to toggle between the different data views">raw data | </span><span class="show-standard-data">| standardized data |</span><span class="eChart"> | elevation data</span></caption>
+            <caption class='caption tooltip' title="Click on Raw, Standard or Elevation data to toggle between the different data views"><span id="raw_data_tooltip" class="show-raw-data">raw data | </span><span class="show-standard-data">| standardized data |</span><span class="eChart"> | elevation data</span></caption>
             <thead><tr><th>route id</th><th>total distance<br>(meters)</th><th> directness of route<br>(%)</th><th>traffic crossings</th><th>elevation gain<br/>(meters)</th><th>elevation loss<br>(meters)</th><th> average speed limit<br>(mph)</th><tr></thead>
             <!-- dynamically update this information -->
             <tbody id="raw_info"></tbody>
