@@ -10,7 +10,15 @@ __Testing__: Jasmine unit tests <br>
 __APIs__: Mapbox Directions, Mapbox Surface
 <br><br>
 
-<img src="static/img/veloroute.png"><br><br>
+<img src="static/img/screenshot.png"><br><br>
+
+<img src="static/img/screenshot_raw.png"><br><br>
+
+<img src="static/img/screenshot_standard.png"><br><br>
+
+<img src="static/img/screenshot_elevation.png"><br><br>
+
+
 
 ## Setting Up
 
@@ -79,7 +87,7 @@ Standardized routes are given a score out of 100. Each variable is initaitely sc
 | Variable           |5 points |10 points|15 points |20 points |25 points|
 | -------------      |:-------:|:-------:|:--------:|:--------:|--------:|
 | Directness (%)     |67 - 71  |71 - 77  |77 - 83   |83 - 91   |91 - 100 |
-| Crossings (#)      | > 10	   |6-10     |3-6	      |1-3	     |0        |
+| Crossings (#)      | > 10	   |6-10     |3-6	    |1-3	   |0        |
 | Elevation (meters) |> 200    |150 - 200|100 - 150 |50 - 100  |< 50     |
 | Average Speed (mph)|> 29     |27 - 29  |25 - 27   |20 - 25  |< 20      |
 
@@ -88,3 +96,15 @@ Standardized routes are given a score out of 100. Each variable is initaitely sc
 <h3> Elevation Data </h3>
 
 Elevation data is charted using the C3 library.  The chart displays the change in elevation from origin to destination along a proposed route regardless of total distance.
+
+## License
+
+[MIT License](http://www.opensource.org/licenses/mit-license.php)
+
+Copyright (c) 2015 Sarah Bindman
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
