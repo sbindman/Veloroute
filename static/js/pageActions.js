@@ -27,21 +27,24 @@ $(document).ready(function () {
 	$('#help_table').hide();
 
 	// initalize all of the tooltips
-	$('#add-route').tooltipster({
-	position: 'right'
-	});
-	$('#table_open').tooltipster({
-	position: 'top'
-	});
-	$('.caption').tooltipster({
-	position: 'top',
-	positionTracker: true
-	});
-	$('#weight').tooltipster({
-	position: 'top',
-	positionTracker: true
-	});
-	$('#add-route').tooltipster('show');
+	setTimeout (function () {
+		$('#add-route').tooltipster({
+		position: 'right'
+		});
+		$('#table_open').tooltipster({
+		position: 'top'
+		});
+		$('.caption').tooltipster({
+		position: 'top',
+		positionTracker: true
+		});
+		$('#weight').tooltipster({
+		position: 'top',
+		positionTracker: true
+		});
+		$('#add-route').tooltipster('show');
+	} , 200);
+	
 });
 
 

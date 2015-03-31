@@ -37,13 +37,27 @@ function showRawData (routeDictionary) {
  */
 function drawChart (rd) {
   var routeList = []; 
+  var countElePoints = 0;
 
   //creates a dummy x-axis
   for (j = 0; j < Object.keys(rd).length; j++) {
   	xlist = [];
   	var xname = "x" + (rd[j].id + 1);
   	xlist.push(xname);
-  	var fraction = 1.0 / (rd[j].elePoints.length - 1);
+
+    for (k = 0; k < rd[j].elePoints.length; k++) {
+      if (rd[j].elePoints[k] > 0){
+        console.log(rd[j].elePoints[k]);
+        countElePoints ++;
+      }
+    }
+    console.log("totalPoints: " + countElePoints);
+
+
+  	var fraction = 1.0 / (countElePoints);
+    console.log("fraction: " + fraction);
+    console.log("total points: " + (countElePoints));
+    console.log("points: " + rd[j].elePoints);
   	var value = 0;
 
   	for (i = 0; i < rd[j].elePoints.length; i++) {
@@ -51,6 +65,7 @@ function drawChart (rd) {
   		value += fraction;
   	}
   	routeList.push(xlist);
+    console.log("xlist: " + xlist);
   }
 
   for (j = 0; j < Object.keys(rd).length; j++) {
@@ -65,6 +80,7 @@ function drawChart (rd) {
   		}
   	}
   	routeList.push(dataList);
+    console.log("data list: " + dataList);
   }
 
   var chart = c3.generate({
