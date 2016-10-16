@@ -16,25 +16,25 @@ function startNewLine(rNum) {
  	$("#add-route").html("<i id='spinner' class='fa fa-spinner faa-spin animated'></i>");
 
  	var firstRequest = getDistanceAndLefts(route1);
- 	var secondRequest = calcElevation(route1);
+ //	var secondRequest = calcElevation(route1);
  	var thirdRequest = getDirectRouteRatio(route1);
- 	var fourthRequest = calcSpeed(route1);
+ 	//var fourthRequest = calcSpeed(route1);
 
-	$.when( firstRequest, secondRequest, thirdRequest, fourthRequest 
-	).done(function (firstResponse, secondResponse, thirdResponse, fourthResponse) {
+	$.when( firstRequest, thirdRequest
+	).done(function (firstResponse, thirdResponse) {
 			routeDict[route1.id].distance = firstResponse[0]; 
 			routeDict[route1.id].leftTurns = firstResponse[1];
-			routeDict[route1.id].elePoints = secondResponse;
-			routeDict[route1.id].elevation = netElevation(secondResponse)[0];
-			routeDict[route1.id].eGain = netElevation(secondResponse)[1];
-			routeDict[route1.id].eLoss = netElevation(secondResponse)[2];
+			//routeDict[route1.id].elePoints = secondResponse;
+			//routeDict[route1.id].elevation = netElevation(secondResponse)[0];
+			//routeDict[route1.id].eGain = netElevation(secondResponse)[1];
+			//routeDict[route1.id].eLoss = netElevation(secondResponse)[2];
 			routeDict[route1.id].mostDirectDistance = thirdResponse;
-			routeDict[route1.id].averageSpeed = avgSpeed(fourthResponse);
+			//routeDict[route1.id].averageSpeed = avgSpeed(fourthResponse);
 
 			routeDict[route1.id].sDistance = standardizeDistance(firstResponse[0], thirdResponse);
 			routeDict[route1.id].sLeftTurns = standardizeLefts(firstResponse[1]);
-			routeDict[route1.id].sElevation = standardizeElevation(netElevation(secondResponse)[0]);
-			routeDict[route1.id].sAverageSpeed = standardizeSpeed(avgSpeed(fourthResponse));
+			//routeDict[route1.id].sElevation = standardizeElevation(netElevation(secondResponse)[0]);
+			//routeDict[route1.id].sAverageSpeed = standardizeSpeed(avgSpeed(fourthResponse));
 
 			routeNum ++;
 			currentLine = null;

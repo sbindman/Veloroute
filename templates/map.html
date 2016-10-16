@@ -84,7 +84,48 @@
        <div id="sTableDiv" class="modal">
           <table class="table" id="sTable">
             <caption class='caption'><span class="show-raw-data">raw data | </span><span class="show-standard-data">| standardized data |</span><span class="eChart"> | elevation data</span></caption>
-            <thead><tr><th>route id</th><th>directness of route</th><th>traffic crossings</th><th>elevation change</th><th>average speed limit</th><th> total score </th><tr><tr id="weight" class="tooltip" title="Click to adjust variable weightings"><td > importance </td><td><select class='weighting' id='dWeight' name='dWeight'><option value='1'> low </option><option value='2'> medium </option><option value='3'> high </option></select></td><td><select name='lWeight' class='weighting' id='lWeight' ><option value='1'> low </option><option value='2'> medium </option><option value='3'> high </option></select></td><td><select name='eWeight' class='weighting' id='eWeight'><option value='1'> low </option><option value='2'> medium </option><option value='3'> high </option></select></td><td><select name='sWeight' class='weighting' id='sWeight'><option value='1'> low </option><option value='2'> medium </option><option value='3'> high </option></select></td><td> /100 </td></tr></thead>
+            <thead>
+            <tr>
+                <th>route id</th>
+                <th>directness of route</th>
+                <th>traffic crossings</th>
+                <th>elevation change</th>
+                <th>average speed limit</th>
+                <th> total score </th>
+            <tr>
+            <tr id="weight" class="tooltip" title="Click to adjust variable weightings">
+                <td> importance </td>
+                <td>
+                    <select class='weighting' id='dWeight' name='dWeight'>
+                        <option value='1'> low </option>
+                        <option value='2'> medium </option>
+                        <option value='3'> high </option>
+                    </select>
+                </td>
+                <td>
+                    <select name='lWeight' class='weighting' id='lWeight'>
+                        <option value='1'> low </option>
+                        <option value='2'> medium </option>
+                        <option value='3'> high </option>
+                    </select>
+                </td>
+                <td>
+                    <select name='eWeight' class='weighting' id='eWeight'>
+                        <option value='1'> low </option>
+                        <option value='2'> medium </option>
+                        <option value='3'> high </option>
+                    </select>
+                </td>
+                <td>
+                    <select name='sWeight' class='weighting' id='sWeight'>
+                        <option value='1'> low </option>
+                        <option value='2'> medium </option>
+                        <option value='3'> high </option>
+                    </select>
+                </td>
+                <td> /100 </td>
+            </tr>
+            </thead>
 
             <!-- dynamically update this information -->
             <tbody id="table_route_info"></tbody>
@@ -96,7 +137,17 @@
        <div id="rTableDiv" class="modal">
           <table class="table" id="rTable">
             <caption class='caption tooltip' title="Click on Raw, Standard or Elevation data to toggle between the different data views"><span id="raw_data_tooltip" class="show-raw-data">raw data | </span><span class="show-standard-data">| standardized data |</span><span class="eChart"> | elevation data</span></caption>
-            <thead><tr><th>route id</th><th>total distance<br>(meters)</th><th> directness of route<br>(%)</th><th>traffic crossings</th><th>elevation gain<br/>(meters)</th><th>elevation loss<br>(meters)</th><th> average speed limit<br>(mph)</th><tr></thead>
+            <thead>
+                <tr>
+                    <th>route id</th>
+                    <th>total distance<br>(meters)</th>
+                    <th> directness of route<br>(%)</th>
+                    <th>traffic crossings</th>
+                    <th>elevation gain<br/>(meters)</th>
+                    <th>elevation loss<br>(meters)</th>
+                    <th> average speed limit<br>(mph)</th>
+                <tr>
+            </thead>
             <!-- dynamically update this information -->
             <tbody id="raw_info"></tbody>
 
@@ -105,14 +156,14 @@
 
 
        <!-- elevation data table -->
-       <div id="chart" class="modal">
-        <table class="table">
-            <caption class='caption'><span class="show-raw-data">raw data | </span><span class="show-standard-data">| standardized data |</span><span class="eChart"> | elevation data</span></caption>
-            <tbody>
-              <tr id="tdchart"><td><div id="echart"></div></td></tr>
-            </tbody>
-        </table>
-      </div>
+       <!--<div id="chart" class="modal">-->
+        <!--<table class="table">-->
+            <!--<caption class='caption'><span class="show-raw-data">raw data | </span><span class="show-standard-data">| standardized data |</span><span class="eChart"> | elevation data</span></caption>-->
+            <!--<tbody>-->
+              <!--<tr id="tdchart"><td><div id="echart"></div></td></tr>-->
+            <!--</tbody>-->
+        <!--</table>-->
+      <!--</div>-->
 
     </div>
 
