@@ -22,6 +22,7 @@
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: 300;
     font-size: 14px;
+    cursor: pointer;
 }
 
 .tablebutton:hover {
@@ -241,10 +242,11 @@ td {
     text-align: center;
 }
 
-span {
+.caption span {
   height: 24px;
   vertical-align: bottom;
-  display: inline-block;  
+  display: inline-block;
+  cursor: pointer;
 }
 
 
