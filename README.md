@@ -43,6 +43,16 @@ https://github.com/sbindman/HackbrightFinal.git
 
 ```
 
+Install Python on your computer if you haven't yet.
+
+```
+
+sudo easy_install pip
+
+sudo pip install virtualenv
+
+```
+
 Create and activate a virtual environment inside your project directory: 
 
 ```
